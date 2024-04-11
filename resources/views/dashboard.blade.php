@@ -203,6 +203,9 @@
                             das 19:00 hs as 24:00 hs
                         </p>
                     </div>
+                    <div class="">
+                        <p class="">tempo de espera aproximado {{ $time->waitingtime }} min</p>
+                    </div>
                   </div>
             </div>
 

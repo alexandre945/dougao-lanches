@@ -257,6 +257,14 @@
                   <a href="{{ route('client.show') }}" class="btn-slate font-bold">CLIENTES</a>
                 </div>
               </div>
+
+              <div class="py-4">
+                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                  <h2 class=" text-sm font-extralight">AJUSTAR TEMPO DE ENTREGA</h2>
+                  <a href="{{ route('waintingtime.index') }}" class="btn-slate font-bold">TEMPO DE ESPERA</a>
+                </div>
+              </div>
+
         </div>
 
 

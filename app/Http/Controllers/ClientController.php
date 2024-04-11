@@ -7,6 +7,7 @@ use App\Models\Additional;
 use App\Models\Order;
 use App\Models\Order_product;
 use App\Models\Toggle;
+use App\Models\WaitingTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,7 @@ class ClientController extends Controller
 
             $toggle = Toggle::first();
 
+            $time = WaitingTime::latest()->first();
 
             $adde = Additional::all();
 
@@ -30,7 +32,7 @@ class ClientController extends Controller
 
 
 
-            return view('dashboard', compact('product', 'adde',  'order', 'toggle', 'productCount'));
+            return view('dashboard', compact('product', 'adde',  'order', 'toggle', 'productCount', 'time'));
       }
       public function toggle(Request $resquest)
       {

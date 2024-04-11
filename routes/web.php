@@ -30,6 +30,7 @@ use App\Http\Controllers\pointsController;
 use App\Http\Controllers\summaryController;
 use App\Http\Controllers\toggleController;
 use App\Http\Controllers\verificationOrderController;
+use App\Http\Controllers\WaitingTimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -205,6 +206,11 @@ Route::get('delivery-toremove', [DeliveryBlindController::class, 'show'])->name(
 
 Route::post('/create-blindCart,{id}', [BlindCartController::class, 'store'])->name('blindcart.store');
 
+//rota para cadastrar tempo de espera da entrega
+
+Route::post('/waitingtime-create', [WaitingTimeController::class, 'create'])->name('waitngtime.create');
+
+Route::get('/waitingtime-index', [WaitingTimeController::class, 'index'])->name('waintingtime.index');
 
 
 
