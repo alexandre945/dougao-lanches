@@ -121,8 +121,6 @@
                                             @endif
                                         </td>
 
-
-                                @endforeach
                                         <td>
 
                                             @if($list->blindCart)
@@ -133,6 +131,10 @@
                                             </div>
                                             @endif
                                         </td>
+
+
+                                @endforeach
+
 
                                    </tr>
                             </tbody>
@@ -188,12 +190,21 @@
                         </div>
                     </div>
             </div>
-
+            <a href="{{ route('panel.admin')}}">
+                <button class=" bg-slate-300 mt-2 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Voltar
+                </button>
+            </a>
         @empty
             <p class="pt-4 font-bold text-lg">Sem Pedidos com status processando no momento!</p>
             <p>Para o dia: {{ $date }}</p>
         @endforelse
     </div>
+    <a href="{{ route('panel.admin')}}">
+        <button class=" bg-slate-300 mt-2 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Voltar
+        </button>
+    </a>
   </div>
   @vite('resources/js/app.js')
 

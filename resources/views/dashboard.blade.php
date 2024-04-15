@@ -189,23 +189,27 @@
                              <div class="pb-2">
                                 @if($order && $order->created_at->isToday())
                                 <p class="text-yellow text-sm ">Status do seu pedido de numero: <span class="text-lg">{{$order->id ?? ''}}</span></p>
-                                <p class="greend  pb-2">{{$order->status ?? ''}}</p>
+                                <p class="greend  pb-2 text-xl sm:text-sm lg:3xl">{{$order->status ?? ''}}</p>
                               @endif
                              </div>
 
                           </div>
                         </div>
 
-                  <div class="">
+                  <div class=" ">
                     @include('layouts.baner')
-                    <div class="text-sm ">
-                        <p>Horario de funcionamento: de Terça a Domingo<br>
-                            das 19:00 hs as 24:00 hs
-                        </p>
+                    <div class="text-xl lg:text-lg text-start md:text-center ">
+                         <div class=" ">
+                             <p class="ml-2">Horario de funcionamento: de Terça a Domingo
+                                das 19:00 hs as 24:00 hs
+                             </p>
+                         </div>
+
+                         <div class="pt-2 ml-2">
+                            <p class="text-start">tempo de espera aproximado: {{ $time->waitingtime }} min</p>
+                         </div>
                     </div>
-                    <div class="">
-                        <p class="">tempo de espera aproximado {{ $time->waitingtime }} min</p>
-                    </div>
+
                   </div>
             </div>
 
@@ -244,7 +248,7 @@
                                 <p class="font-bold text-start">{{$item->name}}</p>
 
                                 <details class="flex gap-2">
-                                  <p class="text-sm text-start text-white md:text-lg bg-slate-600 p-2">{{$item->description}}</p>
+                                  <p class="text-sm text-start  md:text-lg bg-slate-400 p-2">{{$item->description}}</p>
                                   <summary class="text-sm text-start">
                                       Ingredientes
                                   </summary>
