@@ -114,7 +114,7 @@
             <div class="row mt-4">
                 <!-- Brinde 1 -->
                 <div class="col-md-6 pb-2">
-                    <div class="bg-orange-300 p-4 rounded">
+                    <div class="bg-slate-300 p-4 rounded">
                         <a href="{{ route('delivery.index') }}" class=" btn-block">
                             <h5 class="font-bold">Resgatar na Lanchonete</h5>
                             <p class="text-start">Click aqui para resgatar seu blinde retirando na lanchonete.</p>
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="col-md-6 mb-2">
-                    <div class="bg-orange-300 p-4 rounded">
+                    <div class="bg-slate-300 p-4 rounded">
                         <a href="{{ route('delivery.show') }}" class=" btn-block">
                             <h5 class="font-bold">Resgatar com Pedido</h5>
                             <p class="text-start">Click aqui para resgatar seu blinde junto com um pedido.</p>
@@ -134,7 +134,7 @@
                 </div>
 
                 <div class="col-md-6 mb-2">
-                    <div class="bg-orange-300 p-4 rounded">
+                    <div class="bg-slate-300 p-4 rounded">
 
                             <h3 class="font-bold">Regras para retirar o blinde na Lanchonete</h3>
                             <p class="text-start">Para resgatar seu blinde, retirando na Lanchonte você pode clicar no botão acima
@@ -148,7 +148,7 @@
                 </div>
 
                 <div class="col-md-6 mb-2">
-                    <div class="bg-orange-300 p-4 rounded">
+                    <div class="bg-slate-300 p-4 rounded">
                         <a href="{{ route('delivery.show') }}" class=" btn-block">
                             <h5 class="font-bold">Regras para  pedir o blinde junto com um pedido</h5>
                             <p class="text-start">Para resgatar seu blinde, junto com um pedido você pode clicar no botão acima

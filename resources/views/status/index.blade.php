@@ -132,8 +132,8 @@
                 </button>
               </a>
         @empty
-            <p class="pt-4 font-bold text-lg">Sem Pedidos com status processando aceito!</p>
-            <p>Para o dia: {{ $date }}</p>
+            <p class="pt-4 font-bold text-lg">Sem Pedidos com status aceito!</p>
+            <marquee>Para o dia: {{ $date }}</marquee>
         @endforelse
     </div>
     <a href="{{ route('panel.admin')}}">

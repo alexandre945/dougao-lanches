@@ -71,7 +71,7 @@ class productionController extends Controller
 
         $order = Order::findOrFail($id);
         $orderId = $order->id;
-         
+
         // Atualize o status do pedido
 
         $order->update(['status' => 'saiu para entrega']);
@@ -80,12 +80,16 @@ class productionController extends Controller
 
             $phone = $order->orderUser->address->first()->fone;
 
+            $userName = $order->orderUser->name;
+
+            $message = "Seu pedido de número: " . $orderId . " acabou de sair para entrega. " . $userName . ", obrigado por comprar no Dougão Lanches.";
+
 
             $data = [
                 "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
                 "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
-                "message" => ["Seu lanche saiu para entrega,Obrigado por comprar conosco! pedido de numero:" . $orderId . ""],
-                "phone" => [$phone]// Coloque o número de telefone do usuário aqui
+                "message" => [$message],
+                "phone" => [$phone]
             ];
 
             // Envie a mensagem
@@ -98,38 +102,6 @@ class productionController extends Controller
         return redirect()->back();
     }
 
-
-
-    // public function update(Request $request, string $id)
-    // {
-    //     $order = Order::findOrFail($id);
-    //     // $orderUser = $order->with('orderUser')->first();
-    //     $orderUser = $order->orderUser()->first();
-    //     dd($orderUser);
-    //     $order->update(['status' => ('saiu para entrega')]);
-
-    //     $sendMessage = $order->with('orderUser');
-
-    //     $user      = Auth::user();
-    //     $users       = $user->id;
-
-
-
-    //     $data = [
-    //         "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
-    //         "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
-    //         "message" => ["seu lanche saiu para entrega 'obrigado por comprar comnosco!"],
-    //         "phone" => ["5535998464219"]
-    //     ];
-
-
-    //     $response = Http::withHeaders([
-    //         'Content-Type' => 'application/json',
-    //         'user_token_id' => 'd68f5c6e-3def-4273-b368-79144c0214ab',
-    //     ])->post('https://api.gzappy.com/v1/message/send-message', $data);
-
-    //     return redirect()->back();
-    // }
 
     /**
      * Remove the specified resource from storage.

@@ -22,19 +22,19 @@
 
         <ul class="flex content-center">
                 <li class="mr-2 ">
-                    <a class=" hover:text-blue-800 " href="{{ route('order.show')}}"><button class="border rounded p-2 m-2 button bg-orange-300 "> pedidos</button></a>
+                    <a class=" hover:text-blue-800 " href="{{ route('order.show')}}"><button class="border rounded p-2 m-2 button bg-slate-300 "> pedidos</button></a>
                 </li>
                 <li class="mr-2">
-                    <a class=" hover:text-blue-800 " href="{{ route('status.aceito')}}"><button class="border rounded p-2 m-2  bg-orange-300"> aceito</button></a>
+                    <a class=" hover:text-blue-800 " href="{{ route('status.aceito')}}"><button class="border rounded p-2 m-2  bg-slate-300"> aceito</button></a>
                 </li>
                 {{-- <li class="mr-6">
                     <a class=" hover:text-blue-800" href="{{ route('production.index')}}"><button class="border rounded p-2 m-2 button">pedidos em produção</button></a>
                 </li> --}}
                 <li class="mr-2">
-                    <a class=" hover:text-blue-800" href="{{ route('status.fordelivery')}}"><button class="border rounded p-2 m-2 bg-orange-300">s/p entrega</button></a>
+                    <a class=" hover:text-blue-800" href="{{ route('status.fordelivery')}}"><button class="border rounded p-2 m-2 bg-slate-300">s/p entrega</button></a>
                 </li>
                 <li class="mr-2">
-                    <a class=" hover:text-blue-800" href="{{ route('status.delivered')}}"><button class="border rounded p-2 m-2 bg-orange-300"> entregue</button></a>
+                    <a class=" hover:text-blue-800" href="{{ route('status.delivered')}}"><button class="border rounded p-2 m-2 bg-slate-300"> entregue</button></a>
                 </li>
             </ul>
     </div>
