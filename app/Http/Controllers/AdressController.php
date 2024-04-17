@@ -16,7 +16,7 @@ class AdressController extends Controller
         $cart = Order_product::all();
         $user = auth::user();
         $users = $user->id;
-
+      
         $address = Address::create([
             'city'          => $request->city,
             'district'      => $request->district,

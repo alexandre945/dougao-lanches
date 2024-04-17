@@ -39,6 +39,7 @@ class adminController extends Controller
     $delivery  = $request->delivery;
     $total     = $request->total;
     $user      = Auth::user();
+    $userName  = Auth::user()->name;
     $users     =$user->id;
     $total      = str_replace(",", ".", $total);
     $product    = Order_product::where('user_id', $users)->get();
@@ -144,7 +145,7 @@ class adminController extends Controller
     $data = [
       "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
       "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
-      "message" => ["novo pedido verifique seu painel admin"],
+      "message" => ["Novo pedido - Pedido de numero:" . $orderId . " feito por " . $userName . ". Verifique seu painel admin."],
       "phone" => ["5535998464219"]
   ];
 
@@ -187,7 +188,7 @@ class adminController extends Controller
 } else {
     // Redirecionar de volta com mensagem de erro
 
-    return redirect()->back()->with('mensagem', 'Você precisa cadastrar um endereço.');
+    return redirect()->back()->with('messagem', 'Você precisa cadastrar um endereço.');
 }
 }
 
@@ -223,7 +224,7 @@ class adminController extends Controller
 
         $order->update(['status' => ('aceito')]);
 
-     
+
 
         // $blindCartId = BlindCart::findOrFail($blindCartId);
 

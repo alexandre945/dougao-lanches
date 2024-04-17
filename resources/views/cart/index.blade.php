@@ -174,10 +174,10 @@
 
                               @endif
 
-                              @if (session('menssagem'))
+                              @if (session('messagem'))
 
-                                <div class="text-red-500 bg-white p-2">
-                                  {{ session('menssagem')}}
+                                <div class="text-red-500 bg-slate-300 p-2">
+                                  {{ session('messagem')}}
                                 </div>
 
                               @endif
@@ -657,11 +657,11 @@
 
                                 </div>
                             @else
-                              <div class="bg-slate-400 text-green p-2 ">
+                              {{-- <div class="bg-slate-400 text-green p-2 ">
                                 <p class="bg mb-4">
                                   Você ainda não tem um endereço cadastrado click no botão acima para fazer o cadastro!
                                 </p>
-                              </div>
+                              </div> --}}
                            @endif
 
               </div>

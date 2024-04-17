@@ -24,6 +24,12 @@ class WaitingTimeController extends Controller
 
         $time = $request->time;
 
+            // Obtém os dois últimos registros
+        $lastTwoTimes = WaitingTime::latest()->take(1)->get();
+
+        // Deleta todos os registros anteriores
+        WaitingTime::whereNotIn('id', $lastTwoTimes->pluck('id'))->delete();
+
         WaitingTime::create([
             'waitingtime' => $time,
         ]);

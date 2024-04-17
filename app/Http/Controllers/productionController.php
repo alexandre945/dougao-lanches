@@ -70,27 +70,22 @@ class productionController extends Controller
         // Encontre o pedido pelo ID
 
         $order = Order::findOrFail($id);
-
+        $orderId = $order->id;
+         
         // Atualize o status do pedido
 
         $order->update(['status' => 'saiu para entrega']);
 
-        // Carregue o relacionamento do usuário com o pedido
 
-        // $orderUser = $order->orderUser()->first();
 
-        // Verifique se o usuário está disponível e se tem um endereço associado
+            $phone = $order->orderUser->address->first()->fone;
 
-            // Acesso ao número de telefone do usuário através do endereço
 
-            // $phone = $orderUser->address[0]->fone;
-// dd($phone);
-            // Dados da mensagem
             $data = [
                 "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
                 "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
-                "message" => ["Seu lanche saiu para entrega. Obrigado por comprar conosco!"],
-                "phone" => ["5535998464219"]// Coloque o número de telefone do usuário aqui
+                "message" => ["Seu lanche saiu para entrega,Obrigado por comprar conosco! pedido de numero:" . $orderId . ""],
+                "phone" => [$phone]// Coloque o número de telefone do usuário aqui
             ];
 
             // Envie a mensagem
