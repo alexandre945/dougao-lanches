@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 
-
 class adminController extends Controller
 {
   public function store(Request $request)
@@ -166,16 +165,16 @@ class adminController extends Controller
 //   }
 
 
-        //   Envie uma mensagem para o admin do sistema
-        //   $sid = "ACba228cf68942687a5b519b52798cd15f";
-        //   $token =  "3df18ba7439e77e1fb938ca27479ea3e";
+          // Envie uma mensagem para o admin do sistema
+        //   $sid = env('TWILIO_SID');
+        //   $token = env('TWILIO_AUTH_TOKEN');
         //   $twilio = new Client($sid, $token);
 
         // $adminPhoneNumber = "+5535998464219";
 
 
         // $message = $twilio->messages
-        //     ->create("whatsapp:+5535998464219",
+        //     ->create("whatsapp:{$adminPhoneNumber}",
         //         array(
         //             "from" => "whatsapp:+14155238886",
         //             "body" => "Novo pedido recebido. Verifique o painel de administração para detalhes."

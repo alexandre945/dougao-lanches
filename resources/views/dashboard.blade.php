@@ -97,7 +97,6 @@
                             @if ($toggle->is_open == 0 ?? '')
                             @php
                                   // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
-
                                   $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
                             @endphp
 
@@ -106,7 +105,7 @@
                             @else
                                 <div class="bg-orange-300 red pl-2 pr-2 ">
                                     <p>Lanchonete fechada</p>
-                                    {{-- <p>Abre hoje às 19:00 hs</p> --}}
+                                    <p>Abre hoje às 19:00 hs</p>
                                 </div>
                             @endif
                             @else

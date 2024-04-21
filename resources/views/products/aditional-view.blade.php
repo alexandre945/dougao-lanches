@@ -44,14 +44,14 @@
        </a> --}}
      </div>
      @if(session('success'))
-        <div class="text-green p-2 bg-slate-300 m-5">
+        <div class="text-green-600">
             {{ session('success')}}
         </div>
       @endif
 
       @if (session('deleted'))
 
-         <div class="text-green p-2 bg-slate-300 m-5 ">
+         <div class="text-green-600">
              {{ session('deleted')}}
          </div>
 
@@ -59,7 +59,7 @@
    </form>
 
     @if (session('updated'))
-       <div class="text-green bg-slate-300 p-2 m-5">
+       <div class="text-green-600">
 
          {{ session('updated')}}
 
@@ -67,96 +67,95 @@
 
     @endif
    <div class="container pt-2 ml-4">
-     <h1 class="text-center font-bold text-xl">Alterações</h1>
-      <div class="texte-center">
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th class="px-6 py-3">NOME</th>
-                <th class="px-6 py-3">PREÇO</th>
-                <th >EXCLUIR</th>
-                <th >ATUALIZAR</th>
-              </tr>
+    <table class="">
+      <thead>
+        <tr>
+          <th class="px-6 py-3">NOME</th>
+          <th class="px-6 py-3">PREÇO</th>
+          <th >AÇÕES</th>
+        </tr>
 
-            </thead>
-            <tbody>
-              @foreach ($additional as $item)
-              <tr class=" space-x-2">
-                <td class="px-6 py-3">{{ $item->name}}</td>
-                <td class="px-6 py-3">@money($item->price)</td>
-                  <form action="{{ route('additional.delete',$item->id)}}" method="post">
-                     @csrf
+      </thead>
+      <tbody>
+        @foreach ($additional as $item)
+        <tr class=" space-x-2">
+          <td class="px-6 py-3">{{ $item->name}}</td>
+          <td class="px-6 py-3">@money($item->price)</td>
+            <form action="{{ route('additional.delete',$item->id)}}" method="post">
+               @csrf
 
-                <td>
-                  <button type="submit">
-                    <i class="icon fa-sharp fa-solid fa-trash fa-2xl text-red-500"></i>
-                  </button>
-                </td>
+          <td>
+            <button type="submit">
+              <i class="icon fa-sharp fa-solid fa-trash fa-2xl text-red-500"></i>
+            </button>
+          </td>
 
-                  </form>
+            </form>
 
 
-                    <td>
-                      <button class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#firstModal{{$item->id}}">
-                        <i class="fa-regular fa-pen-to-square "></i>
-                      </button>
-                      <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header,btn btn-warning">
-                                  <div class="text-center">
-                                    <h1 class="modal-title pt-4" id="exampleModalLabel">ATUALIZAR</h1>
-                                  </div>
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"   aria-label="Close">
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('additional.update',$item->id)}}" method="post">
-                                        @method('PUT')
-                                        @csrf
-                                        <div class="text">
-                                          <form class="grup-control">
-                                              <fieldset>
-                                                  <div class="label text-center">
-
-                                                    <h1>PRODUTO</h1>
-
-                                                    <input type="text" class=" rounded" name="name" value="{{ $item->name }}"/><br>
-                                                  </div>
-
-                                                  <div class="label3 text-center">
-                                                    <h1>PREÇO</h1>
-                                                    <input type="text" class=" rounded" name="price" value="@money($item->price)"/><br>
-                                                  </div>
-                                                <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
-                                              </fieldset>
-                                          </form>
-                                        </div>
-                                    </form>
-                                </div>
-                                    <div class="modal-footer mt-10">
-                                      <button type="button" class="btn btn-warning"
-                                        data-bs-dismiss="modal">Cancelar
-                                      </button>
-                                    </div>
-                                </div>
+              <td>
+                <button class="btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#firstModal{{$item->id}}">
+                  <i class="fa-regular fa-pen-to-square "></i>
+                </button>
+                <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header,btn btn-warning">
+                            <div class="text-center">
+                              <h1 class="modal-title pt-4" id="exampleModalLabel">ATUALIZAR</h1>
                             </div>
-                        </div>
-                    </div>
 
-                    </td>
-              </tr>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"   aria-label="Close">
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <form action="{{ route('additional.update',$item->id)}}" method="post">
+                                  @method('PUT')
+                                  @csrf
+                                  <div class="text">
+                                    <form class="grup-control">
+                                        <fieldset>
+                                            <div class="label text-center">
 
-              @endforeach
+                                              <h1>PRODUTO</h1>
 
-            </tbody>
-          </table>
-      </div>
+                                              <input type="text" class=" rounded" name="name" value="{{ $item->name }}"/><br>
+                                            </div>
+
+                                            <div class="label3 text-center">
+                                              <h1>PREÇO</h1>
+                                              <input type="text" class=" rounded" name="price" value="@money($item->price)"/><br>
+                                            </div>
+                                          <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
+                                        </fieldset>
+                                    </form>
+                                  </div>
+                              </form>
+                          </div>
+                              <div class="modal-footer mt-10">
+                                <button type="button" class="btn btn-warning"
+                                  data-bs-dismiss="modal">Cancelar
+                                </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              </td>
+
+
+
+        </tr>
+
+        @endforeach
+
+      </tbody>
+    </table>
         <a href="{{ route('panel.admin')}}">
-            <button class="bg-slate-300 mb-4 hover:bg-blue-700 border font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline" type="submit">
+            <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline" type="submit">
                 Voltar
             </button>
         </a>

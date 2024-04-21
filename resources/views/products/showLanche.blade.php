@@ -55,9 +55,9 @@
 
          <div class=" ">
            <div class=" flex">
-             <a href="{{ route('showbeer')}}"> <div class=" border text-black p-2 mt-2 ml-12 bg-slate-300 rounded font-bold">BEBIDAS</div></a>
-             <a href="{{ route('user.bomboniere')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 bg-slate-300 font-bold">BOMBONIÉRE</div></a>
-             <a href="{{ route('showcombo')}}"><div class=" border text-black p-2 rounded mt-2 ml-2 font-bold bg-slate-300 ">COMBOS</div></a>
+             <a href="{{ route('showbeer')}}"> <div class=" border text-black p-2 mt-2 ml-12 rounded font-bold">BEBIDAS</div></a>
+             <a href="{{ route('user.bomboniere')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 font-bold">BOMBONIÉRE</div></a>
+             <a href="{{ route('showcombo')}}"><div class=" border text-black p-2 rounded mt-2 ml-2 font-bold">COMBOS</div></a>
          </div>
            <div class=" w-full  pr-4 overflow-auto">
                 <table class="w-full  ">
@@ -67,6 +67,7 @@
                             <th class="p-2">LANCHES</th>
                             <th class="p-2">INGREDIENTES</th>
                             <th class="p-2" >PREÇO</th>
+                            <th class="p-2">IMAGE</th>
                             <th class="">AÇOẼS</th>
                         </tr>
                       </thead>
@@ -193,12 +194,15 @@
                       </tbody>
                 </table>
                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-slate-300 mb-2 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Voltar
                     </button>
                 </a>
            </div>
+             <p class="text-center text-gray-500 text-xs">
 
+               &copy;2023 todos os direitos reservados.
+             </p>
          </div>
     </div>
     {{-- {{ $product->links()}} --}}
