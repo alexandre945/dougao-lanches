@@ -44,14 +44,14 @@
        </a> --}}
      </div>
      @if(session('success'))
-        <div class="text-green-600">
+        <div class="text-green bg-slate-300 p-2">
             {{ session('success')}}
         </div>
       @endif
 
       @if (session('deleted'))
 
-         <div class="text-green-600">
+         <div class="bg-slate-300 text-green p-2">
              {{ session('deleted')}}
          </div>
 
@@ -59,7 +59,7 @@
    </form>
 
     @if (session('updated'))
-       <div class="text-green-600">
+       <div class="text-green bg-slate-300 p-2">
 
          {{ session('updated')}}
 
@@ -67,11 +67,12 @@
 
     @endif
    <div class="container pt-2 ml-4">
-    <table class="">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th class="px-6 py-3">NOME</th>
           <th class="px-6 py-3">PREÇO</th>
+          <th class="px-6 py-3">EXCLUIR</th>
           <th >AÇÕES</th>
         </tr>
 
@@ -155,7 +156,7 @@
       </tbody>
     </table>
         <a href="{{ route('panel.admin')}}">
-            <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline" type="submit">
+            <button class="bg-cyan-500 mb-4 hover:bg-blue-700 border font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline" type="submit">
                 Voltar
             </button>
         </a>
