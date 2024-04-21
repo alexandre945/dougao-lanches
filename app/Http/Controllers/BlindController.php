@@ -76,7 +76,7 @@ class BlindController extends Controller
      */
     public function show(blind $blind)
     {
-        $blinds = Blind::where('status', 'entregue')->get();
+        $blinds = Blind::where('status', 'entregue')->simplePaginate(10);
 
         return view('blindAdmin.show', compact('blinds'));
     }

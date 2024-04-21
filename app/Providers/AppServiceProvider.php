@@ -23,8 +23,13 @@ class AppServiceProvider extends ServiceProvider
         blade::directive('datetime', function ($expression) {
             return "<?php echo ($expression)->format('d/m/Y H:i');?>";
         });
+
+        blade::directive('date', function ($expression) {
+            return "<?php echo ($expression)->format('d/m/Y');?>";
+        });
+
         blade::directive('money', function($expression) {
-            return "<?php echo number_format($expression, 2, ',', '.');?>";       
+            return "<?php echo number_format($expression, 2, ',', '.');?>";
         });
     }
 }

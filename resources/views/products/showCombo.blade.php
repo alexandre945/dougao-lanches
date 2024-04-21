@@ -43,9 +43,9 @@
 
         <div class=" ">
           <div class=" flex">
-            <a href="{{ route('showbeer')}}"> <div class=" border text-black p-2 mt-2 ml-12 rounded bg-orange-300">BEBIDAS</div></a>
-            <a href="{{ route('user.bomboniere')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 bg-orange-300">BOMBONIÉRE</div></a>
-            <a href="{{ route('create.product')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 bg-orange-300">LANCHES</div></a>
+            <a href="{{ route('showbeer')}}"> <div class=" border text-black p-2 mt-2 ml-12 rounded bg-slate-300">BEBIDAS</div></a>
+            <a href="{{ route('user.bomboniere')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 bg-slate-300">BOMBONIÉRE</div></a>
+            <a href="{{ route('create.product')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 bg-slate-300">LANCHES</div></a>
         </div>
 
           {{-- <div class=" flex text-cnter  bg-orange-500">
@@ -178,7 +178,7 @@
             </table>
          </div>
          <a href="{{ route('panel.admin')}}">
-          <button class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button class="bg-slate-300 hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
               Voltar
           </button>
       </a>

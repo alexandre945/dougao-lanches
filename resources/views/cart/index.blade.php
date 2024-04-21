@@ -124,7 +124,9 @@
                             @if (session('successmessage'))
 
                                 <div class="success text-lg p-2 font-bold">
-                                  {{ session('successmessage')}}
+                                    <p class="bg-slate-200 text-green p-2">
+                                        {{ session('successmessage')}}
+                                    </p>
                                 </div>
 
                               @endif
@@ -573,7 +575,7 @@
                                   <details>
                                       <summary>OBS;</summary>
 
-                                      <p class="bg border rounded p-2 text-left">
+                                      <p class="bg-slate-300 border rounded p-2 text-left">
 
                                           O sistema vai busca sempre o ultimo endereço cadastrado,se deseja  que a entrega seja feita em outro
                                           endereço cadastre o endereço que deja.

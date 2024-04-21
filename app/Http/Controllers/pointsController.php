@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LoyaltyPoint;
 use App\Models\Point;
+use App\Http\Requests\pontsRequest;
 use Illuminate\Support\Facades\Auth;
 class pointsController extends Controller
 {
@@ -31,7 +32,7 @@ class pointsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(pontsRequest $request)
     {
        $imagePath = $request->file('image' ?? '')->store('upload', 'public');
        $name = $request->name;

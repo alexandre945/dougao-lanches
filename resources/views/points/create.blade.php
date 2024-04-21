@@ -56,19 +56,19 @@
      <div class="mb-6">
        <label class="block text-gray-700 text-sm font-bold mb-2" for="discrição"> IMAGEM</label>
        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="description" type="file" placeholder="digite a discrição do produto" name="image">
-           @error('description')
+           @error('image')
                <span class="error text-red-600">{{ $message }}</span>
            @enderror
-       {{-- <p class="text-red-500 text-xs italic">Please choose a password.</p> --}}
+
 
      </div>
      <div class="mb-6">
        <label class="block text-gray-700 text-sm font-bold mb-2" for="price">PONTOS</label>
        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="digite o preço do produto" name="points">
-           @error('price')
+           @error('points')
                <span class="error text-red-600">{{ $message }}</span>
            @enderror
-       {{-- <p class="text-red-500 text-xs italic">Please choose a password.</p> --}}
+
      </div>
 
 
@@ -83,8 +83,8 @@
        </a> --}}
      </div>
       <div class="mt-2">
-        <h1 class="p-4 text-center font-bold">aqui vocẽ pode excluir o item que desejar</h1>
-        <table  class="table table-dark border">
+        <h1 class="p-4 text-center font-bold">Atualizaçoẽs</h1>
+        <table  class="table table-striped">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -124,7 +124,7 @@
  </div>
    <div class="text-center mb-4">
     <a href="{{ route('panel.admin')}}">
-        <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button class="bg-slate-300 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Voltar
         </button>
     </a>
