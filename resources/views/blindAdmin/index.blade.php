@@ -17,7 +17,7 @@
       }
       .orange {
         border-radius: 8px;
-        margin-right: 8px; 
+        margin-right: 8px;
         padding: 8px;
       }
     .icon {
@@ -47,7 +47,8 @@
                     </div>
 
                 @endif
-            <table class="table overflow-auto">
+             @forelse ($blinds as $item)
+             <table class="table table-striped overflow-auto">
                 <thead>
                     <tr>
                         <th>Cliente</th>
@@ -60,32 +61,38 @@
                 <tbody>
                     @foreach($blinds as $blindItem)
                         <tr>
-                          <form action="{{route('blind.update',$blindItem->id)}}" method="POST">
-                              @csrf
+                        <form action="{{route('blind.update',$blindItem->id)}}" method="POST">
+                            @csrf
                             <td>{{ $blindItem->blindUser->name }}</td>
                             <td>{{ $blindItem->name }}</td>
                             <td>{{ $blindItem->points }}</td>
                             <td>{{ $blindItem->status }}</td>
                             <td>
-                              <div class="">
+                            <div class="">
                                 <button type="submit" class="rounded p-2 bg-blue-500 border">ENTREGAR</button>
-                              </div>
+                            </div>
                             </td>
 
-                          </form>
-                        
+                        </form>
+
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+             @empty
+               <p class="text-center">
+                   Sem blindes para resgate para: @datetime(now())
+
+               </p>
+             @endforelse
           </div>
             <a href="{{ route('panel.admin')}}">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+              <button class="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                   Voltar
               </button>
             </a>
      </div>
-   
+
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
