@@ -84,7 +84,7 @@
      </div>
       <div class="mt-2">
         <h1 class="p-4 text-center font-bold">aqui vocẽ pode excluir o item que desejar</h1>
-        <table  class="table table-dark border">
+        <table  class="table table-striped">
             <thead>
                 <tr>
                     <th>Nome</th>
