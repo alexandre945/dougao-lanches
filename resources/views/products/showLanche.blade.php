@@ -60,6 +60,7 @@
              <a href="{{ route('showcombo')}}"><div class=" border text-black p-2 rounded mt-2 ml-2 font-bold">COMBOS</div></a>
          </div>
            <div class=" w-full  pr-4 overflow-auto">
+
                 <table class="w-full  ">
                       <thead>
                         <tr>
@@ -67,7 +68,6 @@
                             <th class="p-2">LANCHES</th>
                             <th class="p-2">INGREDIENTES</th>
                             <th class="p-2" >PREÇO</th>
-                            <th class="p-2">IMAGE</th>
                             <th class="">AÇOẼS</th>
                         </tr>
                       </thead>
@@ -194,7 +194,7 @@
                       </tbody>
                 </table>
                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button class="bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Voltar
                     </button>
                 </a>
