@@ -56,7 +56,7 @@
      <div class="mb-6">
        <label class="block text-gray-700 text-sm font-bold mb-2" for="discrição"> IMAGEM</label>
        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="description" type="file" placeholder="digite a discrição do produto" name="image">
-           @error('description')
+           @error('image')
                <span class="error text-red-600">{{ $message }}</span>
            @enderror
        {{-- <p class="text-red-500 text-xs italic">Please choose a password.</p> --}}
@@ -65,7 +65,7 @@
      <div class="mb-6">
        <label class="block text-gray-700 text-sm font-bold mb-2" for="price">PONTOS</label>
        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="digite o preço do produto" name="points">
-           @error('price')
+           @error('points')
                <span class="error text-red-600">{{ $message }}</span>
            @enderror
        {{-- <p class="text-red-500 text-xs italic">Please choose a password.</p> --}}
@@ -74,7 +74,7 @@
 
 
      <div class="flex items-center justify-between">
-       <button class="bg-blue-500 hover:bg-blue-700 border text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+       <button class="bg-cyan-500  hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
          cadastrar
        </button>
 
@@ -124,7 +124,7 @@
  </div>
    <div class="text-center mb-4">
     <a href="{{ route('panel.admin')}}">
-        <button class="bg-slate-300 mb-4 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button class="bg-cyan-400 mb-4 hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Voltar
         </button>
     </a>

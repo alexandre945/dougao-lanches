@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlindeRequest;
 use Illuminate\Http\Request;
 use App\Models\LoyaltyPoint;
 use App\Models\Point;
@@ -31,7 +32,7 @@ class pointsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlindeRequest $request)
     {
        $imagePath = $request->file('image' ?? '')->store('upload', 'public');
        $name = $request->name;
