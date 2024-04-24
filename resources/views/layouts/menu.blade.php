@@ -17,14 +17,14 @@
         font-size: 10px;
         }
         .custom-border {
-        border: 2px solid #28a745; 
-        border-radius: 10px; 
-        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); 
-        transition: border-color 0.3s ease-in-out; 
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        transition: border-color 0.3s ease-in-out;
         }
 
         .custom-border:hover {
-            background-color: #57cf71; 
+            background-color: #57cf71;
             color: white;
             border: 2px solid white;
         }
@@ -36,20 +36,20 @@
         <ul class="folat-right mr-10 pl-4  text-gray-700 ">
             <div class="flex space-x-8 ml-4 p-8">
                 @can('access')
-                <li  class="custom-border p-2 rounded bg-orange-300 small-li">
+                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
                     <a class="p-8" href="{{ route('panel.admin')}}">ADMIN</a>
                 </li>
                 @endcan
-                <li  class="custom-border p-2 rounded bg-orange-300 small-li">
+                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
                     <a href="{{ route('client.show')}}">LANCHES</a>
                 </li>
-                <li  class="custom-border p-2 rounded bg-orange-300 small-li">
+                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
                     <a href="{{ route('users.beer')}}">BEBIDAS</a>
                 </li>
-                <li  class="custom-border p-2 rounded bg-orange-300 small-li">
+                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
                     <a href="{{ route('user.combo')}}">COMBOS</a>
                 </li>
-                <li  class="custom-border p-2 rounded bg-orange-300 small-li">
+                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
                     <a href="{{ route('show.bomboniere')}}">BOMBONIÉRE</a>
                 </li>
             </div>

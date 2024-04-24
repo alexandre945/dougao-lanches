@@ -73,12 +73,12 @@
                  @csrf
                 <label for="" class="pb-2">Pesquisar detalhes do pedido pelo numéro</label><br>
                 <input type="search" class="border mb-2 rounded" required autocomplete="off" name="search" placeholder="digite o numero do pedido">
-                <button type="submit" class="border text-white p-2 bg-blue-500 hover:bg-blue-700 rounded">Pesquisar</button>
+                <button type="submit" class="border bg-emerald-400 text-white p-2 bg-blue-500 hover:bg-blue-700 rounded">Pesquisar</button>
             </form>
 
          </div>
         <a href="{{ route('panel.admin')}}">
-            <button class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            <button class="bg-emerald-400 text-white hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                 Voltar
             </button>
         </a>

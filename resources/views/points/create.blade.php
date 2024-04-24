@@ -74,7 +74,7 @@
 
 
      <div class="flex items-center justify-between">
-       <button class="bg-cyan-500  hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+       <button class="bg-emerald-400  hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
          cadastrar
        </button>
 
@@ -104,7 +104,7 @@
                     <td >
                         <button type="submit">
                           <div class="flex">
-                            <p class="orange font-bold">EXCLUIR</p>
+                            <p class="orange text-sm">EXCLUIR</p>
                             <i class="icon fa-sharp fa-solid fa-trash text-red-500 pl-2 pt-1"></i>
                           </div>
                         </button>
@@ -124,7 +124,7 @@
  </div>
    <div class="text-center mb-4">
     <a href="{{ route('panel.admin')}}">
-        <button class="bg-cyan-400 mb-4 hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button class="bg-emerald-400 mb-4 hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Voltar
         </button>
     </a>

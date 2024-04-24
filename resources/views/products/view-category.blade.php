@@ -12,7 +12,7 @@
    @vite('resources/css/app.css')
 
  <div class="container pt-4">
-     
+
    <h1 class="pt-2 font-bold text-center">CASDASTRAR NOVA CATEGORIA</h1>
    <form action="{{route('create.category')}}" class=" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="post">
       @csrf
@@ -28,14 +28,14 @@
           <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             cadastrar
           </button>
-      
+
           {{-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
             Forgot Password?
           </a> --}}
         </div>
       @if(session('success'))
           <div class="text-green-600">
-              {{ session('success')}}  
+              {{ session('success')}}
           </div>
         @endif
         @if(session('deleted'))
@@ -45,42 +45,44 @@
         @endif
    </form>
 
-    
+
       <div class="container pt-2 ml-4">
-          <table class="">
+          <table class="table table-striped">
             <thead>
               <tr>
                 <th class="px-6 py-3">NOME</th>
                 <th>AÇOẼS</th>
               </tr>
-                
+
             </thead>
             <tbody>
               @foreach ($category as $item)
-              
+
               <tr class=" space-x-2">
                 <td class="px-6 py-3">{{ $item->name}}</td>
                   <form action="{{ route('category.delete',$item->id)}}" method="post">
                      @csrf
-                     
+
                       <td>
                         <button type="submit">
-                         EXCLUIR
-                        <i class="icon fa-sharp fa-solid fa-trash text-red-500 fa-2xl"></i>
+                         <div class="flex">
+                            <p class="text-sm pr-2 text-red-600"> EXCLUIR</p>
+                         <i class="icon fa-sharp fa-solid fa-trash text-red-500 fa-2xl"></i>
+                         </div>
                       </button>
                       </td>
-                  
+
                   </form>
               </tr>
-            
+
               @endforeach
-                
+
             </tbody>
           </table>
 
       </div>
       <a href="{{ route('panel.admin')}}">
-        <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Voltar
         </button>
     </a>

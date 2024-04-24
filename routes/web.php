@@ -10,7 +10,6 @@ use App\Http\Controllers\ShowController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\adminController;
-use App\Http\Controllers\AdminController2;
 use App\Http\Controllers\BlindController;
 use App\Http\Controllers\BlindCartController;
 use App\Http\Controllers\bomboniereController;

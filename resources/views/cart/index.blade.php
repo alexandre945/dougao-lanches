@@ -124,7 +124,7 @@
                             @if (session('successmessage'))
 
                                 <div class="success text-lg p-2 font-bold">
-                                  {{ session('successmessage')}}
+                                   <p class="bg-slate-300 p-2 text-green " >{{ session('successmessage')}}</p>
                                 </div>
 
                               @endif

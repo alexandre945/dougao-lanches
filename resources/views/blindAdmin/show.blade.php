@@ -17,7 +17,7 @@
       }
       .orange {
         border-radius: 8px;
-        margin-right: 8px; 
+        margin-right: 8px;
         padding: 8px;
       }
     .icon {
@@ -54,31 +54,34 @@
                         <th>Produto</th>
                         <th>Pontos</th>
                         <th>Estatus</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
+                  @forelse ($blinds as $item)
                     @foreach($blinds as $blindItem)
-                        <tr>
-                        
-                            @csrf
-                            <td>{{ $blindItem->blindUser->name }}</td>
-                            <td>{{ $blindItem->name }}</td>
-                            <td>{{ $blindItem->points }}</td>
-                            <td>{{ $blindItem->status }}</td>
-                        
-                        </tr>
+                            <tr>
+                                @csrf
+                                <td>{{ $blindItem->blindUser->name }}</td>
+                                <td>{{ $blindItem->name }}</td>
+                                <td>{{ $blindItem->points }}</td>
+                                <td>{{ $blindItem->status }}</td>
+                            </tr>
                     @endforeach
+
+                  @empty
+                  <p> Sem blindes para: @datetime(now())</p>
+                  @endforelse
                 </tbody>
             </table>
         </div>
             <a href="{{ route('panel.admin')}}">
-                <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     Voltar
                 </button>
             </a>
      </div>
-   
+
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>

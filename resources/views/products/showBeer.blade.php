@@ -43,9 +43,9 @@
 
     <div class="">
       <div class=" flex text-cnter">
-        <a href="{{ route('showcombo')}}">   <div class=" border text-black p-2 rounded mt-2 ml-2 font-bold bg-orange-300">COMBOS</div></a>
-        <a href="{{ route('create.product')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 font-bold bg-orange-300">LANCHES</div></a>
-        <a href="{{ route('user.bomboniere')}}">  <div class=" border text-black p-2 rounded mt-2 ml-2 font-bold bg-orange-300">BOMBONIÉRE</div></a>
+        <a href="{{ route('showcombo')}}">   <div class=" border bg-emerald-400 text-white p-2 rounded mt-2 ml-2 font-bold ">COMBOS</div></a>
+        <a href="{{ route('create.product')}}">  <div class=" border bg-emerald-400 text-white p-2 rounded mt-2 ml-2 font-bold ">LANCHES</div></a>
+        <a href="{{ route('user.bomboniere')}}">  <div class=" border bg-emerald-400 text-white p-2 rounded mt-2 ml-2 font-bold ">BOMBONIÉRE</div></a>
      </div>
 
      {{-- <div class=" flex text-cnter  bg-orange-500">
@@ -70,14 +70,14 @@
                 @foreach ($product as $products)
                 <tr>
                   {{-- <td class="">{{$products->id}}-</td> --}}
-                  <td class="p-4 sm:w-60">{{$products->name}} <hr class="linear-1"></td>
+                  <td class="p-4 sm:w-60">{{$products->name}} </td>
                   <td class="">
 
                       <p class="">{{$products->description}}</p>
 
-                    <hr class="linear">
+
                   </td>
-                  <td class="">{{number_format($products->price,2,',','.')}}</td>
+                  <td class="text-center">{{number_format($products->price,2,',','.')}}</td>
                   <td class="p-2 flex">
                    <button class="btn btn-success" data-bs-toggle="modal"
                    data-bs-target="#firstModal{{$products->id}}"><i class="fa-regular fa-pen-to-square "></i></button>
@@ -172,7 +172,7 @@
             </table>
          </div>
               <a href="{{ route('panel.admin')}}">
-                <button class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                <button class="bg-emerald-400 text-white hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     Voltar
                 </button>
               </a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WaitingTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WaitingTimeController extends Controller
 {
@@ -21,6 +22,18 @@ class WaitingTimeController extends Controller
      */
     public function create(Request $request)
     {
+          // Validar os dados recebidos do formulário
+          $validator = Validator::make($request->all(), [
+            'time' => 'required|numeric',
+          ],[
+            'time.required' => 'este campo é obrigatorío.',
+            'time.numeric'  => 'este campo deve ser um numero.'
+        ]);
+
+           // Se a validação falhar, redireciona com os erros
+           if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $time = $request->time;
 

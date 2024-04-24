@@ -39,13 +39,13 @@
             focus:outline-none focus:shadow-outline"
             placeholder="Exemplo  40"
             type="text" name="time">
-           @error('name')
+           @error('time')
                <span class="error text-red-600">{{ $message }}</span>
            @enderror
      </div>
 
      <div class="flex items-center justify-between">
-       <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+       <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
          ALTERAR
        </button>
 
@@ -60,7 +60,7 @@
       @endif
    </form>
        <a href="{{ route('panel.admin')}}">
-           <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+           <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                Voltar
            </button>
        </a>
