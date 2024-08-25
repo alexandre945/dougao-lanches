@@ -760,7 +760,7 @@ for (let i = 0; i <opcoes.length; i++) {
 
     $(document).ready(function() {
     $('#mainForm').on('submit', function(event) {
-        event.preventDefault(); // Previne o envio imediato do formulário
+       // Previne o envio imediato do formulário
 
         // Desabilitar o botão para evitar cliques duplos
         $('#submitButton').prop('disabled', true);
@@ -769,11 +769,7 @@ for (let i = 0; i <opcoes.length; i++) {
         $('#buttonText').hide();
         $('#buttonSpinner').show();
 
-        // Simular atraso de 10 segundos antes de enviar o formulário
-        setTimeout(function() {
-            // Submeter o formulário após o atraso
-            event.currentTarget.submit();
-        }, 10000); // 10000ms = 10 segundos
+
     });
 });
 
