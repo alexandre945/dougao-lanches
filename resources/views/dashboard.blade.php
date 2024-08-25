@@ -206,7 +206,7 @@
                          </div>
 
                          <div class="pt-2 ml-2">
-                            <p class="text-start">tempo de espera aproximado: {{ $time->waitingtime }} min</p>
+                            <p class="text-start">tempo de espera aproximado: {{ $time->waitingtime ?? ''}} min</p>
                          </div>
                     </div>
 

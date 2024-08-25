@@ -16,6 +16,20 @@
        .color{
         color: rgba(22, 88, 129, 0.708);
        }
+       .spinner {
+        border: 4px solid rgba(0,0,0,0.1);
+        border-left: 4px solid #3498db;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
 
     </style>
 
@@ -97,16 +111,16 @@
 <body>
       <div class="  text-center md: p-2">
                    <div class="p-2 text-xl text-gray-700 font-bold">
-                    <a href="{{route('index.point')}}"  class="cart ">
-                      Cartão fidelidade
-                      <i class="fa-solid fa-id-card fa-2xl color " ></i>
-                    </a>
+                      <a href="{{route('index.point')}}"  class="cart ">
+                        Cartão fidelidade
+                        <i class="fa-solid fa-id-card fa-2xl color " ></i>
+                      </a>
                    </div>
-                <div class="text-center ">
+                  <div class="text-center ">
 
-                      <h1 class="text-xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras:</h1>
-                      <p class="text-gray-700 font-bold">{{ auth()->user()->name }}</p>
-                </div>
+                        <h1 class="text-xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras:</h1>
+                        <p class="text-gray-700 font-bold">{{ auth()->user()->name }}</p>
+                  </div>
 
                         {{-- <audio controls autoplay>
                             <source src="{{asset('sounds/new_order.mp3')}}" type="audio/mp3">
@@ -116,8 +130,9 @@
                                 @if (session('new_order'))
                                     <script>
                                         // Reproduzir som de notificação
+
                                         var audio = new Audio('{{ asset('sounds/audio.mp3') }}');
-                                        audio.play();
+                                            audio.play();
                                     </script>
                                 @endif
 
@@ -137,10 +152,10 @@
 
                               @endif
 
-                              @if (session('messagem'))
+                              @if (session('menssagem'))
 
                                 <div class="text-red-500 bg-slate-300 p-2">
-                                  {{ session('messagem')}}
+                                  {{ session('menssagem')}}
                                 </div>
 
                               @endif
@@ -151,6 +166,17 @@
                                     {{session('total')}}
                                   </p>
                                  </div>
+                              @endif
+
+                              @if ( session('delete'))
+
+                              <div class="text-green p-2 bg-slate-300 ml-20 mr-20 rounded">
+                                <p>
+                                    {{ session('delete')}}
+                                </p>
+                              </div>
+
+
                               @endif
 
                     <div class=" block  overflow-auto">
@@ -267,7 +293,7 @@
                                                   <form action="{{ route('cart.delete', $item->id) }}" method="POST">
                                                     @csrf
                                                     <div class=" rounded">
-                                                        <button class="rounded text-gray-700 p-2 additional font-bold text-sm bg-slate-300 custom-border ">EXCLUIR</button>
+                                                        <button class="rounded text-light p-2 additional font-bold text-sm bg-red-500 custom-border ">EXCLUIR</button>
                                                     </div>
                                                 </form>
                                                 </td>
@@ -280,126 +306,30 @@
                                       </tbody>
                           </table>
                     </div>
-                    {{-- @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif --}}
-                        {{-- <div class="pt-2 text-center">
-                          @if(count($blindCart) > 0)
-                              <div class="row">
-                                  @foreach($blindCart as $blindItem)
-                                    @if($blindItem->status == 'pendente')
-                                      <div class="col-md-8 mb-2">
-                                          <div class="card text-center">
-                                            <h2 class="card-title font-bold pt-2">Blinde solicitado</h2>
-                                              <div class="card-body d-flex flex-row text-center">
-                                                  <h5 class="card-title p-2">Cliente: {{ $blindItem->blindCartUser->name }}</h5>
-                                                  <p class="card-text p-2">Blind: {{ $blindItem->name }}</p>
-                                                  <p class="card-text p-2">Pontos: {{ $blindItem->points }}</p>
-                                              </div>
-                                          </div>
-                                      </div>
-                                    @endif
-                                  @endforeach
-                              </div>
-                          @endif
-                      </div> --}}
 
-                    <div class="  container ">
-                          <div class="rounded  pt-2 mt-2  ">
-                               <div class="ml-4 mr-4  container">
-                                  <h1 class="font-bold text-gray-700 pt-2 pb-2 ">TOTAL</h1>
+                               <div class="  container ">
+                                    <div class="rounded  pt-2 mt-2 ">
+                                        <div class="ml-4 mr-4  container">
+                                            <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
+                                <form id="mainForm" action="{{ route('admin.create') }}" method="post">
 
-                              @if(!empty($cart->blinCart) && count($cart->blinCart) > 0)
-                                @foreach ($cart->blinCart as $item)
+                                            @csrf
 
+                                            <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
 
-                                    <form action="{{ route('admin.createBlind',$item->id) }}" method="post">
+                                                            <samp  class=" font-bold  p-2  rounded custom-border bg-slate-200  mb-2"  id="toremove"> R$ @money($total)</samp>
+                                                            <samp  class=" font-bold  p-2  rounded custom-border bg-slate-100  mb-2"  id="delivery"></samp>
+                                                            <input type="hidden" name="total" value=" @money ($total)">
 
-                                          @csrf
-                                          <input type="hidden" name="blindCartId" value="{{ $item ?? ''}}">
+                                                            @foreach ($cart as $item)
+                                                              <input type="hidden" name="blindCartId" value="{{ $item->blinCart->id ?? ''}} ">
 
+                                                            @endforeach
 
-                                          <samp  class=" font-bold bg-white p-2  rounded"  id="toremove"> R$ @money($total)</samp>
-                                          <samp  class=" font-bold bg-white p-2  rounded"  id="delivery"></samp>
-                                          <input type="hidden" name="total" value=" @money($total)">
-                                </div>
-                          </div>
-                    </div>
-
-                            <div class=" pb-2 mt-2">
-                                    <div class="text-center">
-                                        <h1 class="text-gray-700 font-bold pb-2 text-lg">o pagamento será realizado na entrega</h1>
+                                        </div>
                                     </div>
-                                    <div class="p-4 relative">
-                                          <div class="pb-4 w-full">
-
-                                              <input class="toremove" type="radio" checked value="0" id="toRemove" name="delivery" onchange="atualizarValor()" >
-                                              <label for="toRemove"  class="text-gray-700 font-bold pr-4" >Retirar na lanchonete</label>
-                                              <input  class="delivery" type="radio" value="1" id="entrega" name="delivery" onchange="atualizarValor()">
-                                              <label for="entrega" class="text-gray-700 font-bold" >Para entregar</label>
-                                              <i class="fa-solid fa-motorcycle fa-xl text-sky-400"></i>
-
-                                          </div>
-                                    </div>
-
-                                    <div class="pb-4">
-                                          <h2 class="text-gray-700 font-bold pb-2">forma de pagamento</h2>
-                                          <input class="payment_card" type="radio" checked value="0" id="" name="payment" >
-                                          <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
-                                          <select name="credit_card" id="select" class="rounded mr-2" >
-                                            <option  value="visa">Visa</option>
-                                            <option  value="Master Card">Master Card</option>
-                                            <option  value="Ouro Card">Ouro Card</option>
-                                          </select>
-
-                                          <input  class="" type="radio" value="1"  name="payment">
-                                          <label for="" class="text-gray-700 font-bold" >Dinheiro</label>
-                                            @error('payment')
-                                                <div class="bg-black p-2">
-                                                  <samp>{{ $message}}</samp>
-                                                </div>
-                                            @enderror
-                                    </div>
-                                  <div class="pl-4 grid-templates-rows">
-
-                                        <input type="text" class="rounded text-sm " name="observation" id="observation" placeholder="ex: troco para 50 reais">
-                                  </div>
-                            </div>
-
-                        <div class="">
-
-                                  <button type="submit" class="font-bold text-sm text-white p-2 mb-2 bg-blue-500  border rounded">
-
-                                    Enviar pedido
-
-                                  </button>
-
-
-                                    </form>
-                                  @endforeach
-
-                              @else
-                                <form action="{{ route('admin.create') }}" method="post">
-                                  @csrf
-
-                                                        <samp  class=" font-bold  p-2  rounded custom-border bg-slate-200  mb-2"  id="toremove"> R$ @money($total)</samp>
-                                                        <samp  class=" font-bold  p-2  rounded custom-border bg-slate-100  mb-2"  id="delivery"></samp>
-                                                        <input type="hidden" name="total" value=" @money ($total)">
-
-                                                        @foreach ($cart as $item)
-                                                          <input type="hidden" name="blindCartId" value="{{ $item->blinCart->id ?? ''}} ">
-                                                        @endforeach
-
-                                                    </div>
-                                                </div>
-                        </div>
+                               </div>
 
                                           <div class=" pb-2 mt-2">
                                                   <div class="text-center">
@@ -408,11 +338,11 @@
                                                   <div class="p-4 relative">
                                                         <div class="pb-4 w-full">
 
-                                                            <input class="toremove  " type="radio" checked value="0" id="toRemove" name="delivery" onchange="atualizarValor()" >
+                                                            <input class="toremove  " type="radio" checked value="0" id="" name="delivery" onchange="atualizarValor()" >
                                                             <label for="toRemove"  class="text-gray-700 font-bold pr-4" >Retirar na lanchonete</label>
 
                                                             <input  class=" custom-border " type="radio" value="1" id="entrega" name="delivery" onchange="atualizarValor()">
-                                                            <label for="entrega" class="text-gray-700 font-bold" >Para entregar</label>
+                                                            <label for="entrega" class="text-gray-700 font-bold" > Entregar em domicílio</label>
                                                             <i class="fa-solid fa-motorcycle fa-xl text-cyan-600"></i>
 
                                                         </div>
@@ -443,33 +373,41 @@
                                                 </div>
                                           </div>
 
+
                                       <div class="text-center  overflow-auto">
 
-                                        <button type="submit" class=" text-md additional p-2 mb-2 custom-border bg-slate-300 rounded">
-
-                                          Enviar pedido
-
+                                        <button type="submit" id="submitButton" class="text-md additional p-2 mb-2 custom-border bg-slate-300 rounded">
+                                            <span id="buttonText">ENVIAR PEDIDO</span>
+                                            <span id="buttonSpinner" style="display: none;">
+                                                <div class="spinner"></div>
+                                            </span>
                                         </button>
 
                                 </form>
-                              @endif
+
+                                      </div>
 
                                         <div class="p-2 text-center">
-                                          <a href="{{ route('client.show')}}"><button class="text-md additional custom-border  bg-slate-300 rounded p-2">Continuar comprando</button></a>
+                                          <a href="{{ route('client.show')}}"><button class="text-md additional custom-border  bg-slate-300 rounded p-2">
+                                           <SPAN>CONTINUAR COMPRANDO</SPAN>
+                                        </button></a>
                                         </div>
 
                                         <button class=" text-md p-2  custom-border additional bg-slate-300 rounded mb-2 mt-2 " data-bs-toggle="modal"
                                             data-bs-target="#firstModal">
-                                            Cadastrar um endereço para entrega
+                                            <span>CADASTRAR UM NOVO ENDEREÇO</span>
                                         </button>
                                     </div>
+
               <div class="">
                             @if(session('success'))
-                                <div class=" text-center  bg-white text-green-600 p-4  rounded font-bold">
+                                <div class=" text-center  bg-white text-green p-4  rounded font-bold">
                                     <p>{{ session('success')}}</p>
                                 </div>
                             @endif
                         <div class="text-center text-3xl">
+
+                                    {{-- Modall para Cadastrar endereço --}}
 
                                     <div class="modal fade" id="firstModal" tabindex="-1"
                                       aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -481,13 +419,23 @@
                                                     X
                                                   </button>
                                               </div>
+
                                               <div class="modal-body">
                                                 <form action="{{ route('adress.create')}}" method="POST">
                                                   @csrf
-                                                          <div class="container">
+                                                        <div class="container">
+                                                            <div class="mb-4 sachadow-black">
+
+                                                                <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
+                                                                    Meu trabalho, casa da minha Tia Divina
+                                                                </p>
+                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
+                                                                <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
+                                                            </div>
+
                                                               <div class="mb-4 sachadow-black">
                                                                 <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
-                                                                <input autocomplete="off" value="" class="shadow-balck appearance-none border rounded sm:w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline " id="city" type="text" placeholder="digite a cidade" name="city">
+                                                                <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
                                                                   @error('city')
                                                                   <div class=" p-2 ">
                                                                     <span class="error text-red-500">{{ $message }}</span>
@@ -504,7 +452,6 @@
                                                                     </div>
                                                                 @enderror
                                                             </div>
-
 
                                                               <div class="mb-4">
                                                                 <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
@@ -536,7 +483,7 @@
 
                                                               <div class="mb-4">
                                                                 <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                <input autocomplete="off" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
+                                                                <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
                                                                   @error('fone')
                                                                     <div class="p-2">
                                                                       <span class="error text-red-500">{{ $message }}</span>
@@ -553,7 +500,7 @@
                                                                     </div>
                                                                   @enderror
                                                               </div>
-                                                          </div>
+                                                        </div>
 
                                                       <div class="pb-4">
                                                         <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-orange-300  font-bold hover:orange-500">CADASTRAR</button>
@@ -561,71 +508,105 @@
                                                 </form>
 
                                               </div>
-                                              </div>
+
                                           </div>
+                                      </div>
                                     </div>
+
                         </div>
 
-                           @if($address)
-                           <div class="container">
+                           @if( $address)
 
-                                <div class="pb-2 yellow">
-                                  <details>
-                                      <summary>OBS;</summary>
+                            <div class="container">
 
-                                      <p class="bg border rounded p-2 text-left">
 
-                                          O sistema vai busca sempre o ultimo endereço cadastrado,se deseja  que a entrega seja feita em outro
-                                          endereço cadastre o endereço que deja.
-                                      </P>
-                                  </details>
+                                    {{-- @dd($addressUserTypes) --}}
 
-                                </div>
-                              <div class="container">
-                                  <div class="mb-4 ">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" >Cidade</label>
-                                    <p value="" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="city" type="text" placeholder="digite a cidade" name="city">{{ $address->city ?? ''}}</p>
-                                  </div>
-                                  <div class="mb-4">
-                                     <label class="block text-gray-700 text-sm font-bold mb-2" >CEP</label>
-                                     <p value=""  class=" border rounded sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" type="text" placeholder= "digite seu cep" name="zipcode">{{ $address->zipcode ?? '' }}</p>
-                                  </div>
+                                    {{-- <label for="addressType">Tipo de Endereço:</label> --}}
+                                    <fieldset>
+                                      <legend class="text-xl font-bold">Tipo de endereço</legend>
+                                      <select  name="addressTypeSelect" id="addressType" class="shadow bg-slate-300 appearance-none border rounded w-full py-2 pb-2 mb-2 mt-2 text-gray-700 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                        @php
+                                          $hasAddressType = false;
+                                        @endphp
+                                            @foreach($addressUserTypes as $addressUserType)
+                                                @if ($addressUserType->addressType)
 
-                                  <div class="mb-4">
-                                      <label class="block text-gray-700 text-sm font-bold mb-2" >Bairro</label>
-                                      <p value="" id="bairro" class="border rounded  sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="bairro" type="text" placeholder="digite o bairro" name="district"> {{ $address->district ?? ''}}</p>
-                                  </div>
+                                                    @php
+                                                    $hasAddressType = true;
+                                                    @endphp
 
-                                  <div class="mb-4">
-                                      <label class="block text-gray-700 text-sm font-bold mb-2" >Rua</label>
-                                      <p value=" " id="rua" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="street" type="text" placeholder="digite sua rua" name="street">{{ $address->street ?? ''}}</p>
-                                  </div>
+                                                        <option
+                                                        class="text-center text-gray-700"
+                                                        value="{{ $addressUserType->addressType->id }}"
+                                                        data-address-user-type-id="{{ $addressUserType->id }}">
+                                                        {{ $addressUserType->addressType->name }}
+                                                        </option>
 
-                                  <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" >Número</label>
-                                    <p value=" " id="numero" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="number" type="text"  placeholder="digite seu numero" name="number">{{ $address->number ?? ''}}</p>
-                                  </div>
+                                                @endif
+                                            @endforeach
 
-                                  <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" >Celular</label>
-                                    <p value=" " id="celular" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="celular" type="text"  placeholder="digite seu whatsap" name="number">{{ $address->fone ?? ''}}</p>
-                                  </div>
+                                                @if (!$hasAddressType)
+                                                    <option value="">Tipo de endereço não definido</option>
+                                                @endif
+                                      </select>
+                                    </fieldset>
 
-                                  <div class="mb-4 ">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" >Complemento</label>
-                                    <p value=" " id="complemento" class=" text-left border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 bg-slate-300" id="complement" type="text" placeholder="digite um complemento" name="complement">{{ $address->complement ?? ''}}</p>
-                                  </div>
+
+
+
+                                @foreach($addressUserTypes as $addressUserType)
+                                    @if ($addressUserType->addressType)
+                                        <div id="containers_{{ $addressUserType->addressType->id ?? ''}}" class="containers" style="display: none;">
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
+                                                <p class="text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
+                                                <p value=""  class=" border rounded sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
+                                                <p value="" id="bairro" class="border rounded  sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Rua</label>
+                                                <p value=" " id="rua" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Número</label>
+                                                <p value=" " id="numero" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
+                                                <p value=" " id="celular" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
+                                            </div>
+
+                                            <div class="mb-4 ">
+                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Complemento</label>
+                                                <p value=" " id="complemento" class=" text-left border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 bg-slate-300" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
+                                            </div>
+
+                                            <!-- Outros campos do endereço aqui -->
+                                        </div>
+                                    @endif
+                                @endforeach
+
                             </div>
-
-
+                                @else
+                                <div class="bg-slate-400 ml-8 mr-8 rounded mb-4 font-bold text-xl text-yellow-300 text-center p-2 ">
+                                    <p class="bg mb-4">
+                                        Você ainda não tem um endereço cadastrado click no botão acima para fazer o cadastro!
+                                    </p>
                                 </div>
-                            @else
-                              {{-- <div class="bg-slate-400 text-green p-2 ">
-                                <p class="bg mb-4">
-                                  Você ainda não tem um endereço cadastrado click no botão acima para fazer o cadastro!
-                                </p>
-                              </div> --}}
-                           @endif
+                                @endif
+
+
 
               </div>
      </div>
@@ -637,13 +618,42 @@
         }
       </script> --}}
 
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script>
 
+$(document).ready(function() {
+    // Esconder todos os contêineres de detalhes de endereço
+    $('.containers').hide();
+
+    // Função para atualizar o valor do input hidden
+    function updateHiddenInput() {
+        var selectedAddressType = $('#addressType').val();
+        var addressUserTypesId = $('#addressType').find('option:selected').data('address-user-type-id');
+        $('#address_user_types_id').val(addressUserTypesId);
+
+        // Mostrar o contêiner correspondente ao tipo de endereço selecionado
+        $('#containers_' + selectedAddressType).show();
+    }
+
+    // Quando o valor do menu suspenso for alterado
+    $('#addressType').change(function() {
+        // Esconder todos os contêineres de detalhes de endereço
+        $('.containers').hide();
+
+        // Atualizar o valor do input hidden
+        updateHiddenInput();
+    });
+
+    // Configurar o valor inicial do input hidden e mostrar o contêiner correspondente
+    updateHiddenInput();
+});
 
 
 
-    function atualizarValor() {
+function atualizarValor() {
     const opcoes = document.getElementsByName('delivery');
     var entregaInput = document.getElementById('entrega');
     var toremove = document.getElementById('toremove');
@@ -676,16 +686,22 @@ for (let i = 0; i <opcoes.length; i++) {
 }
 }
 
+
+
    // Selecionando os elementos relevantes
-   const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
+
+    const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
     const observationInput = document.getElementById('observation');
 
     // Função para verificar e atualizar o estado do campo de observação
+
     function updateObservationField() {
         // Verificando qual opção de pagamento está selecionada
+
         const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
 
         // Se a opção selecionada for "Cartão", desabilita o campo de observação
+
         if (selectedPayment === '0') {
             observationInput.disabled = true;
             observationInput.classList.add('disabled');
@@ -696,12 +712,70 @@ for (let i = 0; i <opcoes.length; i++) {
     }
 
     // Adicionando um event listener para cada botão de rádio de pagamento
+
     paymentRadioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', updateObservationField);
     });
 
     // Chamando a função para atualizar o estado do campo de observação quando a página carregar
+
     updateObservationField();
+
+
+    document.getElementById('addressType').addEventListener('change', function() {
+    var selectedValue = this.value;
+    document.getElementById('address_user_types_id').value = selectedValue; // ou outra lógica se necessário
+    document.getElementById('address_id').value = this.options[this.selectedIndex].dataset.addressId; // ou outra lógica se necessário
+});
+
+//     //LOGICA PARA INPREMENTAR LOANDING DO BOTÃO DE ENVIO
+// $(document).ready(function() {
+//     $('#orderForm').on('submit', function() {
+//         event.preventDefault(); // Previne o envio imediato do formulário
+//         // Desabilitar o botão para evitar cliques duplos
+//         $('#submitButton').prop('disabled', true);
+
+//         // Mostrar o spinner e ocultar o texto do botão
+//         $('#buttonText').hide();
+//         $('#buttonSpinner').show();
+
+//            // Simular atraso de 3 segundos antes de enviar o formulário
+//            setTimeout(function() {
+//             // Enviar o formulário após o atraso
+//             $('#orderForm').off('submit').submit();
+//         }, 10000); // 3000ms = 3 segundos
+
+//     });
+
+//     // Se o envio do formulário falhar, reabilite o botão e mostre o texto
+//     // Isso pode ser feito através de uma lógica extra de manipulação de erros
+//     $(document).ajaxError(function() {
+//         $('#submitButton').prop('disabled', false);
+//         $('#buttonSpinner').hide();
+//         $('#buttonText').show();
+//     });
+// });
+
+
+
+    $(document).ready(function() {
+    $('#mainForm').on('submit', function(event) {
+        event.preventDefault(); // Previne o envio imediato do formulário
+
+        // Desabilitar o botão para evitar cliques duplos
+        $('#submitButton').prop('disabled', true);
+
+        // Mostrar o spinner e ocultar o texto do botão
+        $('#buttonText').hide();
+        $('#buttonSpinner').show();
+
+        // Simular atraso de 10 segundos antes de enviar o formulário
+        setTimeout(function() {
+            // Submeter o formulário após o atraso
+            event.currentTarget.submit();
+        }, 10000); // 10000ms = 10 segundos
+    });
+});
 
 
 

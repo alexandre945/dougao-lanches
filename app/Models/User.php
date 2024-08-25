@@ -44,13 +44,23 @@ class User extends Authenticatable
     ];
 
     public function address()
+
       {
         return $this->hasMany(Address::class, 'user_id', 'id');
       }
-    
+
     public function UserOrder()
+
       {
         return $this->hasMany(Order::class, 'user_id', 'id');
-      }  
+      }
+
+      public function addressUserTypes()
+
+      {
+        return $this->belongsToMany(Address::class, 'address_user_types')
+        ->withPivot('address_type_id')
+        ->withTimestamps();
+      }
 
 }

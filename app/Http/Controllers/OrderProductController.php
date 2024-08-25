@@ -7,6 +7,8 @@ use App\Models\Address;
 use App\Models\BlindCart;
 use App\Models\Order_product;
 use App\Models\Product;
+use App\Models\AddressType;
+use App\Models\AddressUserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,17 +18,17 @@ class OrderProductController extends Controller
 {
     public function store(Request $request, $id)
     {
-        
+
         $product = Product::findOrFail($id);
         $products = $product->id;
         $user = auth::user();
         $users = $user->id;
         $price = $product->price;
 
-        
+
         // $blindCart = BlindCart::findOrFail($id);
         // $blindCartId = $blindCart->id ?? '';
-      
+
 
         $cart = Order_product::create([
             'blind_carts_id' => $blindCartId ?? null,
@@ -38,7 +40,7 @@ class OrderProductController extends Controller
         ]);
 
         $selectedAdditionals = $request->input('additional', []);
-        
+
             foreach ($selectedAdditionals as $additionalId) {
                 $cart->orderProductAdditional()->attach($additionalId);
 
@@ -48,7 +50,7 @@ class OrderProductController extends Controller
         $cart = Order_product::where('user_id', $users)
             ->with('orderProductProduct', 'orderProductAdditional', 'blinCart')
             ->get();
-        $blindCart = BlindCart::where('user_id', $users)->get();    
+        $blindCart = BlindCart::where('user_id', $users)->get();
 
         return redirect()->back()->with('success', 'produto adicionado ao carrinho com sucesso');
     }
@@ -80,31 +82,38 @@ class OrderProductController extends Controller
 
         $address = Address::where('user_id', $users)->with('userAdress')->latest()->first();
 
-         
+
+        $addressTypes = AddressType::all();
+
+        $addressUserTypes = AddressUserType::where('user_id', $users)->with('addressType')->get();
+
+
 
         $cart = Order_product::where('user_id', $users)
             ->with('orderProductAdditional', 'orderProductProduct', 'blinCart')
             ->get();
-       
+
         $total = 0;
 
         $cart->each(function ($item) use (&$total) {
             $total += ($item->orderProductProduct ? $item->orderProductProduct->price : 0) * $item->quanty;
 
             if ($item->orderProductAdditional) {
+
                 // Se existirem adicionais, itera sobre a coleção
+
                 $item->orderProductAdditional->each(function ($additional) use (&$total) {
                     $total += $additional->price;
                 });
             }
         });
 
-        return view('cart.index', compact('cart', 'address', 'total', 'users'));
+        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes'));
     }
     public function delete(Request $request, $id)
     {
         $product = Order_product::findOrFail($id);
         $product->delete();
-        return redirect()->route('cart.show');
+        return redirect()->route('cart.show')->with('delete', 'produto excluido');
     }
 }

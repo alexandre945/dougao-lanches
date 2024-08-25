@@ -41,6 +41,6 @@ class ClientController extends Controller
             $toggle->is_open = !$toggle->is_open;
             $toggle->save();
 
-            return redirect()->back();
+            return redirect()->back()->with('toggle','Modo de abertura e fechamento alterado com sucesso');
       }
 }

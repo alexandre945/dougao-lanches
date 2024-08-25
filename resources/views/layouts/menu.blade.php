@@ -40,7 +40,7 @@
                     <a class="p-8" href="{{ route('panel.admin')}}">ADMIN</a>
                 </li>
                 @endcan
-                <li  class="custom-border p-2 rounded bg-emerald-400 small-li">
+                <li  class="custom-border p-2 rounded  bg-emerald-400 small-li">
                     <a href="{{ route('client.show')}}">LANCHES</a>
                 </li>
                 <li  class="custom-border p-2 rounded bg-emerald-400 small-li">

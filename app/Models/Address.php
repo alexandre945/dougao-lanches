@@ -11,8 +11,23 @@ class Address extends Model
     // protected $filable = ['city','district','street','number','zipcode','complement','user_id'];
     protected $guarded = [];
 
+    public function usersAddresstype()
+        {
+            return $this->belongsToMany(User::class, 'address_user_types')
+                        ->withPivot('address_type_id')
+                        ->withTimestamps();
+        }
+
     public function userAdress()
+
       {
         return $this->belongsTo(User::class, 'user_id', 'id');
       }
+
+      public function addressUserTypes()
+      {
+          return $this->hasMany(AddressUserType::class);
+      }
+
+
 }

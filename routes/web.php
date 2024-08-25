@@ -23,6 +23,7 @@ use App\Http\Controllers\statusController;
 use App\Http\Controllers\statusRefusedController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DeliveryBlindController;
+use App\Http\Controllers\ListModelController;
 use App\Http\Controllers\updateAdminController;
 use App\Http\Controllers\panelAdminController;
 use App\Http\Controllers\pointsController;
@@ -85,6 +86,7 @@ Route::post('/delete/{id}',[OrderProductController::class, 'delete'])->name('car
    //adress
 
 Route::post('/adress',[AdressController::class, 'create'])->name('adress.create');
+
 
 // order
 
@@ -210,6 +212,18 @@ Route::post('/create-blindCart,{id}', [BlindCartController::class, 'store'])->na
 Route::post('/waitingtime-create', [WaitingTimeController::class, 'create'])->name('waitngtime.create');
 
 Route::get('/waitingtime-index', [WaitingTimeController::class, 'index'])->name('waintingtime.index');
+
+//  rota para cadastrar produtos da lista de compra
+
+Route::get('/list',[ListModelController::class, 'index'])->name('list.index');
+
+//rota para cadstrar item da lista
+
+Route::post('/list-create', [ListModelController::class, 'create'])->name('list.create');
+
+//rota para excluir iten da lista
+
+Route::delete('/list-delete,{id}', [ListModelController::class, 'delete'])->name('list.delete');
 
 
 

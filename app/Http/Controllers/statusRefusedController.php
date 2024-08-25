@@ -13,6 +13,6 @@ class statusRefusedController extends Controller
 
           $order->update(['status' => ('recusado')]);
 
-          return redirect()->back();
+          return redirect()->back()->with('refused', 'você recusou este pedido');
      }
 }

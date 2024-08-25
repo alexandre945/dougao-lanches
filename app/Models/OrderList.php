@@ -17,9 +17,11 @@ class OrderList extends Model
         'quamtity',
         'value',
         'additional_id',
-        'observation' 
+        'observation',
+        'address_user_types_id',
+        'address_id'
     ];
-    
+
     public function order()
          {
             return $this->belongsTo(Order::class);
@@ -30,12 +32,12 @@ class OrderList extends Model
          {
             return $this->belongsTo( Product::class);
          }
-    
+
     public function blindCart()
          {
             return $this->belongsTo( BlindCart::class, 'blind_carts_id', 'id');
          }
-    
+
 
      public function orderAdditional()
          {
@@ -45,4 +47,20 @@ class OrderList extends Model
               'additional_id',
               'id');
          }
+
+    public function addressUserType()
+         {
+             return $this->belongsTo(AddressUserType::class, 'address_user_types_id');
+         }
+
+    public function addressType()
+     {
+        return $this->belongsTo(AddressType::class,'address_type_id');
+     }
+
+     public function address()
+     {
+         return $this->belongsTo(Address::class);
+     }
+
 }

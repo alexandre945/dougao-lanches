@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Order_product;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Requestadress;
+use App\Models\AddressType;
 use Illuminate\Http\Request;
 
 class AdressController extends Controller
@@ -16,7 +17,7 @@ class AdressController extends Controller
         $cart = Order_product::all();
         $user = auth::user();
         $users = $user->id;
-      
+
         $address = Address::create([
             'city'          => $request->city,
             'district'      => $request->district,
@@ -26,12 +27,39 @@ class AdressController extends Controller
             'complement'    => $request->complement,
             'user_id'       => $users,
             'fone'          => $request->fone,
+            // 'address_type_id' => $request->address_type
 
+        ]);
+
+        //criar campo na tabela address_types
+
+        $addTypes = $request->address_type;
+
+        $addTypeCreate = AddressType::create([
+           'name' =>  $addTypes,
+        ]);
+
+
+         //criar tabela pivor address_user_id
+         
+         $addType = $addTypeCreate->id;
+         $addressId = $address->id;
+
+
+         $address->addressUserTypes()->create([
+            'user_id'         => auth()->id(),
+            'address_type_id' => $addType,
+            'address_id'      => $addressId, // Incluir o address_id associado ao endereço recém-criado
         ]);
 
 
 
+        // $addressType = AddressType::findOrFail($request->address_type);
+        // $addressType->users()->attach($user->id);
+
         return redirect()->route('cart.show', compact('user', 'cart'))
             ->with('success', 'Endereço Cadastrado com sucesso');
     }
+
+
 }

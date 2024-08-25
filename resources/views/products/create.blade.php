@@ -148,6 +148,16 @@
           <p>O sistema tem '{{ $userCount }}' usuários cadastrados</p>
         </div>
 
+            @if( session('toggle'))
+
+              <div class="text-green-600 p-2 bg-slate-300">
+                <p>
+                    {{ session('toggle')}}
+                </p>
+              </div>
+
+            @endif
+
 
         <div class="py-2">
           <h1 class="font-bold">Click aqui para abrir e fechar a lanchonete</h1>
@@ -246,6 +256,13 @@
                 <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm">CONFERIR BLINDES PARA ENTREGA</h2>
                   <a href="{{ route('blind.index') }}" class="btn-slate font-bold">BLINDES</a>
+                </div>
+              </div>
+
+              <div class="py-4">
+                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                  <h2 class="font-extralight text-sm">LISTA DE COMPRAS PARA  LANCHONETE</h2>
+                  <a href="{{ route('list.index') }}" class="btn-slate font-bold">LISTA</a>
                 </div>
               </div>
 
