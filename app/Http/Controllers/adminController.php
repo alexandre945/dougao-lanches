@@ -23,10 +23,7 @@ class adminController extends Controller
   public function store(Request $request)
 
         {
-            sleep(10);
-
-            // Log para verificar se o atraso foi aplicado
-            Log::info('Pedido enviado após 10 segundos de atraso');
+         
 
             $user      = Auth::user();
             $users       = $user->id;
