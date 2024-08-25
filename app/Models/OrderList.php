@@ -18,8 +18,8 @@ class OrderList extends Model
         'value',
         'additional_id',
         'observation',
-        'address_user_types_id',
-        'address_id'
+        'address_user_types_id'
+
     ];
 
     public function order()
