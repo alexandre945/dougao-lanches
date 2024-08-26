@@ -40,6 +40,37 @@
                     <h2>aqui vc pode adicionar itens que você precisa comprar para seu estabelecimento não esquecer</h2>
                   </div>
 
+                  <div class="bg-slate-100 card">
+                    <Form action="{{ route('list.create')}}" method="post">
+
+                        @csrf
+                        <div class="text pt-20">
+                            <form class="grup-control">
+                                <fieldset>
+                                    <div class="label">
+                                        <h2 class="font-bold">PRODUTO</h2>
+                                        <input class="bg-slate-50 rounded" type="text" class=" m-2 rounded " name="name"/><br>
+                                            @error('name')
+                                                <span class="text-red-500 p-2 ">{{ $message}}</span>
+                                            @enderror
+                                    </div>
+
+                                    <div class="label2">
+                                        <h2 class="font-bold">QUANTIDADE</h2>
+                                        <input class="bg-slate-50 rounded" type="text" class=" m-2  rounded" name="quantity"/><br>
+                                            @error('quantity')
+                                                <span class="text-red-500 p-2  ">{{ $message}}</span>
+                                            @enderror
+                                    </div>
+
+                                <button class="bg-slate-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline" type="submit">CADASTRAR</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </Form>
+
+                </div>
+
                 <div class=" w-full  pr-4 overflow-auto text-center mt-4">
 
                         @if ( session('created'))
@@ -58,10 +89,10 @@
 
 
 
-                        <table class="w-full pt-4 min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                            <thead>
+                        <table class=" bg-slate-200  w-full pt-2 min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                            <thead class="">
                                 <tr>
-                                    <th class="">NOME</th>
+                                    <th class="pt-6">NOME</th>
                                     <th class="">QUANTIDADE</th>
                                     <th>AÇOẼS</th>
                                 </tr>
@@ -100,41 +131,12 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <a href="{{ route('panel.admin')}}">
+                            <button class="bg-slate-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                Voltar
+                            </button>
+                        </a>
 
-                         <div class="">
-                            <Form action="{{ route('list.create')}}" method="post">
-
-                                @csrf
-                                <div class="text pt-20">
-                                    <form class="grup-control">
-                                        <fieldset>
-                                            <div class="label">
-                                                <h1>Item</h1>
-                                                <input type="text" class=" m-2 rounded " name="name"/><br>
-                                                    @error('name')
-                                                        <span class="text-red-500 p-2 ">{{ $message}}</span>
-                                                    @enderror
-                                            </div>
-
-                                            <div class="label2">
-                                                <h1>Quantidade</h1>
-                                                <input type="text" class=" m-2  rounded" name="quantity"/><br>
-                                                    @error('quantity')
-                                                        <span class="text-red-500 p-2  ">{{ $message}}</span>
-                                                    @enderror
-                                            </div>
-
-                                        <button class="bg-emerald-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline" type="submit">Enviar</button>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </Form>
-                                    <a href="{{ route('panel.admin')}}">
-                                    <button class="bg-emerald-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                        Voltar
-                                    </button>
-                                </a>
-                        </div>
 
                 </div>
 

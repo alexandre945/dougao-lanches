@@ -728,39 +728,8 @@ for (let i = 0; i <opcoes.length; i++) {
     document.getElementById('address_id').value = this.options[this.selectedIndex].dataset.addressId; // ou outra lógica se necessário
 });
 
-//     //LOGICA PARA INPREMENTAR LOANDING DO BOTÃO DE ENVIO
-// $(document).ready(function() {
-//     $('#orderForm').on('submit', function() {
-//         event.preventDefault(); // Previne o envio imediato do formulário
-//         // Desabilitar o botão para evitar cliques duplos
-//         $('#submitButton').prop('disabled', true);
-
-//         // Mostrar o spinner e ocultar o texto do botão
-//         $('#buttonText').hide();
-//         $('#buttonSpinner').show();
-
-//            // Simular atraso de 3 segundos antes de enviar o formulário
-//            setTimeout(function() {
-//             // Enviar o formulário após o atraso
-//             $('#orderForm').off('submit').submit();
-//         }, 10000); // 3000ms = 3 segundos
-
-//     });
-
-//     // Se o envio do formulário falhar, reabilite o botão e mostre o texto
-//     // Isso pode ser feito através de uma lógica extra de manipulação de erros
-//     $(document).ajaxError(function() {
-//         $('#submitButton').prop('disabled', false);
-//         $('#buttonSpinner').hide();
-//         $('#buttonText').show();
-//     });
-// });
-
-
-
     $(document).ready(function() {
     $('#mainForm').on('submit', function(event) {
-       // Previne o envio imediato do formulário
 
         // Desabilitar o botão para evitar cliques duplos
         $('#submitButton').prop('disabled', true);

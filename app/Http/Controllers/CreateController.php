@@ -22,6 +22,8 @@ class CreateController extends Controller
         public function store(ProductRequest $request)
 
         {
+            
+
             $imagePath = $request->file('image')->store('upload', 'public');
             $category = Category::all();
             $price = str_replace(',', '.', $request->price);

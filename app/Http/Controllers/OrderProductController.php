@@ -18,6 +18,8 @@ class OrderProductController extends Controller
 {
     public function store(Request $request, $id)
     {
+         // Simular um atraso de 3 segundos
+         sleep(5);
 
         $product = Product::findOrFail($id);
         $products = $product->id;

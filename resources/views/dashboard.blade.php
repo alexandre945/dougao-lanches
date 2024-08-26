@@ -81,6 +81,22 @@
          .greend {
             color: rgb(28, 108, 28);
          }
+         .spinner {
+        border: 4px solid rgba(0,0,0,0.1);
+        border-left: 4px solid #1c8ad3;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    #buttonSpinner {
+    margin-left: 5px; /* Opcional, para um pequeno espaçamento entre o texto e o spinner */
+    }
 
         </style>
         <title>CreateProduct</title>
@@ -288,7 +304,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <Form action="{{ route('store.cart',$item->id)}}" method="post">
+                                                    <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
                                                         @csrf
                                                         <div class="text  pt-4 rounded">
                                                           <form class="grup-control">
@@ -332,7 +348,16 @@
                                                                       <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
                                                                     </div>
                                                                     <div class="flex flex-col gap-2">
-                                                                      <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button>
+
+                                                                        <button type="submit" id="submitButton" class=" bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                            <span id="buttonText">ADICIONAR</span>
+                                                                            <span id="buttonSpinner" style="display: none;">
+                                                                                <div class="spinner"></div>
+                                                                            </span>
+
+                                                                        </button>
+
+                                                                      {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
                                                                       <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
                                                                     </div>
                                                               </fieldset>
@@ -359,7 +384,25 @@
                   </div>
             </div>
          @vite('resources/js/app.js')
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+        <script>
+
+    $(document).ready(function() {
+    $('#mainForm').on('submit', function(event) {
+
+        // Desabilitar o botão para evitar cliques duplos
+        $('#submitButton').prop('disabled', true);
+
+        // Mostrar o spinner e ocultar o texto do botão
+        $('#buttonText').hide();
+        $('#buttonSpinner').show();
+
+
+            });
+        });
+
+        </script>
     </body>
   </html>
 
