@@ -162,7 +162,13 @@
                             <button class="deliveryd border rounded p-2 button hover:text-blue-800">RECUSAR PEDIDO</button>
                         </form>
                     </div>
+
                 </div>
+                <a href="{{ route('panel.admin')}}">
+                    <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Voltar
+                    </button>
+                </a>
             </div>
         @empty
             <p class="pt-4 font-bold text-lg">Sem Pedidos com status processando no momento!</p>
