@@ -47,7 +47,7 @@
         @endif
 
         @if (session('refused'))
-            <div class="bg-yellow-300 border p-2 ml-12 mr-12 mb-4">
+            <div class="bg-yellow-300 border p-2 ml-12 mr-12 mb-4" style="background-color: rgb(243, 217, 66);">
                 <p>{{ session('refused') }}</p>
             </div>
         @endif
