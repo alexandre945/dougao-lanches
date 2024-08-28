@@ -113,9 +113,9 @@
                                     <td class="">
                                         <div class="">
                                             <form action="{{ route('list.delete', $item->id)}}" method="post">
-
+                                                @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="" onclick="preventDefoult">
+                                                <button type="submit" class="">
                                                 <i class="icon fa-sharp fa-solid fa-trash text-red-500"></i>
                                                 </button>
                                             </form>
@@ -132,12 +132,10 @@
                             </tbody>
                         </table>
                         <a href="{{ route('panel.admin')}}">
-                            <button class="bg-slate-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            <button class="bg-slate-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none mt-2 focus:shadow-outline" type="submit">
                                 Voltar
                             </button>
                         </a>
-
-
                 </div>
 
             </div>

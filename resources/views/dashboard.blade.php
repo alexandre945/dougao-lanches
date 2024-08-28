@@ -6,14 +6,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://kit.fontawesome.com/03e947ed86.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
                  {{-- select --}}
-            <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
 
         <style>
           .container {
@@ -349,12 +350,11 @@
                                                                     </div>
                                                                     <div class="flex flex-col gap-2">
 
-                                                                        <button type="submit" id="submitButton" class=" bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                        <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
                                                                             <span id="buttonText">ADICIONAR</span>
                                                                             <span id="buttonSpinner" style="display: none;">
                                                                                 <div class="spinner"></div>
                                                                             </span>
-
                                                                         </button>
 
                                                                       {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
@@ -384,23 +384,47 @@
                   </div>
             </div>
          @vite('resources/js/app.js')
+
+
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
         <script>
 
-    $(document).ready(function() {
-    $('#mainForm').on('submit', function(event) {
+// $(document).ready(function() {
+//     $('#mainForm').on('submit', function(event) {
 
-        // Desabilitar o botão para evitar cliques duplos
-        $('#submitButton').prop('disabled', true);
+//         // Desabilitar o botão para evitar cliques duplos
+//         $('#submitButton').prop('disabled', true);
 
-        // Mostrar o spinner e ocultar o texto do botão
-        $('#buttonText').hide();
-        $('#buttonSpinner').show();
+//         // Mostrar o spinner e ocultar o texto do botão
+//         $('#buttonText').hide();
+//         $('#buttonSpinner').show();
+
+//     });
+// });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona o formulário pelo ID 'mainForm'
+    var form = document.getElementById('mainForm');
+
+    // Adiciona um "event listener" para o evento de envio do formulário
+    form.addEventListener('submit', function(event) {
+
+        // Desabilita o botão de envio para evitar cliques duplos
+        var submitButton = document.getElementById('submitButton');
+        submitButton.disabled = true;
+
+        // Oculta o texto do botão
+        var buttonText = document.getElementById('buttonText');
+        buttonText.style.display = 'none';
+
+        // Mostra o spinner
+        var buttonSpinner = document.getElementById('buttonSpinner');
+        buttonSpinner.style.display = 'block';
+    });
+});
 
 
-            });
-        });
 
         </script>
     </body>
