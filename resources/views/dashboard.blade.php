@@ -281,10 +281,7 @@
 
                                         <button class="btn btn-success ml-10 border cartadd " data-bs-toggle="modal"
                                             data-bs-target="#firstModal{{$item->id}}">
-
                                             <i class="fa-sharp fa-solid fa-cart-plus text-white"></i>
-
-
                                         </button>
 
                                       @else
@@ -298,75 +295,91 @@
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header,btn btn-warning">
-                                                    {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                                    <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
-                                                      X
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
-                                                        @csrf
-                                                        <div class="text  pt-4 rounded">
-                                                          <form class="grup-control">
-                                                              <fieldset class="text-center">
+                                                    <div class="modal-header,btn btn-warning">
+                                                        {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                                        <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
+                                                        X
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
+                                                            @csrf
+                                                            <div class="text  pt-4 rounded">
+                                                            <form class="grup-control">
+                                                                <fieldset class="text-center">
 
-                                                                    <div class="label text-center">
-                                                                        <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
-                                                                        <strong><h1>PRODUTO</h1></strong>
-                                                                        <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
-                                                                    </div>
-                                                                    <div class=" mt-2 label2 text-center">
-                                                                        <strong><h1>DESCRIÇÃO</h1></strong>
-                                                                        <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
-                                                                    </div>
-                                                                    <div class=" mt-2 label2 text-center">
-                                                                      <strong><h1>QUANTIDADE</h1></strong>
-                                                                        <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
-                                                                    </div>
-                                                                    <div class="label3 text-center p-2">
-                                                                        <strong><h1>PREÇO UNITARIO</h1></strong>
-                                                                        <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
-                                                                    </div>
-                                                                    <div class="text-center p-2">
-                                                                        <strong><label for="additional">ADICIONAIS</label></strong>
+                                                                        <div class="label text-center">
+                                                                            <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
+                                                                            <strong><h1>PRODUTO</h1></strong>
+                                                                            <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
                                                                         </div>
-                                                                    <div class="text-center  rounded multiselect-container ">
+                                                                        <div class=" mt-2 label2 text-center">
+                                                                            <strong><h1>DESCRIÇÃO</h1></strong>
+                                                                            <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
+                                                                        </div>
+                                                                        <div class=" mt-2 label2 text-center">
+                                                                        <strong><h1>QUANTIDADE</h1></strong>
+                                                                            <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
+                                                                        </div>
+                                                                        <div class="label3 text-center p-2">
+                                                                            <strong><h1>PREÇO UNITARIO</h1></strong>
+                                                                            <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
+                                                                        </div>
+                                                                            <div class="text-center p-2">
+                                                                                <strong><label for="additional">ADICIONAIS</label></strong>
+                                                                                <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
+                                                                            </div>
 
-                                                                        <select  class=" rounded" name="additional[]" multiple="multiple">
-                                                                            @foreach( $adde as $add)
+                                                                            <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
+                                                                                @foreach($additional as $item)
+                                                                                    <div class="flex items-center justify-between space-x-2 container">
+                                                                                        <div class="flex items-center space-x-2">
+                                                                                            <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600" onchange="toggleQuantityField({{ $item->id }})">
+                                                                                            <label for="additional-{{ $item->id }}" class="text-lg">
+                                                                                                {{ $item->name }}
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="flex items-center">
+                                                                                            <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
+                                                                                            <input
+                                                                                            type="number"
+                                                                                            id="quantity-{{ $item->id }}"
+                                                                                            name="additional_quantities[{{ $item->id }}]"
+                                                                                            min="1"
+                                                                                            value="1"
+                                                                                            class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                                            inputmode="numeric"
+                                                                                            pattern="[0-9]*">
 
-                                                                                <option value="{{$add->id}}" name="{{$add->name}}" >
-                                                                                  {{$add->name}}-R$- @money($add->price)
-                                                                                </option>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
 
-                                                                            @endforeach
-                                                                        </select>
 
-                                                                    </div>
-                                                                    <div class=" p-2 text-center">
-                                                                      <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                                      <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
-                                                                    </div>
-                                                                    <div class="flex flex-col gap-2">
+                                                                        <div class=" p-2 text-center">
+                                                                        <strong><h1>OBSERVAÇÃO</h1></strong>
+                                                                        <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
+                                                                        </div>
+                                                                        <div class="flex flex-col gap-2">
 
-                                                                        <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
-                                                                            <span id="buttonText">ADICIONAR</span>
-                                                                            <span id="buttonSpinner" style="display: none;">
-                                                                                <div class="spinner"></div>
-                                                                            </span>
-                                                                        </button>
+                                                                            <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                                <span id="buttonText">ADICIONAR</span>
+                                                                                <span id="buttonSpinner" style="display: none;">
+                                                                                    <div class="spinner"></div>
+                                                                                </span>
+                                                                            </button>
 
-                                                                      {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
-                                                                      <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
-                                                                    </div>
-                                                              </fieldset>
-                                                          </form>
-                                                        </div>
-                                                    </Form>
-                                                </div>
-                                                </div>
+                                                                        {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
+                                                                        <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
+                                                                        </div>
+                                                                </fieldset>
+                                                            </form>
+                                                            </div>
+                                                        </Form>
+                                                    </div>
                                             </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -423,6 +436,17 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonSpinner.style.display = 'block';
     });
 });
+/*function toggleQuantityField(additionalId) {
+    const checkbox = document.getElementById(`additional-${additionalId}`);
+    const quantityField = document.getElementById(`quantity-${additionalId}`);
+
+    if (checkbox.checked) {
+        quantityField.disabled = false;
+    } else {
+        quantityField.disabled = true;
+        quantityField.value = 1; // Reset value to 1 when unchecked
+    }
+}*/
 
 
 

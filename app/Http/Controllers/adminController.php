@@ -14,6 +14,7 @@ use App\Models\BlindCart;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -23,7 +24,7 @@ class adminController extends Controller
   public function store(Request $request)
 
         {
-         
+
 
             $user      = Auth::user();
             $users       = $user->id;
@@ -222,6 +223,16 @@ class adminController extends Controller
                 ->with(['orderUser', 'orderList.addressUserType.address', 'orderAdditional'])
                 ->where('status', 'processando')
                 ->get();
+
+                  // Definir a sessão para notificação do usuário comum
+            if ($orders->isNotEmpty()) {
+                session()->flash('new_order', true);
+            }
+
+            // Definir a sessão para notificação do administrador, usando o Gate
+            if (Gate::allows('access')) {
+                session()->flash('new_order_admin', true);
+            }
 
             return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
         }

@@ -102,6 +102,7 @@
                                         <td>
                                             @if ($list->blindCart)
                                                 {{ $list->blindCart->name }}
+                                                @break
                                             @else
                                                 //
                                             @endif

@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order_product extends Model
 {
-   
+
     protected $guarded = [];
-    
+
      public function orderProductProduct()
 
        {
         return $this->belongsTo(Product::class,'product_id', 'id');
        }
-       
+
     public function blinCart()
 
        {
@@ -25,7 +25,7 @@ class Order_product extends Model
     public function orderProductAdditional()
 
         {
-            return $this->BelongsToMany(Additional::class, 'additional_order_products', 'order_product_id','additional_id', 'id');
+            return $this->BelongsToMany(Additional::class, 'additional_order_products', 'order_product_id','additional_id', 'id')->withPivot('quantity');
         }
 
     public function orderPorductUser()
@@ -36,5 +36,5 @@ class Order_product extends Model
     public function orderBlind()
        {
         return $this->belongsTo(blind::class, 'user_id', 'id');
-       }   
+       }
 }

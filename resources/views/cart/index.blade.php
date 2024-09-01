@@ -136,6 +136,14 @@
                                     </script>
                                 @endif
 
+                                @if (session('new_order_admin'))
+                                    <script>
+                                        // Reproduzir som de notificação para o administrador
+                                        var audio = new Audio('{{ asset('sounds/admin_audio.mp3') }}');
+                                        audio.play();
+                                    </script>
+                                @endif
+
                             @if (session('successmessage'))
 
                                 <div class="success text-lg p-2 font-bold">
@@ -263,8 +271,14 @@
 
                                                       @if ($item->orderProductAdditional()->count()>0)
                                                         @foreach ($item->orderProductAdditional as $additional)
-                                                          <span class=" additional rounded p-2  px-4 font-bold bg-slate-300 text-sm">{{ $additional->name ?? '' }}</span><br>
-                                                        @endforeach
+                                                        {{-- @dd($item->orderProductAdditional ) --}}
+                                                        @php
+                                                            $quantity = $additionalOrderProducts->where('additional_id', $additional->id)->first()->quantity ?? 1;
+                                                        @endphp
+                                                      <span class="additional rounded p-2 px-4 font-bold bg-slate-300 text-sm">
+                                                          {{ $additional->name ?? '' }} ({{$quantity }})
+                                                      </span><br>
+                                                  @endforeach
                                                       @else
                                                           <div class=" p-2 rounded custom-border ">
                                                             <p>

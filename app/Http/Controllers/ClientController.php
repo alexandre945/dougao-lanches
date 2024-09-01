@@ -24,7 +24,7 @@ class ClientController extends Controller
 
             $time = WaitingTime::latest()->first();
 
-            $adde = Additional::all();
+            $additional = Additional::all();
 
             $productCount = Order_product::where('user_id', $users)->with('orderProductProduct')->count();
 
@@ -32,7 +32,7 @@ class ClientController extends Controller
 
 
 
-            return view('dashboard', compact('product', 'adde',  'order', 'toggle', 'productCount', 'time'));
+            return view('dashboard', compact('product', 'additional',  'order', 'toggle', 'productCount', 'time'));
       }
       public function toggle(Request $resquest)
       {
