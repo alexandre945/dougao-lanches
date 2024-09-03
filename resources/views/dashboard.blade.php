@@ -17,14 +17,11 @@
         <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
 
         <style>
-          .container {
+          /* .container {
             font-family: 'Chela One', cursive;
             font-family: 'Roboto', sans-serif;
           }
-          .price {
-             font-size: 20px;
-            font-weight: bold;
-          }
+
           .add {
             background-color: chartreuse;
             color: green;
@@ -70,18 +67,15 @@
          .green{
             color: green;
             /* background-color: cornsilk; */
-            padding: 2px;
-            border-radius: 6px;
 
 
-         }
          .red {
             color: red;
             border-radius: 6px;
          }
          .greend {
             color: rgb(28, 108, 28);
-         }
+         } */
          .spinner {
         border: 4px solid rgba(0,0,0,0.1);
         border-left: 4px solid #1c8ad3;
@@ -94,10 +88,23 @@
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
-    }
-    #buttonSpinner {
-    margin-left: 5px; /* Opcional, para um pequeno espaçamento entre o texto e o spinner */
-    }
+        }
+        #buttonSpinner {
+        margin-left: 5px; /* Opcional, para um pequeno espaçamento entre o texto e o spinner */
+        }
+
+        .clock {
+            animation:blink 4s linear infinite;
+        }
+
+    @keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        }
 
         </style>
         <title>CreateProduct</title>
@@ -106,42 +113,31 @@
     <body>
         @vite('resources/css/app.css')
 
-            <div class="baner  text-center bg-orange-500 pb-4">
+            <div class=" pb-4 bg-slate-100">
 
-              <div class="flex">
+                    <div class="flex justify-between">
+                          <div class="pt-2 ml-2  pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
+                                @if ($toggle->is_open == 0 ?? '')
+                                @php
+                                    // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
+                                    $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
+                                @endphp
 
-                      <div class="pt-2 ml-2 bg-orange-500 pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
-                            @if ($toggle->is_open == 0 ?? '')
-                            @php
-                                  // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
-                                  $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
-                            @endphp
-
-                            @if ($isMonday)
-                                  <p >A lanchonete está fechada. Abre terça-feira às 19:00hs.</p>
-                            @else
-                                <div class="bg-orange-300 red pl-2 pr-2 ">
-                                    <p>Lanchonete fechada</p>
-                                    <p>Abre hoje às 19:00 hs</p>
-                                </div>
-                            @endif
-                            @else
-                                    <div class="lime pt-2 bg-orange-300 green pl-2 pr-2">
-                                        Lanchonete aberta
+                                @if ($isMonday)
+                                    <p class="sm:text-sm md:text-md text-black" >A lanchonete está fechada. Abre terça-feira às 19:00hs.</p>
+                                @else
+                                    <div class="bg-yellow-200 red pl-2 pr-2">
+                                        <p class="md:text-xl sm:text-sm">Lanchonete fechada</p>
+                                        <p class="sm:text-sm md:text-md">Abre hoje às 19:00hs</p>
                                     </div>
-                            @endif
-                      </div>
-
-
-                        <div class="bg-white text-black rounded p-2 mt-2 hidden">
-                          <form action="{{ route('update.admin')}}" method="post">
-                              @csrf
-                              <button type="submit">
-                                  trocar para admin
-                              </button>
-                          </form>
-                        </div>
-
+                                @endif
+                                @else
+                                        <div class=" border text-green-800 p-2 rounded">
+                                            <p class="text-green text-sm">Lanchonete aberta</p>
+                                        </div>
+                                @endif
+                          </div>
+                             @include('layouts.adminButton')
                           <div class="logaut ">
                             <x-dropdown width="48">
                                 <x-slot name="trigger">
@@ -174,56 +170,54 @@
                                 </x-slot>
                             </x-dropdown>
                           </div>
-
-              </div>
-
-                        <div class="cart">
-                              <div class="flex">
-                                 <div class="">
-                                    <a href="{{ route('cart.show')}}">
-                                        <i class="fa-solid fa-cart-flatbed-suitcase fa-beat text-yellow"></i>
-                                        <p class="text-yellow  ">
-                                            minhas compras
-                                        </p>
-                                    </a>
-                                 </div>
-                                <div class="text-3xl font-normal">
-                                    @if($productCount)
-
-                                        {{$productCount}}
-
-                                    @endif
-                                    @if(!$productCount)
-                                    <i class="fa-solid fa-sad-tear  text-3xl text-white"></i>
-
-                                    @endif
-                                </div>
-
-                              </div>
-                          <div class="text-2xl font-normal">
+                    </div>
 
 
-                             <div class="pb-2">
-                                @if($order && $order->created_at->isToday())
-                                <p class="text-yellow text-sm ">Status do seu pedido de numero: <span class="text-lg">{{$order->id ?? ''}}</span></p>
-                                <p class="greend  pb-2 text-xl sm:text-sm lg:3xl">{{$order->status ?? ''}}</p>
-                              @endif
-                             </div>
 
-                          </div>
+                    <div class="cart ml-auto">
+                        <div class="flex justify-end items-center space-x-2">
+                            <div>
+
+                                <a href="{{ route('cart.show')}}">
+                                    <i class="fa-solid fa-cart-flatbed-suitcase fa-beat text-blue"></i>
+                                    <p class="text-blue">minhas compras</p>
+                                </a>
+                            </div>
+                            <div class="text-3xl font-normal pr-4">
+                                @if($productCount)
+                                    <span class="text-xl text-blue">{{$productCount}}</span>
+                                @endif
+                                @if(!$productCount)
+                                    <i class="fa-solid fa-sad-tear text-3xl text-slate-500"></i>
+                                @endif
+                            </div>
                         </div>
+                        <div class="text-2xl font-normal pl-4">
+                            <div class="pb-2">
+                                @if($order && $order->created_at->isToday())
+                                    <p class="text-sm">Status do seu pedido de número: <span class="text-lg">{{$order->id ?? ''}}</span></p>
+                                    <p class="greend pb-2 text-xl sm:text-sm md-text-xl">{{$order->status ?? ''}}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
 
                   <div class=" ">
-                    @include('layouts.baner')
-                    <div class="text-xl lg:text-lg text-start md:text-center ">
+
+                    {{-- @include('layouts.baner') --}}
+                    <div class="text-xl pt-6 md:text-center ">
                          <div class=" ">
-                             <p class="ml-2">Horario de funcionamento: de Terça a Domingo
+
+                             <p class="ml-2 text-sm md:text-xl sm:text-start text-center">Horario de funcionamento: de Terça a Domingo
                                 das 19:00 hs as 24:00 hs
                              </p>
                          </div>
 
                          <div class="pt-2 ml-2">
-                            <p class="text-start">tempo de espera aproximado: {{ $time->waitingtime ?? ''}} min</p>
+
+                            <p class="sm:text-start text-sm clock fa-solid fa-clock ">tempo de espera aproximado: {{ $time->waitingtime ?? ''}} min</p>
+                            <i class=""></i>
                          </div>
                     </div>
 
@@ -235,19 +229,19 @@
                 @include('layouts.menu')
               </div>
 
-              @if(session('access'))
-              <div class="text-green-600">
-                  <p>
-                  {{ session('access')}}
-                  </p>
-              </div>
-          @endif
+                @if(session('access'))
+                    <div class="bg-amber-300">
+                        <p class="text-green">
+                        {{ session('access')}}
+                        </p>
+                    </div>
+                @endif
 
-          @if(session('success'))
-              <div class=" success text-center  bg-white ">
-                  <p>{{ session('success')}}</p>
-              </div>
-          @endif
+                @if(session('success'))
+                    <div class=" success text-center  bg-white ">
+                        <p class="text-green p-2">{{ session('success')}}</p>
+                    </div>
+                @endif
 
 
                 <div class="mb-5 mt-4 text-center" id="menu">

@@ -118,10 +118,9 @@
                    </div>
                   <div class="text-center ">
 
-                        <h1 class="text-xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras:</h1>
-                        <p class="text-gray-700 font-bold">{{ auth()->user()->name }}</p>
+                        <h1 class="text-xl md:text-2xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras: {{ auth()->user()->name }}</h1>
+                        
                   </div>
-
                         {{-- <audio controls autoplay>
                             <source src="{{asset('sounds/new_order.mp3')}}" type="audio/mp3">
                             Your browser does not support the audio element.
@@ -187,139 +186,93 @@
 
                               @endif
 
-                    <div class=" block  overflow-auto">
-
-                          <table class=" sm:w-full text-md font-light ">
-                              <thead class="border-b ">
-                                <tr>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Produto</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Preço</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Quantidade</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Observação</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Adicionais</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Blinde</th>
-                                    <th scope="col" class="px-4 py-2 text-gray-700">Açoẽs</th>
-
-                                </tr>
-                              </thead>
-
-                                  @forelse ($cart as $item)
-                                        <?php $total = $total?>
-                                      <tbody>
-                                              <tr class="border-b dark:border-neutral-500">
-                                                <td class="whitespace-nowrap px-2 w-auto text-gray-700 font-bold">
-
-                                                   @if ($item->orderProductProduct)
-                                                   <span class=" custom-border text-gray-700 additional rounded p-2 px-6 md:px-4 bg-slate-300 font-bold w-full text-sm ">{{ $item->orderProductProduct->name ?? ''}}</span>
-                                                   @else
-                                                       <div class=" p-2 rounded custom-border ">
-                                                        <p>
-                                                          //
-                                                        </p>
-                                                       </div>
-                                                   @endif
-
-                                                </td>
-
-                                                  <input type="hidden"  name="product_id" value="{{ $item->orderProductProduct->name ?? ''}}">
-
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                   @if ( $item->orderProductProduct )
-                                                    <span class=" custom-border additional  p-2 px-4 font-bold rounded bg-slate-300  text-sm">
-                                                      @money($item->orderProductProduct->price ?? 0)
-                                                    </span>
-                                                   @else
-                                                       <div class=" p-2 rounded custom-border ">
-                                                        <p>
-                                                          //
-                                                        </p>
-                                                       </div>
-                                                   @endif
-
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                  @if ( $item->quanty)
-                                                  <span class="custom-border additional rounded p-2 px-4 bg-slate-300 font-bold text-sm">{{ $item->quanty}}</span>
-                                                  @else
-                                                      <div class=" p-2 rounded custom-border ">
-                                                        <p>
-                                                          //
-                                                        </p>
-                                                      </div>
-                                                  @endif
-
-                                                </td>
-
-                                                <td class="text-gray-700  font-bold">
-                                                    @if ( $item->observation)
-                                                       <div class="">
-                                                        <span class="custom-border additional  rounded p-2 px-4 bg-slate-300 font-bold text-sm">{{ $item->observation ?? ''}}</span>
-                                                       </div>
-
-                                                    @else
-                                                        <div class="">
-                                                          <p class=" p-2 rounded custom-border ">
-                                                            //
-                                                          </p>
-                                                        </div>
-                                                    @endif
 
 
-                                                </td>
+                        <div class="block overflow-auto">
 
-                                                <td class="text-gray-700 font-bold ">
+                            <table class="w-full text-md font-light bg-white shadow-md rounded-lg overflow-hidden">
+                                <thead class="bg-gray-200 border-b">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Produto</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Preço</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Quantidade</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Observação</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Adicionais</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Blinde</th>
+                                        <th scope="col" class="px-4 py-2 text-gray-700">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($cart as $item)
+                                    <tr class="border-b dark:border-neutral-500 hover:bg-gray-50">
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700 font-semibold">
+                                            @if ($item->orderProductProduct)
+                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->orderProductProduct->name ?? ''}}</span>
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
-                                                      @if ($item->orderProductAdditional()->count()>0)
-                                                        @foreach ($item->orderProductAdditional as $additional)
-                                                        {{-- @dd($item->orderProductAdditional ) --}}
-                                                        @php
-                                                            $quantity = $additionalOrderProducts->where('additional_id', $additional->id)->first()->quantity ?? 1;
-                                                        @endphp
-                                                      <span class="additional rounded p-2 px-4 font-bold bg-slate-300 text-sm">
-                                                          {{ $additional->name ?? '' }} ({{$quantity }})
-                                                      </span><br>
-                                                  @endforeach
-                                                      @else
-                                                          <div class=" p-2 rounded custom-border ">
-                                                            <p>
-                                                              //
-                                                            </p>
-                                                          </div>
-                                                      @endif
+                                        <td class="whitespace-nowrap px-4 py-2">
+                                            @if ($item->orderProductProduct)
+                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">@money($item->orderProductProduct->price ?? 0)</span>
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
-                                                </td>
-                                                <td class="text-gray-700 font-bold">
+                                        <td class="whitespace-nowrap px-4 py-2">
+                                            @if ($item->quanty)
+                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->quanty }}</span>
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                            @if ($item->observation)
+                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->observation }}</span>
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
-                                                        @if ($item->blinCart)
-                                                          <span class="custom-border additional  rounded p-2 bg-slate-300 px-6 text-sm">{{ $item->blinCart->name ?? ''}}</span>
-                                                        @else
-                                                            <div class=" p-2 rounded custom-border ">
-                                                              <p>
-                                                                //
-                                                              </p>
-                                                            </div>
-                                                        @endif
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                            @if ($item->orderProductAdditional()->count() > 0)
+                                                @foreach ($item->orderProductAdditional as $additional)
+                                                @php
+                                                    $quantity = $additionalOrderProducts->where('additional_id', $additional->id)->first()->quantity ?? 1;
+                                                @endphp
+                                                <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $additional->name }} ({{ $quantity }})</span><br>
+                                                @endforeach
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
-                                                </td>
-                                                <td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                            @if ($item->blinCart)
+                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->blinCart->name ?? '' }}</span>
+                                            @else
+                                            <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
+                                            @endif
+                                        </td>
 
-                                                  <form action="{{ route('cart.delete', $item->id) }}" method="POST">
-                                                    @csrf
-                                                    <div class=" rounded">
-                                                        <button class="rounded text-light p-2 additional font-bold text-sm bg-red-500 custom-border ">EXCLUIR</button>
-                                                    </div>
-                                                </form>
-                                                </td>
-
-                                            </tr>
-
+                                        <td class="whitespace-nowrap px-4 py-2">
+                                            <form action="{{ route('cart.delete', $item->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="text-white bg-red-500 hover:bg-red-600 rounded px-4 py-2 text-sm font-semibold">Excluir</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @empty
-                                            <p class="text-white text-lg p-2 font-bold">'Sua sacola esta vazia'</p>
+                                    <tr>
+                                        <td colspan="7" class="text-center text-gray-500 py-4">Sua sacola está vazia</td>
+                                    </tr>
                                     @endforelse
-                                      </tbody>
-                          </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
 
                                <div class="  container ">
                                     <div class="rounded  pt-2 mt-2 ">
