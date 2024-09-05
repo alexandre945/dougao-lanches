@@ -119,7 +119,7 @@
                   <div class="text-center ">
 
                         <h1 class="text-xl md:text-2xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras: {{ auth()->user()->name }}</h1>
-                        
+
                   </div>
                         {{-- <audio controls autoplay>
                             <source src="{{asset('sounds/new_order.mp3')}}" type="audio/mp3">
@@ -205,9 +205,9 @@
                                 <tbody>
                                     @forelse ($cart as $item)
                                     <tr class="border-b dark:border-neutral-500 hover:bg-gray-50">
-                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700 font-semibold">
+                                        <td class="whitespace-nowrap px-4 py-2 ">
                                             @if ($item->orderProductProduct)
-                                            <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->orderProductProduct->name ?? ''}}</span>
+                                            <span class=" rounded p-2 px-4">{{ $item->orderProductProduct->name ?? ''}}</span>
                                             @else
                                             <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
                                             @endif
@@ -238,16 +238,22 @@
                                         </td>
 
                                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                                            @if ($item->orderProductAdditional()->count() > 0)
+                                            {{-- @if ($item->orderProductAdditional()->count() > 0)
                                                 @foreach ($item->orderProductAdditional as $additional)
                                                 @php
                                                     $quantity = $additionalOrderProducts->where('additional_id', $additional->id)->first()->quantity ?? 1;
                                                 @endphp
-                                                <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $additional->name }} ({{ $quantity }})</span><br>
+                                                <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $additional->name }} ( {{ $quantity }} )</span><br>
                                                 @endforeach
                                             @else
                                             <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
-                                            @endif
+                                            @endif --}}
+
+                                            @forelse ($item->orderProductAdditional as $additional)
+                                              {{ $additional->name }} ( {{$additional->pivot->quantity}} )
+                                            @empty
+                                            //
+                                           @endforelse
                                         </td>
 
                                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">
@@ -267,7 +273,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7" class="text-center text-gray-500 py-4">Sua sacola está vazia</td>
+                                        <td colspan="7" class="text-center text-orange-500 font-bold  py-4">Sua sacola está vazia</td>
                                     </tr>
                                     @endforelse
                                 </tbody>

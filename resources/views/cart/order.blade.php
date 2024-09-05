@@ -94,7 +94,7 @@
                                         <td>{{ $list->observation ?? '//' }}</td>
                                         <td>
                                             @forelse ($list->orderAdditional as $additional)
-                                                {{ $additional->name }},
+                                                {{ $additional->name }} ( {{$additional->pivot->quantity}} )
                                             @empty
                                                 //
                                             @endforelse

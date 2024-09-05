@@ -45,7 +45,7 @@ class OrderList extends Model
              'additional_orders',
               'order_id',
               'additional_id',
-              'id');
+              'id')->withPivot('quantity');
          }
 
     public function addressUserType()

@@ -29,10 +29,23 @@ class ClientController extends Controller
             $productCount = Order_product::where('user_id', $users)->with('orderProductProduct')->count();
 
             $product = Product::where('category_id', 1)->where('status', 0)->simplePaginate(10);
+            $productBeer = Product::where('category_id', 2)->where('status', 0)->simplePaginate(10);
+            $productCombo = Product::where('category_id', 3)->where('status', 0)->simplePaginate(10);
+            $productBomboniere = Product::where('category_id', 4)->where('status', 0)->simplePaginate(10);
 
 
 
-            return view('dashboard', compact('product', 'additional',  'order', 'toggle', 'productCount', 'time'));
+            return view('dashboard', compact (
+            'product',
+            'additional',
+             'order',
+             'toggle',
+             'productCount',
+             'time',
+             'productBeer',
+             'productCombo',
+             'productBomboniere'
+              ));
       }
       public function toggle(Request $resquest)
       {

@@ -104,7 +104,11 @@ class adminController extends Controller
                 ]);
 
 
-                $orderlist->orderAdditional()->attach($item->orderProductAdditional);
+                foreach ($item->orderProductAdditional as $additional) {
+                    $orderlist->orderAdditional()->attach($additional->id, [
+                        'quantity' => $additional->pivot->quantity
+                    ]);
+                }
 
             }
 
@@ -209,8 +213,7 @@ class adminController extends Controller
         }
         }
 
-
-    public function index(Request $request)
+        public function index(Request $request)
         {
             $newOrder = true;
             $user = Auth::user();
@@ -220,22 +223,43 @@ class adminController extends Controller
 
             // Carregar pedidos do usuário com as relações necessárias
             $orders = Order::orderBy('id', 'desc')
-                ->with(['orderUser', 'orderList.addressUserType.address', 'orderAdditional'])
+                ->with([
+                    'orderUser',  // Relação com o usuário que fez o pedido
+                    'orderList' => function($query) {
+                        $query->with([
+                            'addressUserType.address',  // Relação com o tipo de endereço e o endereço em si
+                            'orderAdditional' => function($q) {
+                                $q->withPivot('quantity');  // Inclui a quantidade de cada adicional
+                            }
+                        ]);
+                    }
+                ])
                 ->where('status', 'processando')
                 ->get();
 
-                  // Definir a sessão para notificação do usuário comum
-            if ($orders->isNotEmpty()) {
-                session()->flash('new_order', true);
-            }
-
-            // Definir a sessão para notificação do administrador, usando o Gate
-            if (Gate::allows('access')) {
-                session()->flash('new_order_admin', true);
-            }
-
             return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
         }
+
+
+
+    // public function index(Request $request)
+    //     {
+    //         $newOrder = true;
+    //         $user = Auth::user();
+    //         $userId = $user->id ?? '';
+
+    //         $date = now()->format('d/m/y H:i:s');
+
+    //         // Carregar pedidos do usuário com as relações necessárias
+    //         $orders = Order::orderBy('id', 'desc')
+    //             ->with(['orderUser', 'orderList.addressUserType.address', 'orderAdditional'])
+    //             ->where('status', 'processando')
+    //             ->get();
+
+
+
+    //         return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
+    //     }
 
 
   public function update(Request $request, $id)
