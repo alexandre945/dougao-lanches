@@ -131,7 +131,7 @@
 
                 </div>
                 {{-- div que mostra tempo para entrega --}}
-                <div>
+                <div class="ml-2">
                     <span class="text-blue font-semibold text-sm md:text-1xl"><i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega</span>
                         <p class="text-sm text-gray-600">{{ $time->waitingtime ?? ''}} minutos</p>
                     @if($order && $order->created_at->isToday())
