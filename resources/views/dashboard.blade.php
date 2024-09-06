@@ -721,27 +721,27 @@
         buttonSpinner.style.display = 'block';
     });
     });
-    document.addEventListener('DOMContentLoaded', function() {
-    // Desabilitar todos os campos de quantidade inicialmente
-    document.querySelectorAll('input[type="number"]').forEach(function(quantityField) {
-        quantityField.disabled = true;
-    });
+//     document.addEventListener('DOMContentLoaded', function() {
+//     // Desabilitar todos os campos de quantidade inicialmente
+//     document.querySelectorAll('input[type="number"]').forEach(function(quantityField) {
+//         quantityField.disabled = true;
+//     });
 
-    // Adiciona evento aos checkboxes para habilitar/desabilitar o campo de quantidade
-    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            const additionalId = checkbox.id.split('-')[1]; // Pega o ID do adicional
-            const quantityField = document.getElementById(`quantity-${additionalId}`);
+//     // Adiciona evento aos checkboxes para habilitar/desabilitar o campo de quantidade
+//     document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+//         checkbox.addEventListener('change', function() {
+//             const additionalId = checkbox.id.split('-')[1]; // Pega o ID do adicional
+//             const quantityField = document.getElementById(`quantity-${additionalId}`);
 
-            if (checkbox.checked) {
-                quantityField.disabled = false; // Ativa o campo de quantidade se o checkbox estiver marcado
-            } else {
-                quantityField.disabled = true; // Desativa o campo se o checkbox estiver desmarcado
-                quantityField.value = 1; // Reseta o valor para 1 quando desmarcado
-            }
-        });
-    });
-});
+//             if (checkbox.checked) {
+//                 quantityField.disabled = false; // Ativa o campo de quantidade se o checkbox estiver marcado
+//             } else {
+//                 quantityField.disabled = true; // Desativa o campo se o checkbox estiver desmarcado
+//                 quantityField.value = 1; // Reseta o valor para 1 quando desmarcado
+//             }
+//         });
+//     });
+// });
 
 
 
