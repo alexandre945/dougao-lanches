@@ -52,7 +52,7 @@
 
     <header class="text-center mb-8 pt-8">
         <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
-        <p class="text-lg text-gray-600">Lanches deliciosos entregue em sua casa</p>
+        <p class="text-sm md:text-lg text-gray-600">Lanches deliciosos entregue em sua casa</p>
             {{-- div do logout --}}
         <div class=" logout absolute top-0 left-0   px-4  md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
@@ -111,18 +111,18 @@
                         @endphp
 
                         @if ($isMonday)
-                            <p class="sm:text-sm md:text-md text-black" >A lanchonete está fechada. Abre terça-feira às 19:00hs.</p>
-                            <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada. Abre terça-feira às 19:00hs</span>
+                            <p class="sm:text-sm md:text-md text-black" > Fechada. Abre terça-feira às 19:00h.</p>
+                            <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada. Abre terça-feira às 19:00h</span>
                         @else
                             <div class="bg-yellow-200 red pl-2 pr-2">
                                 <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
-                                <p class="sm:text-sm md:text-md">Abre hoje às 19:00hs</p>
+                                <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                             </div>
                         @endif
                         @else
                                 <div class=" border text-green-800 p-2 rounded">
                                     <span class="text-green font-semibold text-sm"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
-                                    <p class="text-sm text-gray-600">aberto até at 24:00</p>
+                                    <p class="text-sm text-gray-600">Aberto até 24:00h</p>
                                 </div>
                         @endif
                   </div>
@@ -141,9 +141,9 @@
                 </div>
 
             </div>
-            <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00hs - 24:00hs</p>
+            <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h - 24:00h</p>
         </div>
-          <h1 class="text-center pb-2 font-semibold text-gray-600">LANCHES</h1>
+          <h1 class="text-center pb-2 font-semibold text-gray-600 bg-slate-200 p-4 m-2">LANCHES</h1>
           {{-- lop dos produtos --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -272,7 +272,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2 pt-2 font-semibold text-gray-600">BEBIDAS</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-slate-200 p-6 m-2">BEBIDAS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -341,12 +341,12 @@
                                                     <strong><h1>PREÇO UNITARIO</h1></strong>
                                                     <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
                                                 </div>
-                                                    <div class="text-center p-2">
+                                                    {{-- <div class="text-center p-2">
                                                         <strong><label for="additional">ADICIONAIS</label></strong>
                                                         <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
-                                                    </div>
+                                                    </div> --}}
 
-                                                    <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
+                                                    {{-- <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
                                                         @foreach($additional as $item)
                                                             <div class="flex items-center justify-between space-x-2 container">
                                                                 <div class="flex items-center space-x-2">
@@ -370,13 +370,13 @@
                                                         @endforeach
 
 
-                                                    </div>
+                                                    </div> --}}
 
 
-                                                <div class=" p-2 text-center">
-                                                <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
-                                                </div>
+                                                {{-- <div class=" p-2 text-center">
+                                                    <strong><h1>OBSERVAÇÃO</h1></strong>
+                                                    <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
+                                                </div> --}}
                                                 <div class="flex flex-col gap-2">
 
                                                     <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
@@ -401,7 +401,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2 pt-2 font-semibold text-gray-600">COMBOS</h1>
+        <h1 class="text-center pb-2 font-semibold text-gray-600 bg-slate-200 p-6 m-2">COMBOS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -530,7 +530,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2 pt-2 font-semibold text-gray-600">bobomniere</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-slate-200 p-6 m-2">BOMBONIERE</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 

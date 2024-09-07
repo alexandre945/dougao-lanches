@@ -33,94 +33,23 @@
 
     </style>
 
-    {{-- <script>
-
-      function limpa_formulário_cep() {
-              //Limpa valores do formulário de cep.
-              document.getElementById('rua').value=("");
-              document.getElementById('bairro').value=("");
-              document.getElementById('cidade').value=("");
-              document.getElementById('numero').value=("");
-              document.getElementById('complemento').value=("");
-      }
-
-      function meu_callback(conteudo) {
-          if (!("erro" in conteudo)) {
-              //Atualiza os campos com os valores.
-              document.getElementById('rua').value=(conteudo.logradouro);
-              document.getElementById('bairro').value=(conteudo.bairro);
-              document.getElementById('cidade').value=(conteudo.localidade);
-              // document.getElementById('numero').value=(conteudo.numero);
-              // document.getElementById('complemento').value=(conteudo.complento);
-          } //end if.
-          else {
-              //CEP não Encontrado.
-              limpa_formulário_cep();
-              alert("CEP não encontrado.");
-          }
-      }
-
-      function pesquisacep(valor) {
-
-          //Nova variável "cep" somente com dígitos.
-          var cep = valor.replace(/\D/g, '');
-
-          //Verifica se campo cep possui valor informado.
-          if (cep != "") {
-
-              //Expressão regular para validar o CEP.
-              var validacep = /^[0-9]{8}$/;
-
-              //Valida o formato do CEP.
-              if(validacep.test(cep)) {
-
-                  //Preenche os campos com "..." enquanto consulta webservice.
-                  document.getElementById('rua').value="...";
-                  document.getElementById('bairro').value="...";
-                  document.getElementById('cidade').value="...";
-                  // document.getElementById('numero').value="...";
-                  // document.getElementById('complemento').value="...";
-
-                  //Cria um elemento javascript.
-                  var script = document.createElement('script');
-
-                  //Sincroniza com o callback.
-                  script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
-
-                  //Insere script no documento e carrega o conteúdo.
-                  document.body.appendChild(script);
-
-              } //end if.
-              else {
-                  //cep é inválido.
-                  limpa_formulário_cep();
-                  alert("Formato de CEP inválido.");
-              }
-          } //end if.
-          else {
-              //cep sem valor, limpa formulário.
-              limpa_formulário_cep();
-          }
-      };
-
-    </script> --}}
-
 
     @vite('resources/css/app.css')
 </head>
 <body>
-      <div class="  text-center md: p-2">
-                   <div class="p-2 text-xl text-gray-700 font-bold">
-                      <a href="{{route('index.point')}}"  class="cart ">
-                        Cartão fidelidade
-                        <i class="fa-solid fa-id-card fa-2xl color " ></i>
-                      </a>
-                   </div>
-                  <div class="text-center ">
+        <div class="  text-center md: p-2 relative bg-yellow-100">
+                 <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <div class=" text-sm  text-gray-700  absolute top-2 left-2 p-2">
+                        <a href="{{route('index.point')}}"  class="text-sm ">
+                            CARTÃO FIDELIDADE
+                          <i class="fa-solid fa-id-card fa-2xl color " ></i>
+                        </a>
+                     </div>
+                     <div class="text-center mt-2">
+                          <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
+                     </div>
+                 </div>
 
-                        <h1 class="text-xl md:text-2xl text-gray-700 font-bold">Bem vindo a sua Sacola de Compras: {{ auth()->user()->name }}</h1>
-
-                  </div>
                         {{-- <audio controls autoplay>
                             <source src="{{asset('sounds/new_order.mp3')}}" type="audio/mp3">
                             Your browser does not support the audio element.
@@ -176,21 +105,119 @@
                               @endif
 
                               @if ( session('delete'))
-
                               <div class="text-green p-2 bg-slate-300 ml-20 mr-20 rounded">
                                 <p>
                                     {{ session('delete')}}
                                 </p>
                               </div>
-
-
                               @endif
+                                {{-- lop dos produtos --}}
+                        <div class="container max-auto">
+                             <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
+                                 <div class=" ">
+
+                                    @forelse ($cart as $item)
+                                        <div class="mb-4 border-b pb-2">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>produto</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                {{ $item->orderProductProduct->name ?? ''}}
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Quatidade</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                <span>{{$item->quanty}}</span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Preço</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                <span>@money($item->orderProductProduct->price ?? 0)</span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        @if($item->orderProductProduct->category_id !=2)
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Observação</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                @if( $item->observation)
+                                                <span>{{ $item->observation }}</span>
+                                                @else
+                                                //
+                                                @endif
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Adicionais</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                <span>
+                                                    @forelse ($item->orderProductAdditional as $additional)
+                                                    {{ $additional->name }} ( {{$additional->pivot->quantity}} )
+                                                @empty
+                                                //
+                                                @endforelse
+                                                </span>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Brinde</span>
+                                            </div>
+                                            <div class="text-gray-700">
+                                                @if( $item->blindCart)
+                                                <span>{{ $item->blinCart->name ?? '' }}</span>
+                                                @else
+                                                //
+                                                @endif
+                                            </div>
+                                            </div>
+                                        </div>
+                                        @else
+
+                                        @endif
+                                        <div class="mb-4 border-b pb-2">
+                                            <div class="flex justify-between items-center mb-2">
+
+                                            <div class="text-gray-700 text-center">
+                                                <form action="{{ route('cart.delete', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="text-white bg-red-500 hover:bg-red-600 rounded px-4 py-2 text-sm font-semibold">Excluir</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        @empty
+
+                                      <p class="text-gray-200">Sua sacola esta vazia</p>
+                                      @endforelse
 
 
+                                 </div>
+                             </div>
 
-                        <div class="block overflow-auto">
-
-                            <table class="w-full text-md font-light bg-white shadow-md rounded-lg overflow-hidden">
+                             {{-- <table class="w-full text-md font-light bg-white shadow-md rounded-lg overflow-hidden">
                                 <thead class="bg-gray-200 border-b">
                                     <tr>
                                         <th scope="col" class="px-4 py-2 text-gray-700">Produto</th>
@@ -203,7 +230,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($cart as $item)
+
                                     <tr class="border-b dark:border-neutral-500 hover:bg-gray-50">
                                         <td class="whitespace-nowrap px-4 py-2 ">
                                             @if ($item->orderProductProduct)
@@ -238,7 +265,7 @@
                                         </td>
 
                                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                                            {{-- @if ($item->orderProductAdditional()->count() > 0)
+                                             @if ($item->orderProductAdditional()->count() > 0)
                                                 @foreach ($item->orderProductAdditional as $additional)
                                                 @php
                                                     $quantity = $additionalOrderProducts->where('additional_id', $additional->id)->first()->quantity ?? 1;
@@ -247,7 +274,7 @@
                                                 @endforeach
                                             @else
                                             <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>
-                                            @endif --}}
+                                            @endif
 
                                             @forelse ($item->orderProductAdditional as $additional)
                                               {{ $additional->name }} ( {{$additional->pivot->quantity}} )
@@ -271,318 +298,317 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @empty
+
                                     <tr>
                                         <td colspan="7" class="text-center text-orange-500 font-bold  py-4">Sua sacola está vazia</td>
                                     </tr>
-                                    @endforelse
+
                                 </tbody>
-                            </table>
+                            </table> --}}
                         </div>
 
-                               <div class="  container ">
-                                    <div class="rounded  pt-2 mt-2 ">
-                                        <div class="ml-4 mr-4  container">
-                                            <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
+                        <div class="container max-auto  ">
+                             {{-- Div total --}}
+                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2 ">
+                                <div class="ml-4 mr-4  container">
+                                    <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
-                                <form id="mainForm" action="{{ route('admin.create') }}" method="post">
+                                    <form id="mainForm" action="{{ route('admin.create') }}" method="post">
 
-                                            @csrf
+                                    @csrf
 
-                                            <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
+                                    <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
 
-                                                            <samp  class=" font-bold  p-2  rounded custom-border bg-slate-200  mb-2"  id="toremove"> R$ @money($total)</samp>
-                                                            <samp  class=" font-bold  p-2  rounded custom-border bg-slate-100  mb-2"  id="delivery"></samp>
-                                                            <input type="hidden" name="total" value=" @money ($total)">
+                                        <samp  class=" font-bold  p-2  rounded custom-border   mb-2"  id="toremove"> R$ @money($total)</samp>
+                                        <samp  class=" font-bold  p-2  rounded custom-border   mb-2"  id="delivery"></samp>
+                                        <input type="hidden" name="total" value=" @money ($total)">
 
-                                                            @foreach ($cart as $item)
-                                                              <input type="hidden" name="blindCartId" value="{{ $item->blinCart->id ?? ''}} ">
+                                        @foreach ($cart as $item)
+                                            <input type="hidden" name="blindCartId" value="{{ $item->blinCart->id ?? ''}} ">
 
-                                                            @endforeach
-
-                                        </div>
-                                    </div>
-                               </div>
-
-                                          <div class=" pb-2 mt-2">
-                                                  <div class="text-center">
-                                                      <h1 class="text-gray-700 font-bold pb-2 text-lg">o pagamento será realizado na entrega</h1>
-                                                  </div>
-                                                  <div class="p-4 relative">
-                                                        <div class="pb-4 w-full">
-
-                                                            <input class="toremove  " type="radio" checked value="0" id="" name="delivery" onchange="atualizarValor()" >
-                                                            <label for="toRemove"  class="text-gray-700 font-bold pr-4" >Retirar na lanchonete</label>
-
-                                                            <input  class=" custom-border " type="radio" value="1" id="entrega" name="delivery" onchange="atualizarValor()">
-                                                            <label for="entrega" class="text-gray-700 font-bold" > Entregar em domicílio</label>
-                                                            <i class="fa-solid fa-motorcycle fa-xl text-cyan-600"></i>
-
-                                                        </div>
-                                                  </div>
-
-                                                  <div class="pb-4">
-                                                        <h2 class="text-gray-700 font-bold pb-2">forma de pagamento</h2>
-                                                        <input class="payment_card custom-border " type="radio" checked value="0" id="" name="payment" >
-                                                        <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
-                                                        <select name="credit_card" id="select" class="rounded additional bg-slate-200 mr-2 custom-border " >
-                                                          <option  value="visa">Visa</option>
-                                                          <option  value="Master Card">Master Card</option>
-                                                          <option  value="Ouro Card">Ouro Card</option>
-                                                        </select>
-
-                                                        <input  class=" custom-border " type="radio" value="1"  name="payment">
-
-                                                        <label for="" class="text-gray-700 font-bold " >Dinheiro</label>
-                                                          @error('payment')
-                                                              <div class="bg-black p-2">
-                                                                <samp>{{ $message}}</samp>
-                                                              </div>
-                                                          @enderror
-                                                </div>
-                                                <div class="pl-4 ">
-                                                  <label for="" class="pb-2 text-gray-700  font-bold">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
-                                                  <input type="text" class="rounded  text-sm custom-border bg-slate-200 additional" name="observation" id="observation" placeholder="ex: troco para 50 reais">
-                                                </div>
-                                          </div>
-
-
-                                      <div class="text-center  overflow-auto">
-
-                                        <button type="submit" id="submitButton" class="text-md additional p-2 mb-2 custom-border bg-slate-300 rounded">
-                                            <span id="buttonText">ENVIAR PEDIDO</span>
-                                            <span id="buttonSpinner" style="display: none;">
-                                                <div class="spinner"></div>
-                                            </span>
-                                        </button>
-
-                                </form>
-
-                                      </div>
-
-                                        <div class="p-2 text-center">
-                                          <a href="{{ route('client.show')}}"><button class="text-md additional custom-border  bg-slate-300 rounded p-2">
-                                           <SPAN>CONTINUAR COMPRANDO</SPAN>
-                                        </button></a>
-                                        </div>
-
-                                        <button class=" text-md p-2  custom-border additional bg-slate-300 rounded mb-2 mt-2 " data-bs-toggle="modal"
-                                            data-bs-target="#firstModal">
-                                            <span>CADASTRAR UM NOVO ENDEREÇO</span>
-                                        </button>
-                                    </div>
-
-              <div class="">
-                            @if(session('success'))
-                                <div class=" text-center  bg-white text-green p-4  rounded font-bold">
-                                    <p>{{ session('success')}}</p>
+                                        @endforeach
                                 </div>
-                            @endif
-                        <div class="text-center text-3xl">
-
-                                    {{-- Modall para Cadastrar endereço --}}
-
-                                    <div class="modal fade" id="firstModal" tabindex="-1"
-                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header,btn btn-warning">
-                                                  {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                                  <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
-                                                    X
-                                                  </button>
-                                              </div>
-
-                                              <div class="modal-body">
-                                                <form action="{{ route('adress.create')}}" method="POST">
-                                                  @csrf
-                                                        <div class="container">
-                                                            <div class="mb-4 sachadow-black">
-
-                                                                <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
-                                                                    Meu trabalho, casa da minha Tia Divina
-                                                                </p>
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
-                                                                <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
-                                                            </div>
-
-                                                              <div class="mb-4 sachadow-black">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
-                                                                <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
-                                                                  @error('city')
-                                                                  <div class=" p-2 ">
-                                                                    <span class="error text-red-500">{{ $message }}</span>
-                                                                  </div>
-                                                                  @enderror
-                                                              </div>
-                                                              <div class="mb-4">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
-                                                                <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder= "digite seu cep" name="zipcode">
-
-                                                                @error('zipcode')
-                                                                    <div class=" p-2">
-                                                                        <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-
-                                                              <div class="mb-4">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
-                                                                <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
-                                                                  @error('district')
-                                                                    <div class=" p-2">
-                                                                      <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                  @enderror
-                                                              </div>
-                                                              <div class="mb-4">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Rua</label>
-                                                                <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
-                                                                  @error('street')
-                                                                    <div class=" p-2">
-                                                                      <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                  @enderror
-                                                              </div>
-                                                              <div class="mb-4">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Número</label>
-                                                                <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
-                                                                  @error('number')
-                                                                    <div class="p-2">
-                                                                      <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                  @enderror
-                                                              </div>
-
-                                                              <div class="mb-4">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
-                                                                  @error('fone')
-                                                                    <div class="p-2">
-                                                                      <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                  @enderror
-                                                              </div>
-
-                                                              <div class="mb-4 ">
-                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Complemento</label>
-                                                                <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
-                                                                  @error('complement')
-                                                                    <div class="p-2">
-                                                                      <span class="error text-red-500">{{ $message }}</span>
-                                                                    </div>
-                                                                  @enderror
-                                                              </div>
-                                                        </div>
-
-                                                      <div class="pb-4">
-                                                        <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-orange-300  font-bold hover:orange-500">CADASTRAR</button>
-                                                      </div>
-                                                </form>
-
-                                              </div>
-
-                                          </div>
-                                      </div>
-                                    </div>
-
+                            </div>
                         </div>
 
-                           @if( $address)
+                        <div class="container max-auto ">
+                            <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
+                                <div class="text-center">
+                                    <h1 class="text-gray-700 pb-2 text-sm md:text-xl">o pagamento será realizado na entrega</h1>
+                                </div>
+                                   {{-- forma de entrega --}}
+                                <div class="p-4 relative">
+                                    <div class=" w-full flex flex-col md:flex-row md:justify-center md:text-center">
+                                         <div class=" mb-4 md:mb-0 flex items-center space-x-2">
+                                            <input class="toremove  " type="radio" checked value="0" id="" name="delivery" onchange="atualizarValor()" >
+                                            <label for="toRemove"  class="text-gray-700  pr-4" >Retirar na lanchonete</label>
+                                         </div>
 
-                            <div class="container">
-
-
-                                    {{-- @dd($addressUserTypes) --}}
-
-                                    {{-- <label for="addressType">Tipo de Endereço:</label> --}}
-                                    <fieldset>
-                                      <legend class="text-xl font-bold">Tipo de endereço</legend>
-                                      <select  name="addressTypeSelect" id="addressType" class="shadow bg-slate-300 appearance-none border rounded w-full py-2 pb-2 mb-2 mt-2 text-gray-700 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                        @php
-                                          $hasAddressType = false;
-                                        @endphp
-                                            @foreach($addressUserTypes as $addressUserType)
-                                                @if ($addressUserType->addressType)
-
-                                                    @php
-                                                    $hasAddressType = true;
-                                                    @endphp
-
-                                                        <option
-                                                        class="text-center text-gray-700"
-                                                        value="{{ $addressUserType->addressType->id }}"
-                                                        data-address-user-type-id="{{ $addressUserType->id }}">
-                                                        {{ $addressUserType->addressType->name }}
-                                                        </option>
-
-                                                @endif
-                                            @endforeach
-
-                                                @if (!$hasAddressType)
-                                                    <option value="">Tipo de endereço não definido</option>
-                                                @endif
-                                      </select>
-                                    </fieldset>
-
-
-
-
-                                @foreach($addressUserTypes as $addressUserType)
-                                    @if ($addressUserType->addressType)
-                                        <div id="containers_{{ $addressUserType->addressType->id ?? ''}}" class="containers" style="display: none;">
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
-                                                <p class="text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
-                                            </div>
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
-                                                <p value=""  class=" border rounded sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
-                                                <p value="" id="bairro" class="border rounded  sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Rua</label>
-                                                <p value=" " id="rua" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Número</label>
-                                                <p value=" " id="numero" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
-                                                <p value=" " id="celular" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
-                                            </div>
-
-                                            <div class="mb-4 ">
-                                                <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Complemento</label>
-                                                <p value=" " id="complemento" class=" text-left border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 bg-slate-300" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
-                                            </div>
-
-                                            <!-- Outros campos do endereço aqui -->
+                                          <div class="md:mr-4 mb-2 md:mb-0 flex space-x-2">
+                                            <input  class=" custom-border " type="radio" value="1" id="entrega" name="delivery" onchange="atualizarValor()">
+                                            <label for="entrega" class="text-gray-700" > Entregar em domicílio</label>
+                                            <i class="fa-solid fa-motorcycle fa-xl text-cyan-600"></i>
+                                          </div>
+                                    </div>
+                                </div>
+                                     {{-- forma de pagamento --}}
+                                <div class=" relative">
+                                    <h2 class="text-gray-700 pb-2">forma de pagamento</h2>
+                                     <div class="pb-4 w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
+                                        <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
+                                            <input class="payment_card custom-border " type="radio" checked value="0" id="" name="payment" >
+                                            <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
+                                            <select name="credit_card" id="select" class="rounded additional bg-slate-200 mr-2 custom-border " >
+                                                <option  value="visa">Visa</option>
+                                                <option  value="Master Card">Master Card</option>
+                                                <option  value="Ouro Card">Ouro Card</option>
+                                            </select>
                                         </div>
-                                    @endif
-                                @endforeach
+
+                                        <div class="md:mr-4 mb-2 md:mb-0 flex items-center space-x-2">
+                                            <input  class=" custom-border p-2" type="radio" value="1"  name="payment">
+                                        <label for="" class="text-gray-700 font-bold " >Dinheiro</label>
+                                        </div>
+                                     </div>
+
+                                </div>
+                                <div class="pl-4 ">
+                                    <label for="" class="pb-2 text-gray-700 text-sm">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
+                                    <input type="text" class="rounded  text-sm custom-border bg-slate-200 additional" name="observation" id="observation" placeholder="ex: troco para 50 reais">
+                                </div>
 
                             </div>
-                                @else
+                        </div>
+                        <div class="container max-auto">
+                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
+                                <div class="text-center  overflow-auto">
+
+                                    <button type="submit" id="submitButton" class="text-sm p-2 mb-2  bg-slate-300 rounded">
+                                        <span id="buttonText">ENVIAR PEDIDO</span>
+                                        <span id="buttonSpinner" style="display: none;">
+                                            <div class="spinner"></div>
+                                        </span>
+                                    </button>
+
+                                    </form>
+
+                                </div>
+
+                                    <div class="p-2 text-center">
+                                        <a href="{{ route('client.show')}}"><button class="text-sm custom-border  bg-slate-300 rounded p-2">
+                                        <SPAN>CONTINUAR COMPRANDO</SPAN>
+                                    </button></a>
+                                    </div>
+
+                                    <button class=" text-sm p-2  custom-border  bg-slate-300 rounded mb-2 mt-2 " data-bs-toggle="modal"
+                                        data-bs-target="#firstModal">
+                                        <span>CADASTRAR UM NOVO ENDEREÇO</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container max-auto">
+                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
+                                @if(session('success'))
+                                    <div class=" text-center  bg-white text-green p-4  rounded font-bold">
+                                        <p>{{ session('success')}}</p>
+                                    </div>
+                                @endif
+                                <div class="text-center text-3xl">
+
+                                            {{-- Modall para Cadastrar endereço --}}
+
+                                            <div class="modal fade" id="firstModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header,btn btn-warning">
+                                                        {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                                        <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
+                                                            X
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('adress.create')}}" method="POST">
+                                                        @csrf
+                                                                <div class="container">
+                                                                    <div class="mb-4 sachadow-black">
+
+                                                                        <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
+                                                                            Meu trabalho, casa da minha Tia Divina
+                                                                        </p>
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
+                                                                        <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
+                                                                    </div>
+
+                                                                    <div class="mb-4 sachadow-black">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
+                                                                        <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
+                                                                        @error('city')
+                                                                        <div class=" p-2 ">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                        </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
+                                                                        <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder= "digite seu cep" name="zipcode">
+
+                                                                        @error('zipcode')
+                                                                            <div class=" p-2">
+                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
+                                                                        <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
+                                                                        @error('district')
+                                                                            <div class=" p-2">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Rua</label>
+                                                                        <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
+                                                                        @error('street')
+                                                                            <div class=" p-2">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Número</label>
+                                                                        <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
+                                                                        @error('number')
+                                                                            <div class="p-2">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
+                                                                        <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
+                                                                        @error('fone')
+                                                                            <div class="p-2">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="mb-4 ">
+                                                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Complemento</label>
+                                                                        <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
+                                                                        @error('complement')
+                                                                            <div class="p-2">
+                                                                            <span class="error text-red-500">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                            <div class="pb-4">
+                                                                <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-orange-300  font-bold hover:orange-500">CADASTRAR</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                </div>
+
+                                @if( $address)
+
+                                <div class="container max-auto">
+                                        <fieldset>
+                                        <legend class="text-base text-center">Tipo de endereço</legend>
+                                            <select  name="addressTypeSelect" id="addressType" class="shadow bg-slate-300 appearance-none border rounded w-full py-2 pb-2 mb-2 mt-2 text-gray-700 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                                    @php
+                                                    $hasAddressType = false;
+                                                    @endphp
+                                                    @foreach($addressUserTypes as $addressUserType)
+                                                        @if ($addressUserType->addressType)
+
+                                                            @php
+                                                            $hasAddressType = true;
+                                                            @endphp
+
+                                                                <option
+                                                                class="text-center text-gray-700"
+                                                                value="{{ $addressUserType->addressType->id }}"
+                                                                data-address-user-type-id="{{ $addressUserType->id }}">
+                                                                {{ $addressUserType->addressType->name }}
+                                                                </option>
+
+                                                        @endif
+                                                    @endforeach
+
+                                                        @if (!$hasAddressType)
+                                                            <option value="">Tipo de endereço não definido</option>
+                                                        @endif
+                                            </select>
+                                        </fieldset>
+                                    @foreach($addressUserTypes as $addressUserType)
+                                        @if ($addressUserType->addressType)
+                                            <div id="containers_{{ $addressUserType->addressType->id ?? ''}}" class="containers" style="display: none;">
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
+                                                    <p class="text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
+                                                    <p value=""  class=" border rounded sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
+                                                    <p value="" id="bairro" class="border rounded  sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-300" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Rua</label>
+                                                    <p value=" " id="rua" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Número</label>
+                                                    <p value=" " id="numero" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
+                                                    <p value=" " id="celular" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
+                                                </div>
+
+                                                <div class="mb-4 ">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-2 pl-4" >Complemento</label>
+                                                    <p value=" " id="complemento" class=" text-left border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 bg-slate-300" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
+                                                </div>
+
+                                                <!-- Outros campos do endereço aqui -->
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                </div>
+                                    @else
                                 <div class="bg-slate-400 ml-8 mr-8 rounded mb-4 font-bold text-xl text-yellow-300 text-center p-2 ">
                                     <p class="bg mb-4">
                                         Você ainda não tem um endereço cadastrado click no botão acima para fazer o cadastro!
                                     </p>
                                 </div>
                                 @endif
-
-
-
-              </div>
-     </div>
+                            </div>
+                        </div>
+        </div>
       {{-- <script>
         function playAlertSound()
         {
