@@ -111,8 +111,8 @@
                         @endphp
 
                         @if ($isMonday)
-                            <p class="sm:text-sm md:text-md text-black" > Fechada. Abre terça-feira às 19:00h.</p>
-                            <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada. Abre terça-feira às 19:00h</span>
+                            <p class="sm:text-sm md:text-md text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
+                            <span class="text-sm"> Abre terça-feira às 19:00h</span>
                         @else
                             <div class="bg-yellow-200 red pl-2 pr-2">
                                 <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>

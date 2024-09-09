@@ -361,7 +361,7 @@
                                         <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
                                             <input class="payment_card custom-border " type="radio" checked value="0" id="" name="payment" >
                                             <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
-                                            <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md+ hover:shadow-xl transition-shadow duration-300" >
+                                            <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" >
                                                 <option  value="visa">Visa</option>
                                                 <option  value="Master Card">Master Card</option>
                                                 <option  value="Ouro Card">Ouro Card</option>
