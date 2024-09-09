@@ -40,14 +40,15 @@
         <div class="  text-center md: p-2 relative bg-yellow-100">
                     <div class="container max-auto relative">
                         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                            <div class=" text-sm  text-gray-700  absolute top-2 left-2 p-2">
-                                <a href="{{route('index.point')}}"  class="text-sm ">
+
+                             <div class="text-center mt-2absolute">
+                                  <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
+                             </div>
+                             <div class=" text-sm  text-gray-700 pt-2">
+                                <a href="{{route('index.point')}}"  class="text-xs md:text-sm">
                                     CARTÃO FIDELIDADE
                                   <i class="fa-solid fa-id-card fa-2xl color " ></i>
                                 </a>
-                             </div>
-                             <div class="text-center mt-2">
-                                  <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
                              </div>
                          </div>
                     </div>
@@ -336,7 +337,7 @@
                         <div class="container max-auto ">
                             <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <div class="text-center">
-                                    <h1 class="text-gray-700 pb-2 text-sm md:text-xl">o pagamento será realizado na entrega</h1>
+                                    <p class="text-gray-700 pb-2 text-sm">o pagamento será realizado na entrega</p>
                                 </div>
                                    {{-- forma de entrega --}}
                                 <div class="p-4 relative">
@@ -360,7 +361,7 @@
                                         <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
                                             <input class="payment_card custom-border " type="radio" checked value="0" id="" name="payment" >
                                             <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
-                                            <select name="credit_card" id="select" class="rounded additional bg-slate-200 mr-2 custom-border " >
+                                            <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md+ hover:shadow-xl transition-shadow duration-300" >
                                                 <option  value="visa">Visa</option>
                                                 <option  value="Master Card">Master Card</option>
                                                 <option  value="Ouro Card">Ouro Card</option>
@@ -376,16 +377,17 @@
                                 </div>
                                 <div class="pl-4 ">
                                     <label for="" class="pb-2 text-gray-700 text-sm">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
-                                    <input type="text" class="rounded  text-sm custom-border bg-slate-200 additional" name="observation" id="observation" placeholder="ex: troco para 50 reais">
+                                    <input type="text" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" name="observation" id="observation" placeholder="ex: troco para 50 reais">
                                 </div>
 
                             </div>
                         </div>
+                          {{-- botões de enviar continuar e cadastrar --}}
                         <div class="container max-auto">
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <div class="text-center  overflow-auto">
 
-                                    <button type="submit" id="submitButton" class="text-sm p-2 mb-2  bg-slate-300 rounded">
+                                    <button type="submit" id="submitButton" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
                                         <span id="buttonText">ENVIAR PEDIDO</span>
                                         <span id="buttonSpinner" style="display: none;">
                                             <div class="spinner"></div>
@@ -398,18 +400,18 @@
 
                                     <div class="p-2 text-center">
                                         <a href="{{ route('client.show')}}">
-                                            <button class="text-sm custom-border  bg-slate-300 rounded p-2">
+                                            <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
                                                 <SPAN>CONTINUAR COMPRANDO</SPAN>
                                             </button>
                                         </a>
                                     </div>
 
-                                    <button class=" text-sm p-2  custom-border  bg-slate-300 rounded mb-2 mt-2 " data-bs-toggle="modal"
+                                    <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md+ hover:shadow-xl transition-shadow duration-300 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal">
                                         <span>CADASTRAR UM NOVO ENDEREÇO</span>
                                     </button>
                                 </div>
-                            </div>
+                        </div>
 
 
                         <div class="container max-auto">
@@ -563,39 +565,40 @@
                                         </fieldset>
                                     @foreach($addressUserTypes as $addressUserType)
                                         @if ($addressUserType->addressType)
+                                               {{-- mostra endereço --}}
                                             <div id="containers_{{ $addressUserType->addressType->id ?? ''}}" class="containers" style="display: none;">
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
-                                                    <p class="text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-200" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
+                                                    <p class="text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
-                                                    <p value=""  class=" border rounded sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-200" id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
+                                                    <p value=""  class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 text-left " id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
-                                                    <p value="" id="bairro" class="border rounded  sm:w-full py-2 px-3 text-gray-700 text-left bg-slate-200" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
+                                                    <p value="" id="bairro" class="text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Rua</label>
-                                                    <p value=" " id="rua" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-200" id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
+                                                    <p value=" " id="rua" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 " id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Número</label>
-                                                    <p value=" " id="numero" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-200" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
+                                                    <p value=" " id="numero" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
-                                                    <p value=" " id="celular" class=" text-left border rounded sm:w-full py-2 px-3 text-gray-700 bg-slate-200" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
+                                                    <p value=" " id="celular" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
                                                 </div>
 
                                                 <div class="mb-4 ">
                                                     <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Complemento</label>
-                                                    <p value=" " id="complemento" class=" text-left border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 bg-slate-200" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
+                                                    <p value=" " id="complemento" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
                                                 </div>
 
                                                 <!-- Outros campos do endereço aqui -->

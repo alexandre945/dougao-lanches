@@ -136,14 +136,14 @@
                         <p class="text-sm text-gray-600">{{ $time->waitingtime ?? ''}} minutos</p>
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
-                        <p class="  pb-2 text-xl sm:text-sm md-text-xl"> Status: <span class="text-green">{{$order->status ?? ''}}</span></p>
+                        <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green">{{$order->status ?? ''}}</span></p>
                     @endif
                 </div>
 
             </div>
             <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h - 24:00h</p>
         </div>
-          <h1 class="text-center pb-2 font-semibold text-gray-600 bg-slate-200 p-4 m-2">LANCHES</h1>
+          <h1 class="text-center pb-2 font-semibold text-gray-600  p-4 m-2 bg-yellow-200 rounded">LANCHES</h1>
           {{-- lop dos produtos --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -272,7 +272,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-slate-200 p-6 m-2">BEBIDAS</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">BEBIDAS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -401,7 +401,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2 font-semibold text-gray-600 bg-slate-200 p-6 m-2">COMBOS</h1>
+        <h1 class="text-center pb-2 font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">COMBOS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -530,9 +530,9 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-slate-200 p-6 m-2">BOMBONIERE</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">BOMBONIERE</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-2">
 
             @foreach ($productBomboniere as $item)
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -587,10 +587,7 @@
                                                     <strong><h1>PRODUTO</h1></strong>
                                                     <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
                                                 </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                    <strong><h1>DESCRIÇÃO</h1></strong>
-                                                    <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
-                                                </div>
+                                           +
                                                 <div class=" mt-2 label2 text-center">
                                                 <strong><h1>QUANTIDADE</h1></strong>
                                                     <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
@@ -599,42 +596,8 @@
                                                     <strong><h1>PREÇO UNITARIO</h1></strong>
                                                     <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
                                                 </div>
-                                                    <div class="text-center p-2">
-                                                        <strong><label for="additional">ADICIONAIS</label></strong>
-                                                        <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
-                                                    </div>
-
-                                                    <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
-                                                        @foreach($additional as $item)
-                                                            <div class="flex items-center justify-between space-x-2 container">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
-                                                                    <label for="additional-{{ $item->id }}" class="text-lg">
-                                                                        {{ $item->name }}
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center">
-                                                                    <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
-                                                                    <input
-                                                                        type="number"
-                                                                        id="quantity-{{ $item->id }}"
-                                                                        name="additional_quantities[{{ $item->id }}]"
-                                                                        min="1"
-                                                                        value="1"
-                                                                        class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                                        >
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
 
 
-                                                    </div>
-
-
-                                                <div class=" p-2 text-center">
-                                                <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
-                                                </div>
                                                 <div class="flex flex-col gap-2">
 
                                                     <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
