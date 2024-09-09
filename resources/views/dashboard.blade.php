@@ -52,7 +52,7 @@
 
     <header class="text-center mb-8 pt-8">
         <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
-        <p class="text-sm md:text-lg text-gray-600">Lanches deliciosos entregue em sua casa</p>
+        <p class="text-sm md:text-md text-gray-600">Lanches deliciosos entregue em sua casa</p>
             {{-- div do logout --}}
         <div class=" logout absolute top-0 left-0   px-4  md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
@@ -111,7 +111,7 @@
                         @endphp
 
                         @if ($isMonday)
-                            <p class="sm:text-sm md:text-md text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
+                            <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
                             <span class="text-sm"> Abre terça-feira às 19:00h</span>
                         @else
                             <div class="bg-yellow-200 red pl-2 pr-2">
