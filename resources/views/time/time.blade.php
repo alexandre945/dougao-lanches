@@ -18,54 +18,58 @@
 </head>
 <body>
    @vite('resources/css/app.css')
+      <div class=" text-center md: p-2 relative bg-yellow-100">
 
- <div class="container pt-4">
-    @if(session('time'))
+        <div class="container max-auto">
+            @if(session('time'))
 
-    <div class="bg-slate-200 text-green text-center p-2">
-        {{ session('time')}}
-    </div>
+            <div class="bg-slate-200 text-green text-center p-2">
+                {{ session('time')}}
+            </div>
 
-    @endif
+            @endif
 
-   <h1 class="pt-2 font-bold text-center">AJUSTAR O TEMPO DE ESPERA PARA ENTREGA</h1>
-   <form action="{{route('waitngtime.create')}}" class=" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="post">
-     @csrf
-     <div class="mb-4">
-       <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">TEMPO DE ESPERA</label>
-       <input autocomplete="off"  class="shadow appearance-none
-            border rounded w-full py-2 px-3
-            text-gray-700 leading-tight
-            focus:outline-none focus:shadow-outline"
-            placeholder="Exemplo  40"
-            type="text" name="time">
-           @error('time')
-               <span class="error text-red-600">{{ $message }}</span>
-           @enderror
-     </div>
+            <h1 class="pt-2 pb-4 font-bold text-center">AJUSTAR O TEMPO DE ESPERA PARA ENTREGA</h1>
+            <form action="{{route('waitngtime.create')}}" class=" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="post">
+                @csrf
+                <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">TEMPO DE ESPERA</label>
+                <input autocomplete="off"  class="shadow appearance-none
+                        border rounded  py-2 px-3
+                        text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline"
+                        placeholder="Exemplo  40 a 50"
+                        type="text" name="time">
+                    @error('time')
+                        <span class="error text-red-600">{{ $message }}</span>
+                    @enderror
+                </div>
 
-     <div class="flex items-center justify-between">
-       <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-         ALTERAR
-       </button>
+                <div class="flex items-center justify-between">
+                <button class="bg-yellow-200  hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    ALTERAR
+                </button>
 
-       {{-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-         Forgot Password?
-       </a> --}}
-     </div>
-     @if(session('success'))
-        <div class="green mt-2">
-            {{ session('success')}}
+                {{-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                    Forgot Password?
+                </a> --}}
+                </div>
+                @if(session('success'))
+                    <div class="green mt-2">
+                        {{ session('success')}}
+                    </div>
+                @endif
+            </form>
+            <a href="{{ route('panel.admin')}}">
+                <button class="bg-yellow-200  hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Voltar
+                </button>
+            </a>
+
         </div>
-      @endif
-   </form>
-       <a href="{{ route('panel.admin')}}">
-           <button class="bg-emerald-400 text-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-               Voltar
-           </button>
-       </a>
 
- </div>
+      </div>
+
 
 
 

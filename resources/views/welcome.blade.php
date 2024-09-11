@@ -73,17 +73,17 @@
                         <nav class="text-center">
                             <ul class="flex space-x-6">
                                 <li>
-                                    <a href="https://www.facebook.com/douglasodin199/?locale=pt_BR" target="_blank" class="text-white hover:text-gray-200">
+                                    <a href="https://www.facebook.com/douglasodin199/?locale=pt_BR" target="_blank" class="md:text-white hover:text-gray-200">
                                         <i class="fa-brands fa-square-facebook fa-2xl"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-white hover:text-gray-200">
+                                    <a href="#" class="md:text-white hover:text-gray-200">
                                         <i class="fa-brands fa-instagram fa-2xl"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://api.whatsapp.com/send?phone=553599810371" target="_blank" class="text-white hover:text-gray-200">
+                                    <a href="https://api.whatsapp.com/send?phone=553599810371" target="_blank" class="md:text-white hover:text-gray-200">
                                         <i class="fa-brands fa-whatsapp fa-2xl"></i>
                                     </a>
                                 </li>

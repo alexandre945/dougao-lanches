@@ -24,10 +24,10 @@ class WaitingTimeController extends Controller
     {
           // Validar os dados recebidos do formulário
           $validator = Validator::make($request->all(), [
-            'time' => 'required|numeric',
+            'time' => 'required',
           ],[
             'time.required' => 'este campo é obrigatorío.',
-            'time.numeric'  => 'este campo deve ser um numero.'
+
         ]);
 
            // Se a validação falhar, redireciona com os erros
