@@ -30,15 +30,10 @@
     </style>
 
 </head>
-<body>
+<body class="bg-yellow-100">
 
 <div class="container mx-auto pt-2">
-    <div class="text-center mb-2">
-        <h1 class="p-2 pt-2 font-bold">LISTAGEM DE PEDIDOS</h1>
 
-        <div class="overflow-auto">
-            @include('layouts.statusNavegation')
-        </div>
 
         @if (session('acept'))
             <div class="bg-slate-400 border-spacing-2 text-green p-2 ml-12 mr-12 mb-4">
@@ -51,19 +46,28 @@
                 <p>{{ session('refused') }}</p>
             </div>
         @endif
+        <div class="text-center mb-2 mt-4 ">
+            <div class="bg-white rounded-lg shadow-lg p-2">
+              <h1 class="p-2 pt-2 font-bold">LISTAGEM DE PEDIDOS</h1>
 
-        @forelse ($orders as $item)
-            <div class="card p-2 pt-2">
-                <div class="card-header">
+              <div class="overflow-auto">
+                 @include('layouts.statusNavegation')
+              </div>
+        </div>
+          @forelse ($orders as $item)
+                <div class="pt-2">
                     Pedido N- {{ $item->id }}
                 </div>
+
+            <div class=" p-2 pt-2">
+
 
                 @php
                     $userCount = $orders->where('user_id', $item->user_id)->count();
                 @endphp
 
-                <div class="card-body">
-                    <div class=" text-start">
+                <div class="card-body ">
+                    <div class=" text-start bg-white rounded-lg shadow-lg p-2">
                         <p class="text-card">Nome do Cliente: {{ $item->orderUser->name }}</p>
                         <p class="text-card">Quantidade de Pedidos na Plataforma: {{ $userCount }}</p>
                         <p class="text-card">Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
@@ -74,83 +78,91 @@
                     </div>
 
                     <div class="overflow-auto">
-                        <table class="table table-hover mt-3" style="max-height: 300px; overflow-y: auto;">
-                            <thead>
-                                <tr>
-                                    <th>Produto</th>
-                                    <th>Quantidade</th>
-                                    <th>Preço</th>
-                                    <th>Observação</th>
-                                    <th>Adicionais</th>
-                                    <th>Brindes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($item->orderList as $list)
-                                    <tr class="overflow-auto">
-                                        <td>{{ $list->product->name ?? '' }}</td>
-                                        <td>{{ $list->quamtity }}</td>
-                                        <td>@money($list->value)</td>
-                                        <td>{{ $list->observation ?? '//' }}</td>
-                                        <td>
-                                            @forelse ($list->orderAdditional as $additional)
-                                                {{ $additional->name }} ( {{$additional->pivot->quantity}} )
-                                            @empty
-                                                //
-                                            @endforelse
-                                        </td>
-                                        <td>
-                                            @if ($list->blindCart)
-                                                {{ $list->blindCart->name }}
-                                                @break
-                                            @else
-                                                //
-                                            @endif
-                                        </td>
+                        <div class="bg-white rounded-lg shadow-lg p-2 mt-2">
+                            <table class="table table-hover mt-3" style="max-height: 300px; overflow-y: auto;">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Quantidade</th>
+                                        <th>Preço</th>
+                                        <th>Observação</th>
+                                        <th>Adicionais</th>
+                                        <th>Brindes</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($item->orderList as $list)
+                                        <tr class="overflow-auto">
+                                            <td>{{ $list->product->name ?? '' }}</td>
+                                            <td>{{ $list->quamtity }}</td>
+                                            <td>@money($list->value)</td>
+                                            <td>{{ $list->observation ?? '//' }}</td>
+                                            <td>
+                                                @forelse ($list->orderAdditional as $additional)
+                                                    {{ $additional->name }} ( {{$additional->pivot->quantity}} )
+                                                @empty
+                                                    //
+                                                @endforelse
+                                            </td>
+                                            <td>
+                                                @if ($list->blindCart)
+                                                    {{ $list->blindCart->name }}
+                                                    @break
+                                                @else
+                                                    //
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
 
                     <div class="container pt-4 pb-4">
-                        <h1 class="font-bold">ENDEREÇO PARA ENTREGA</h1>
-                             {{-- @dd($item->orderlist) --}}
-                        @foreach ($item->orderList as $list)
-                            @if ($list->addressUserType && $list->addressUserType->address)
-                                    <div class="p-2 text-start">
-                                        <label for="">Tipo de Endereço:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
-                                    </div>
-                                <div class="flex flex-wrap content-start pb-4">
-                                    <div class="p-2 text-start">
-                                        <label for="">Cidade:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->city }}</span>
-                                    </div>
-                                    <div class="p-2 text-start">
-                                        <label for="">Rua:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->street }}</span>
-                                    </div>
-                                    <div class="p-2 text-start">
-                                        <label for="">Bairro:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->district }}</span>
-                                    </div>
-                                    <div class="p-2 text-start">
-                                        <label for="">Número:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->number }}</span>
-                                    </div>
-                                    <div class="p-2 text-start">
-                                        <label for="">Fone:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->fone }}</span>
-                                    </div>
-                                    <div class="p-2 text-start">
-                                        <label for="">Complemento:</label>
-                                        <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->complement }}</span>
-                                    </div>
-                                    @break
-                                </div>
-                            @endif
-                        @endforeach
+                        <div class="bg-white rounded shadow-lg p-2 mt-2">
+                            <h1 class="font-bold">ENDEREÇO PARA ENTREGA</h1>
+                            {{-- @dd($item->orderlist) --}}
+                       @foreach ($item->orderList as $list)
+                           @if ($list->addressUserType && $list->addressUserType->address)
+                                   <div class="p-2 text-start">
+                                       <label for="">Tipo de Endereço:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
+                                   </div>
+                               <div class="flex flex-wrap content-start pb-4">
+                                   <div class="p-2 text-start">
+                                       <label for="">Cidade:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->city }}</span>
+                                   </div>
+                                   <div class="p-2 text-start">
+                                       <label for="">Rua:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->street }}</span>
+                                   </div>
+                                   <div class="p-2 text-start">
+                                       <label for="">Bairro:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->district }}</span>
+                                   </div>
+                                   <div class="p-2 text-start">
+                                       <label for="">Número:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->number }}</span>
+                                   </div>
+                                   <div class="p-2 text-start">
+                                       <label for="">Fone:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->fone }}</span>
+                                   </div>
+                                   <div class="p-2 text-start">
+                                       <label for="">Complemento:</label>
+                                       <span class="p-2 mr-2 font-bold">{{ $list->addressUserType->address->complement }}</span>
+                                   </div>
+                                   @break
+                               </div>
+                           @endif
+                       @endforeach
+
+
+                        </div>
+
                     </div>
 
                     <div class="flex p-2">
@@ -166,7 +178,7 @@
 
                 </div>
                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button class="bg-white hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Voltar
                     </button>
                 </a>

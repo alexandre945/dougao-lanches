@@ -387,7 +387,7 @@
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <div class="text-center  overflow-auto">
 
-                                    <button type="submit" id="submitButton" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
+                                    <button type="submit" id="submitButton" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
                                         <span id="buttonText">ENVIAR PEDIDO</span>
                                         <span id="buttonSpinner" style="display: none;">
                                             <div class="spinner"></div>
@@ -400,13 +400,13 @@
 
                                     <div class="p-2 text-center">
                                         <a href="{{ route('client.show')}}">
-                                            <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
+                                            <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
                                                 <SPAN>CONTINUAR COMPRANDO</SPAN>
                                             </button>
                                         </a>
                                     </div>
 
-                                    <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md+ hover:shadow-xl transition-shadow duration-300 " data-bs-toggle="modal"
+                                    <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal">
                                         <span>CADASTRAR UM NOVO ENDEREÇO</span>
                                     </button>

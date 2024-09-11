@@ -97,53 +97,55 @@
 
     </header>
 
-    <main class="container mx-auto p-4">
 
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <div class="flex justify-between items-center mb-4">
-                {{-- logica para mostrar se a Lanchonte estafechada ou aberta --}}
-                <div>
-                    <div class="pt-2 ml-2  pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
-                        @if ($toggle->is_open == 0 ?? '')
-                        @php
-                            // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
-                            $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
-                        @endphp
+        <div class="container max-auto p-2 md:p-4">
+            <div class="bg-white rounded-lg shadow-lg p-2 ">
+                <div class="flex justify-between items-center mb-4">
+                    {{-- logica para mostrar se a Lanchonte estafechada ou aberta --}}
+                    <div>
+                        <div class="pt-2 ml-2  pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
+                            @if ($toggle->is_open == 0 ?? '')
+                            @php
+                                // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
+                                $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
+                            @endphp
 
-                        @if ($isMonday)
-                            <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
-                            <span class="text-sm"> Abre terça-feira às 19:00h</span>
-                        @else
-                            <div class="bg-yellow-200 red pl-2 pr-2">
-                                <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
-                                <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
-                            </div>
-                        @endif
-                        @else
-                                <div class=" border text-green-800 p-2 rounded">
-                                    <span class="text-green font-semibold text-sm"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
-                                    <p class="text-sm text-gray-600">Aberto até 24:00h</p>
+                            @if ($isMonday)
+                                <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
+                                <span class="text-sm"> Abre terça-feira às 19:00h</span>
+                            @else
+                                <div class="bg-yellow-200 red pl-2 pr-2">
+                                    <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
+                                    <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                                 </div>
+                            @endif
+                            @else
+                                    <div class=" border text-green-800 p-2 rounded">
+                                        <span class="text-green font-semibold text-sm"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
+                                        <p class="text-sm text-gray-600">Aberto até 24:00h</p>
+                                    </div>
+                            @endif
+                      </div>
+
+
+
+                    </div>
+                    {{-- div que mostra tempo para entrega --}}
+                    <div class="ml-2">
+                        <span class="text-blue font-semibold text-sm md:text-1xl"><i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega</span>
+                            <p class="text-sm text-gray-600 text-center">{{ $time->waitingtime ?? ''}} minutos</p>
+                        @if($order && $order->created_at->isToday())
+                            <p class="text-sm text-gray-600">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
+                            <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green">{{$order->status ?? ''}}</span></p>
                         @endif
-                  </div>
-
-
+                    </div>
 
                 </div>
-                {{-- div que mostra tempo para entrega --}}
-                <div class="ml-2">
-                    <span class="text-blue font-semibold text-sm md:text-1xl"><i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega</span>
-                        <p class="text-sm text-gray-600">{{ $time->waitingtime ?? ''}} minutos</p>
-                    @if($order && $order->created_at->isToday())
-                        <p class="text-sm text-gray-600">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
-                        <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green">{{$order->status ?? ''}}</span></p>
-                    @endif
-                </div>
-
+                <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h as 24:00h</p>
             </div>
-            <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h - 24:00h</p>
         </div>
-          <h1 class="text-center pb-2 font-semibold text-gray-600  p-4 m-2 bg-yellow-200 rounded">LANCHES</h1>
+    <main class="container mx-auto p-4">
+          <h1 class="text-center pb-2 font-semibold text-gray-600  p-4 m-2  rounded">LANCHES</h1>
           {{-- lop dos produtos --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -272,7 +274,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">BEBIDAS</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600 rounded p-6 m-2">BEBIDAS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -401,7 +403,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2 font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">COMBOS</h1>
+        <h1 class="text-center pb-2 font-semibold text-gray-600  rounded p-6 m-2">COMBOS</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -530,7 +532,7 @@
             @endforeach
         </div>
 
-        <h1 class="text-center pb-2  font-semibold text-gray-600 bg-yellow-200 rounded p-6 m-2">BOMBONIERE</h1>
+        <h1 class="text-center pb-2  font-semibold text-gray-600  rounded p-6 m-2">BOMBONIERE</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-2">
 
