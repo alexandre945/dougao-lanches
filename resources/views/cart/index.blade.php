@@ -150,7 +150,7 @@
                                             </div>
                                             </div>
                                         </div>
-                                        @if($item->orderProductProduct->category_id !=2)
+                                        @if( $item->orderProductProduct && $item->orderProductProduct->category_id !=2 )
                                         <div class="mb-4 border-b pb-2">
                                             <div class="flex justify-between items-center mb-2">
                                             <div class="font-bold text-gray-700">

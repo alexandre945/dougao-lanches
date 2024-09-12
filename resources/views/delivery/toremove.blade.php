@@ -84,32 +84,31 @@
 
 <body>
     @vite('resources/css/app.css')
-    <div class="container">
-        <div class="space">
-            <div class="cart">
-                <a href="{{ route('cart.show')}}"><i class="fa-solid fa-cart-flatbed-suitcase fa-beat text-yellow"></i>
-                    <p class="text-yellow text-2xl ">minhas compras</p></a>
+    <div class="container max-auto">
+
+        <div class="flex justify-between items-center">
+            <div class="">
+                <a href="{{ route('cart.show')}}" class="flex items-center space-x-2 text-blue-500">
+                    <i class="fa-solid fa-cart-flatbed-suitcase fa-beat"></i>
+                    <p class="">Minhas Compras</p>
+                </a>
             </div>
 
-            <div class="user-info">
-                <h1>{{Auth::user()->name}}</h1>
+            <div class=" text-center">
+                <h1 class="text-1xl md:text-2xl font-bold">{{Auth::user()->name}}</h1>
                 @if($points[0]->points_earned ?? '' > 0)
-                    <p>
-                        <p>Você tem {{ $points[0]->points_earned ?? ''}} pts</p>
+                    <p class="">
+                        Você tem {{ $points[0]->points_earned ?? ''}} pts
                     </p>
                 @else
-                        <h3 class="text-center"> Você ainda não posui pontos,mas continue porque a cada compra
-                            seu valor em diheiro vira pontos
-                        </h3>
+                    <h3 class="text-gray-600 text-center">Você ainda não possui pontos, mas continue comprando. Cada compra gera pontos!</h3>
                 @endif
             </div>
-
-
         </div>
 
 
         <div class="mt-4">
-            <p class="text-center">
+            <p class=" text-start">
                 Aqui, o valor do seu pedido vira pontos e com eles você pode resgatar esses blindes:
             </p>
         </div>
@@ -125,7 +124,7 @@
             @if ( session('remuve'))
 
                 <div class="">
-                    <p class="text-green-600">
+                    <p class="text-green">
                         {{ session('remuve')}}
                     </p>
                 </div>
