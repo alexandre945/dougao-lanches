@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container mt-4">
-          <h1 class="text-center pb-4 font-bold">Aqui você pode ler todos os comenterios e avaliações</h1>
+          <h1 class="text-center pb-4 font-bold text-sm">Aqui você pode ler todos os comenterios e avaliações</h1>
         <h2>Avaliações</h2>
 
         <!-- Exibe as avaliações -->

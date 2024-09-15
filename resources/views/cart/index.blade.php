@@ -693,7 +693,7 @@
                     <h2>Avaliações</h2>
 
                     @foreach ($reviews as $review)
-                        <div class="review">
+                        <div class="review text-sm">
                             <strong>Avaliação: </strong>{{ $review->rating }} / 5<br>
                             <strong>Comentário: </strong>{{ $review->comment }}<br>
                             <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
