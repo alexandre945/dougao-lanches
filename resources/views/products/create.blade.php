@@ -137,7 +137,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>CreateProduct</title>
 </head>
-<body class="bg-gray-100">
+<body class="bg-yellow-100">
 <div class="container mx-auto py-8">
   <div class="text-center">
     <div class="">
@@ -172,19 +172,19 @@
 
         <div class="py-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                 <h2 class="font-extralight text-sm">ATUALIZAR</h2>
                 <a href="{{ route('create.product') }}" class="btn-slate font-bold">LANCHES</a>
               </div>
-            <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                 <h2 class="font-extralight text-sm">ATUALIZAR</h2>
               <a href="{{ route('showbeer') }}" class="btn-slate font-bold">BEBIDAS</a>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                 <h2 class="font-extralight text-sm">ATUALIZAR</h2>
               <a href="{{ route('showcombo') }}" class="btn-slate font-bold">COMBOS</a>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                 <h2 class="font-extralight text-sm">ATUALIZAR</h2>
               <a href="{{ route('user.bomboniere') }}" class="btn-slate font-bold">BOMBONIÉRE</a>
             </div>
@@ -201,19 +201,19 @@
 
         <div class="py-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
               <h2 class=" font-extralight text-sm">CADASTRAR</h2>
               <a href="{{ route('new.project') }}" class="btn-slate font-bold"> NOVO PRODUTO</a>
             </div>
-            <div class="bg-gray-50 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
               <h2 class="font-extralight text-sm">CADASTRAR</h2>
               <a href="{{ route('view.category') }}" class="btn-slate font-bold"> NOVA CATEGORIA</a>
             </div>
-            <div class="bg-gray-50 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
               <h2 class="font-extralight text-sm">CADASTRAR </h2>
               <a href="{{ route('view.aditional') }}" class="btn-slate font-bold">NOVO ADICIONAL</a>
             </div>
-            <div class="bg-gray-50 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+            <div class="bg-yellow-200 rounded-sm p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
               <h2 class="font-extralight  text-sm">CADASTRAR</h2>
               <a href="{{ route('createpoints') }}" class="btn-slate font-bold"> NOVO BRINDES</a>
             </div>
@@ -229,7 +229,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm">VER PEDIDOS</h2>
                   <a href="{{ route('order.show') }}" class="btn-slate font-bold">PEDIDOS</a>
                 </div>
@@ -237,7 +237,7 @@
 
               <!-- Section 3:  Entregues -->
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm"> VER BLINDES ENTREGUES</h2>
                   <a href="{{ route('blind.show') }}" class="btn-slate font-bold">BLINDES ENTREGUÊS</a>
                 </div>
@@ -245,7 +245,7 @@
 
               <!-- Section 4: Resumo dos Pedidos -->
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm">RESUMO DAS VENDAS</h2>
                   <a href="{{ route('summary.index') }}" class="btn-slate font-bold">RESUMO</a>
                 </div>
@@ -253,14 +253,14 @@
 
               <!-- Section 5: Resgate dos Brindes -->
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm">CONFERIR BLINDES PARA ENTREGA</h2>
                   <a href="{{ route('blind.index') }}" class="btn-slate font-bold">BLINDES</a>
                 </div>
               </div>
 
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class="font-extralight text-sm">LISTA DE COMPRAS PARA  LANCHONETE</h2>
                   <a href="{{ route('list.index') }}" class="btn-slate font-bold">LISTA</a>
                 </div>
@@ -269,14 +269,14 @@
               <!-- Section 6:  Clientes Brindes-->
 
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class=" text-sm font-extralight">VOLTAR A TELA DE VENDAS</h2>
                   <a href="{{ route('client.show') }}" class="btn-slate font-bold">CLIENTES</a>
                 </div>
               </div>
 
               <div class="py-4">
-                <div class="bg-gray-50 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
                   <h2 class=" text-sm font-extralight">AJUSTAR TEMPO DE ENTREGA</h2>
                   <a href="{{ route('waintingtime.index') }}" class="btn-slate font-bold">TEMPO DE ESPERA</a>
                 </div>

@@ -13,104 +13,32 @@
 
     @vite('resources/css/app.css')
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
 
-        .container {
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            margin-top: 50px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-info {
-            text-align: center;
-        }
-
-        .user-info h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #007bff;
-        }
-
-        .user-info p {
-            font-size: 1.2em;
-            color: #28a745;
-        }
-
-        .products-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .product {
-            display: inline-block;
-            margin: 0 20px;
-        }
-
-        .product img {
-            width: 150px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            font-size: 1.2em;
-            color: #6c757d;
-        }
-        .blind{
-           background-color: #3aee64;
-           width: 150px;
-           padding: 2px;
-        }
-        .denied{
-            color: red;
-        }
-        .space {
-            justify-content: space-between;
-        }
-        .cart{
-            font-size: 1em;
-            margin-bottom: 10px;
-            color: #007bff;
-            float: right;
-        }
     </style>
 </head>
 
-<body>
+<body class="bg-yellow-100">
     @vite('resources/css/app.css')
-    <div class="container">
-        <div class="space">
-            <div class="cart">
-                <a href="{{ route('cart.show')}}"><i class="fa-solid fa-cart-flatbed-suitcase fa-beat text-yellow"></i>
-                    <p class="text-yellow text-2xl ">minhas compras</p></a>
+    <div class="container max-auto">
+        <div class="flex justify-between items-center pt-4">
+            <div class="">
+                <a href="{{ route('cart.show')}}" class="flex items-center space-x-2 text-blue-500">
+                    <i class="fa-solid fa-cart-flatbed-suitcase fa-beat"></i>
+                    <p class="">Minhas Compras</p>
+                </a>
             </div>
 
-            <div class="user-info">
-                <h1>{{Auth::user()->name}}</h1>
+            <div class=" text-center">
+                <h1 class="text-1xl md:text-2xl font-bold">{{Auth::user()->name}}</h1>
                 @if($points[0]->points_earned ?? '' > 0)
-                    <p>
-                        <p>Você tem {{ $points[0]->points_earned ?? ''}} pts</p>
+                    <p class="">
+                        Você tem {{ $points[0]->points_earned ?? ''}} pts
                     </p>
                 @else
-                        <h3>
-                            Você ainda não posui pontos,mas continue porque a cada compra
-                            seu valor em diheiro vira pontos
-                        </h3>
+                    <h3 class="text-gray-600 text-center">Você ainda não possui pontos, mas continue comprando. Cada compra gera pontos!</h3>
                 @endif
             </div>
-
-
-
         </div>
-
-
-
         <div class="mt-4">
             <p class="text-center">
                 Aqui, o valor do seu pedido vira pontos e com eles você pode resgatar esses blindes:

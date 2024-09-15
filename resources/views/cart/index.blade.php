@@ -44,12 +44,16 @@
                              <div class="text-center mt-2absolute">
                                   <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
                              </div>
-                             <div class=" text-sm  text-gray-700 pt-2">
-                                <a href="{{route('index.point')}}"  class="text-xs md:text-sm">
-                                    CARTÃO FIDELIDADE
-                                  <i class="fa-solid fa-id-card fa-2xl color " ></i>
-                                </a>
-                             </div>
+
+                         </div>
+                         <div class="bg-white rounded-lg shadow-lg p-6 mb-8 pb-2">
+                             <h3 class="pb-2 text-sm text-start  md:text-center">Com Dougão Lanches o valor de seus pedidos viram pontos
+                                verifique se você possui pontos aqui no seu cartão fideledade.
+                            </h3>
+                            <a href="{{route('index.point')}}"  class="text-xs md:text-sm pt-2">
+                                CARTÃO FIDELIDADE
+                              <i class="fa-solid fa-id-card fa-2xl color " ></i>
+                            </a>
                          </div>
                     </div>
 
@@ -121,23 +125,23 @@
 
                                     @forelse ($cart as $item)
                                         <div class="mb-4 border-b pb-2">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>produto</span>
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>produto</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    {{ $item->orderProductProduct->name ?? ''}}
+                                                </div>
                                             </div>
-                                            <div class="text-gray-700">
-                                                {{ $item->orderProductProduct->name ?? ''}}
-                                            </div>
-                                        </div>
                                         </div>
                                         <div class="mb-4 border-b pb-2">
                                             <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Quatidade</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                <span>{{$item->quanty}}</span>
-                                            </div>
+                                                <div class="font-bold text-gray-700">
+                                                    <span>Quatidade</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    <span>{{$item->quanty}}</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="mb-4 border-b pb-2">
@@ -213,7 +217,9 @@
                                         </div>
                                         @empty
 
-                                      <p class="text-gray-200">Sua sacola esta vazia</p>
+                                        <div class="bg-yellow-200 p-4 rounded">
+                                            <p class="text-gray-200">Sua sacola esta vazia</p>
+                                        </div>
                                       @endforelse
 
 

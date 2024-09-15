@@ -13,80 +13,15 @@
 
     @vite('resources/css/app.css')
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
 
-        .container {
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            margin-top: 50px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-info {
-            text-align: center;
-        }
-
-        .user-info h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #007bff;
-        }
-
-        .user-info p {
-            font-size: 1.2em;
-            color: #28a745;
-        }
-
-        .products-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .product {
-            display: inline-block;
-            margin: 0 20px;
-        }
-
-        .product img {
-            width: 150px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            font-size: 1.2em;
-            color: #6c757d;
-        }
-        .blind{
-           background-color: #3aee64;
-           width: 150px;
-           padding: 2px;
-        }
-        .denied{
-            color: red;
-        }
-        .space {
-            justify-content: space-between;
-        }
-        .cart{
-            font-size: 1em;
-            margin-bottom: 10px;
-            color: #007bff;
-            float: right;
-        }
     </style>
 </head>
 
-<body>
+<body class="bg-yellow-100">
     @vite('resources/css/app.css')
     <div class="container max-auto">
 
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center pt-4">
             <div class="">
                 <a href="{{ route('cart.show')}}" class="flex items-center space-x-2 text-blue-500">
                     <i class="fa-solid fa-cart-flatbed-suitcase fa-beat"></i>
