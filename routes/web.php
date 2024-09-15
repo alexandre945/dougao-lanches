@@ -31,6 +31,7 @@ use App\Http\Controllers\summaryController;
 use App\Http\Controllers\toggleController;
 use App\Http\Controllers\verificationOrderController;
 use App\Http\Controllers\WaitingTimeController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -224,6 +225,11 @@ Route::post('/list-create', [ListModelController::class, 'create'])->name('list.
 //rota para excluir iten da lista
 
 Route::delete('/list-delete,{id}', [ListModelController::class, 'delete'])->name('list.delete');
+
+Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+
 
 
 

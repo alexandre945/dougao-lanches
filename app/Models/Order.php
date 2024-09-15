@@ -10,9 +10,9 @@ class Order extends Model
     protected $guarded = [];
     use HasFactory;
 
-        
+
     public function orderProduct()
- 
+
 
         {
         return $this->belongsTo(Product::class,'product_id', 'id');
@@ -36,6 +36,11 @@ class Order extends Model
 
         {
          return $this->hasMany( OrderList::class);
+        }
+        
+        public function reviews()
+        {
+            return $this->hasMany(Review::class);
         }
 
 

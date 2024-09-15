@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\AddressType;
 use App\Models\AddressUserType;
 use App\Models\Order;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -123,6 +124,7 @@ class OrderProductController extends Controller
             $orderId = $cart[0]->id;
 
             // Recuperar os dados diretamente da tabela additional_order_products
+
             $additionalOrderProducts = DB::table('additional_order_products')
                 ->where('order_product_id', $orderId)
                 ->get();
@@ -146,11 +148,20 @@ class OrderProductController extends Controller
                 });
             }
         });
+            $orderId = null;
+        //  verificando se o usuario tem pedidos pegar o ultimo
 
+         $lastOrder = Order::where('user_id', $users )->latest()->first();
+         if ($lastOrder) {
+            $orderId = $lastOrder->id;
 
+        }
 
-        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes', 'additionalOrderProducts'));
+        $reviews = Review::with('user')->orderby('created_at', 'desc')->take(3)->get();
+
+        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes', 'additionalOrderProducts', 'orderId', 'reviews'));
     }
+
     public function delete(Request $request, $id)
     {
         $product = Order_product::findOrFail($id);

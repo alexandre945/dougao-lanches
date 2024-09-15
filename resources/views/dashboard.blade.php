@@ -628,6 +628,7 @@
     </main>
 
 
+
     <footer class="bg-red-600 text-white p-4 mt-6">
         <div class="container mx-auto flex justify-between items-center">
             <p>&copy; 2023 Dougão Lanches todos direitos reservados.</p>

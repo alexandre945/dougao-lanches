@@ -118,6 +118,14 @@
                                 </p>
                               </div>
                               @endif
+                                 {{-- verifica se usuario tem pedido para avaliar --}}
+                              @if( session('notOrder'))
+                              <div class=" bg-yellow-200 p-2 rounded">
+                                   <p>
+                                       {{ session('notOrder')}}
+                                   </p>
+                              </div>
+                           @endif
                                 {{-- lop dos produtos --}}
                         <div class="container max-auto">
                              <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
@@ -315,9 +323,9 @@
                                 </tbody>
                             </table> --}}
                         </div>
-
+                            {{-- Div total --}}
                         <div class="container max-auto  ">
-                             {{-- Div total --}}
+
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2 ">
                                 <div class="ml-4 mr-4  container">
                                     <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
@@ -622,6 +630,81 @@
                                     @endif
                             </div>
                         </div>
+
+                        {{-- modal para avaliação --}}
+
+                     <!-- Button trigger modal -->
+                    <button type="button" class="bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-yellow-500 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105" data-bs-toggle="modal" data-bs-target="#firstModal1">
+                        Avaliar o estabelecimento
+                    </button>
+
+
+                    <!-- Modal para avaliação -->
+            <div class="modal fade" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h6 class="text-sm">Avalie como foi sua experiencia na plataforma bem como o produto que esta consumindo</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Seu formulário aqui -->
+                            <form action="/reviews" method="POST" class="space-y-4">
+                                @csrf
+                                <input type="hidden" name="order_id" value="{{ $orderId }}">
+
+                                <!-- Avaliação -->
+                                <div class="flex flex-col">
+                                    <label for="rating" class="mb-2 font-semibold text-gray-700">Avaliação:</label>
+                                    <select name="rating" id="rating" required class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400">
+                                        <option value="5">5 - Excelente</option>
+                                        <option value="4">4 - Muito bom</option>
+                                        <option value="3">3 - Bom</option>
+                                        <option value="2">2 - Regular</option>
+                                        <option value="1">1 - Ruim</option>
+                                    </select>
+                                </div>
+
+                                <!-- Comentário -->
+                                <div class="flex flex-col">
+                                    <label for="comment" class="mb-2 font-semibold text-gray-700">Comentário (opcional):</label>
+                                    <textarea name="comment" id="comment" rows="4" class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400" placeholder="Escreva seu comentário..."></textarea>
+                                </div>
+
+                                <!-- Botão de envio -->
+                                <div class="text-right">
+                                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition">
+                                        Enviar Avaliação
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="bg-yellow-500 text-black p-2 rounded" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <div class="text-start container max-auto pt-2">
+
+                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
+                    <h2>Avaliações</h2>
+
+                    @foreach ($reviews as $review)
+                        <div class="review">
+                            <strong>Avaliação: </strong>{{ $review->rating }} / 5<br>
+                            <strong>Comentário: </strong>{{ $review->comment }}<br>
+                            <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
+                        </div>
+                        <hr>
+                    @endforeach
+                    <a href="{{ route('reviews.index') }}" class="text-blue-500 hover:underline">Ver mais</a>
+                 </div>
+              </div>
+
+
         </div>
       {{-- <script>
         function playAlertSound()
@@ -761,6 +844,6 @@ for (let i = 0; i <opcoes.length; i++) {
     </script>
 
 
-
+@vite('resources/js/app.js')
 </body>
 </html>

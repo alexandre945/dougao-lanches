@@ -62,5 +62,9 @@ class User extends Authenticatable
         ->withPivot('address_type_id')
         ->withTimestamps();
       }
+      public function reviews()
+      {
+          return $this->hasMany(Review::class);
+      }
 
 }
