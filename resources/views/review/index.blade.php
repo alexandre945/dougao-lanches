@@ -10,19 +10,34 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <div class="container mt-4">
-          <h1 class="text-center pb-4 font-bold text-sm">Aqui você pode ler todos os comenterios e avaliações</h1>
-        <h2>Avaliações</h2>
 
-        <!-- Exibe as avaliações -->
-        @foreach ($reviews as $review)
-            <div class="review mb-3">
-                <strong>Avaliação: </strong>{{ $review->rating }} / 5<br>
-                <strong>Comentário: </strong>{{ $review->comment }}<br>
-                <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
-            </div>
-            <hr>
-        @endforeach
+       @php
+       $ratingsdescriptions = array(
+        5 =>  'Execelente',
+        4 =>  'Muito bom',
+        3 =>  'Bom',
+        2 =>  'Regular',
+        1 =>  'Rim'
+       );
+
+       @endphp
+
+    <div class="container max-auto mt-4 ">
+          <h1 class="text-center pb-4 font-bold text-sm">Avaliações e Comentários dos Clientes</h1>
+        <h4 class="text-center pb-4 font-semibold ">Avaliações</h4>
+           <div class="bg-white ">
+                    <!-- Exibe as avaliações -->
+                @foreach ($reviews as $review)
+                    <div class="review mb-3 bg-yellow-100 rounded m-2 p-2">
+                        <strong>Avaliação: </strong>{{ $ratingsdescriptions[$review->rating] }} {{$review->rating}} /5<br>
+                        <strong>Comentário: </strong>{{ $review->comment }}<br>
+                        <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
+                    </div>
+                    <hr>
+                 @endforeach
+
+           </div>
+
 
         <!-- Links de paginação -->
         <div class="d-flex justify-content-center">

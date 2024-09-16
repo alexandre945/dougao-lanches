@@ -686,15 +686,24 @@
                     </div>
                 </div>
             </div>
+              @php
+                 $ratingsDescripitions = array(
+                    5 => "Execlente",
+                    4 =>  "Muito bom",
+                    3 =>  "Bom",
+                    2 =>   "Regular",
+                    1 =>  "Ruim"
+                );
+              @endphp
 
               <div class="text-start container max-auto pt-2">
 
                  <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                    <h2>Avaliações</h2>
+                    <h2 class="text-center font-bold">Avaliações</h2>
 
                     @foreach ($reviews as $review)
-                        <div class="review text-sm">
-                            <strong>Avaliação: </strong>{{ $review->rating }} / 5<br>
+                        <div class="review text-sm bg-slate-300 p-2 rounded text-blue m-2">
+                            <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }}<br>
                             <strong>Comentário: </strong>{{ $review->comment }}<br>
                             <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
                         </div>
