@@ -634,9 +634,10 @@
                         {{-- modal para avaliação --}}
 
                      <!-- Button trigger modal -->
-                    <button type="button" class="bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-yellow-500 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105" data-bs-toggle="modal" data-bs-target="#firstModal1">
+                     <button type="button" class="bg-gradient-to-r from-yellow-400 to-yellow-600  font-bold py-2 px-4 rounded-lg shadow-lg hover:from-yellow-500 hover:to-yellow-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all duration-300 ease-in-out transform hover:scale-105" data-bs-toggle="modal" data-bs-target="#firstModal1">
                         Avaliar o estabelecimento
                     </button>
+
 
 
                     <!-- Modal para avaliação -->
@@ -699,21 +700,19 @@
               <div class="text-start container max-auto pt-2">
 
                  <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                    <h2 class="text-center font-bold">Avaliações</h2>
+                    <h2 class="text-center font-bold text-bluee">Avaliações</h2>
 
                     @foreach ($reviews as $review)
-                        <div class="review text-sm bg-slate-300 p-2 rounded text-blue m-2">
-                            <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }}<br>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
+                            <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
                             <strong>Comentário: </strong>{{ $review->comment }}<br>
                             <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
                         </div>
                         <hr>
                     @endforeach
-                    <a href="{{ route('reviews.index') }}" class="text-blue-500 hover:underline">Ver mais</a>
+                    <a href="{{ route('reviews.index') }}" class="text-bluee  hover:underline">Ver mais</a>
                  </div>
               </div>
-
-
         </div>
       {{-- <script>
         function playAlertSound()

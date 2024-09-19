@@ -55,9 +55,7 @@
               </div>
             </div>
           @forelse ($orders as $item)
-                <div class="mt-2 p-2 bg-yellow-200">
-                    Pedido N- {{ $item->id }}
-                </div>
+
 
             <div class=" p-2 pt-2">
 
@@ -68,6 +66,9 @@
 
                 <div class="card-body ">
                     <div class=" text-start bg-white rounded-lg shadow-lg p-2">
+                        <div class="text-center mb-2">
+                            Pedido N- {{ $item->id }}
+                        </div>
                         <p class="text-card">Nome do Cliente: {{ $item->orderUser->name }}</p>
                         <p class="text-card">Quantidade de Pedidos na Plataforma: {{ $userCount }}</p>
                         <p class="text-card">Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
@@ -223,17 +224,31 @@
                     <div class="flex space-x-4 p-2">
                         <form action="{{ route('update.status', ['id' => $item->id]) }}" method="POST">
                             @csrf
-                            <button class=" border rounded p-2 button text-sm hover:bg-blue hover:text-white bg-yellow-200">ACEITAR PEDIDO</button>
+                            <button class="
+                                bg-gradient-to-r from-yellow-300 to-greend
+                                border-l-4 border-r border-t
+                                border-green border-b-2 rounded p-2
+                                button text-sm hover:bg-blue hover:text-white
+                                bg-yellow-200">
+                                ACEITAR PEDIDO
+                            </button>
                         </form>
                         <form action="{{ route('refused.status', $item->id) }}" method="post">
                             @csrf
-                            <button class=" border rounded p-2 text-sm hover:text-white hover:bg-blue bg-yellow-200">RECUSAR PEDIDO</button>
+                            <button class="
+                                bg-gradient-to-r from-yellow-300 to-red-300
+                                rounded p-2 text-sm
+                                hover:text-white
+                                border-r-4 border-l border-t border-red-500
+                                border-b-2 hover:bg-blue bg-yellow-200">
+                                RECUSAR PEDIDO
+                            </button>
                         </form>
                     </div>
 
                 </div>
                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-yellow-200 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button class="bg-gradient-to-r from-yellow-400 to-bluee border-l-4 border-blue hover:bg-gradient-to-l hover:from-blue-600 hover:to-yellow-400  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Voltar
                     </button>
                 </a>

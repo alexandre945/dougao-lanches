@@ -23,12 +23,12 @@
        @endphp
 
     <div class="container max-auto mt-4 ">
-          <h1 class="text-center pb-4 font-bold text-sm">Avaliações e Comentários dos Clientes</h1>
+          <h1 class="text-center  font-bold text-sm">Avaliações e Comentários dos Clientes</h1>
         <h4 class="text-center pb-4 font-semibold ">Avaliações</h4>
            <div class="bg-white ">
                     <!-- Exibe as avaliações -->
                 @foreach ($reviews as $review)
-                    <div class="review mb-3 bg-yellow-100 rounded m-2 p-2">
+                    <div class="review mb-3 border-l-2 md:border-r-2  md:border-t-4 border-b  bg-yellow-100 rounded m-2 p-2">
                         <strong>Avaliação: </strong>{{ $ratingsdescriptions[$review->rating] }} {{$review->rating}} /5<br>
                         <strong>Comentário: </strong>{{ $review->comment }}<br>
                         <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>

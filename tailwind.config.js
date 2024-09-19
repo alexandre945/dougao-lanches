@@ -17,8 +17,10 @@ module.exports = {
                 'orange-300': '#ff9800',
                 'blue':'#0000ff',
                 'gray': '#808080',
-                'green': '#008000'
-               
+                'green': '#008000',
+                'bluee': '#3B82F6',
+                'greend': '#b6e3a7'
+
             }
         },
     },
