@@ -227,9 +227,12 @@
                             <button class="
                                 bg-gradient-to-r from-yellow-300 to-greend
                                 border-l-4 border-r border-t
+                                transition-all duration-300 ease-in-out
+                                transform hover:scale-105
+                                hover:bg-green
                                 border-green border-b-2 rounded p-2
-                                button text-sm hover:bg-blue hover:text-white
-                                bg-yellow-200">
+                                button text-sm  hover:text-white
+                                ">
                                 ACEITAR PEDIDO
                             </button>
                         </form>
@@ -239,8 +242,10 @@
                                 bg-gradient-to-r from-yellow-300 to-red-300
                                 rounded p-2 text-sm
                                 hover:text-white
+                                transition-all duration-300 ease-in-out
+                                transform hover:scale-105
                                 border-r-4 border-l border-t border-red-500
-                                border-b-2 hover:bg-blue bg-yellow-200">
+                                border-b-2 hover:bg-red-500 ">
                                 RECUSAR PEDIDO
                             </button>
                         </form>

@@ -52,7 +52,7 @@
 
     <header class="text-center mb-8 pt-8">
         <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
-        <p class="text-sm md:text-md text-gray-600">Lanches deliciosos entregue em sua casa</p>
+        {{-- <p class="text-sm md:text-md text-gray-600">Lanches deliciosos entregue em sua casa</p> --}}
             {{-- div do logout --}}
         <div class=" logout absolute top-0 left-0   px-4  md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
@@ -145,485 +145,498 @@
             </div>
         </div>
     <main class="container mx-auto p-4">
-          <h1 class="text-center pb-2 font-semibold text-gray-600  p-4 m-2  rounded">LANCHES</h1>
-          {{-- lop dos produtos --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            @foreach ($product as $item)
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                @if($item->photo)
-                <div class="w-full img flex justify-center">
-                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
-                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+           {{-- container dos lanches --}}
+        <div class="container mx-auto p-4">
+            <div class="border-b-2 border-gray-300 mb-4">
+                <!-- Cabeçalho da seção com um botão de toggle -->
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSection('lanches-section')">
+                    <h2 class="text-xl font-bold">LANCHES</h2>
+                    <!-- Ícone de seta para abrir/fechar -->
+                    <span id="lanches-arrow" class="transform transition-transform duration-300">▼</span>
                 </div>
-                @endif
-                <div class="p-2">
-                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                <!-- Conteúdo que será ocultado/mostrado -->
+                <div id="lanches-section" class="mt-4 hidden">
+                    {{-- Conteúdo dos lanches aqui --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($product as $item)
+                            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                                @if($item->photo)
+                                <div class="w-full img flex justify-center">
+                                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+                                </div>
+                                @endif
+                                <div class="p-2">
+                                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
+                                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
+                                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                                    <!-- Botão de adicionar ao carrinho ou outra ação -->
+                                    <div class="">
+                                        @if ($toggle->is_open ?? '' )
 
-                    <div class="">
-                        @if ($toggle->is_open ?? '' )
+                                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                            data-bs-target="#firstModal{{$item->id}}">
+                                              add ao carrinho
+                                        </button>
 
-                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
-                            data-bs-target="#firstModal{{$item->id}}">
-                              add ao carrinho
-                        </button>
+                                       @else
 
-                       @else
+                                        @include('layouts.button')
 
-                        @include('layouts.button')
+                                       @endif
+                                    </div>
+                                </div>
+                            </div>
 
-                       @endif
+                            {{-- modal para adicionar produtos ao carrinho --}}
+                            <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                            <div class="modal-header,btn btn-warning">
+                                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                                <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
+                                                    X
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
+                                                    @csrf
+                                                    <div class="text  pt-4 rounded">
+                                                    <div class="grup-control">
+                                                        <fieldset class="text-center">
+
+                                                                <div class="label text-center">
+                                                                    <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
+                                                                    <strong><h1>PRODUTO</h1></strong>
+                                                                    <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
+                                                                </div>
+                                                                <div class=" mt-2 label2 text-center">
+                                                                    <strong><h1>DESCRIÇÃO</h1></strong>
+                                                                    <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
+                                                                </div>
+                                                                <div class=" mt-2 label2 text-center">
+                                                                <strong><h1>QUANTIDADE</h1></strong>
+                                                                    <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
+                                                                </div>
+                                                                <div class="label3 text-center p-2">
+                                                                    <strong><h1>PREÇO UNITARIO</h1></strong>
+                                                                    <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
+                                                                </div>
+                                                                    <div class="text-center p-2">
+                                                                        <strong><label for="additional">ADICIONAIS</label></strong>
+                                                                        <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
+                                                                    </div>
+
+                                                                    <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
+                                                                        @foreach($additional as $item)
+                                                                            <div class="flex items-center justify-between space-x-2 container">
+                                                                                <div class="flex items-center space-x-2">
+                                                                                    <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
+                                                                                    <label for="additional-{{ $item->id }}" class="text-lg">
+                                                                                        {{ $item->name }}
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="flex items-center">
+                                                                                    <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
+                                                                                    <input
+                                                                                        type="number"
+                                                                                        id="quantity-{{ $item->id }}"
+                                                                                        name="additional_quantities[{{ $item->id }}]"
+                                                                                        min="1"
+                                                                                        value="1"
+                                                                                        class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                                        >
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                <div class=" p-2 text-center">
+                                                                <strong><h1>OBSERVAÇÃO</h1></strong>
+                                                                <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
+                                                                </div>
+                                                                <div class="flex flex-col gap-2">
+
+                                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                        <span id="buttonText">ADICIONAR</span>
+                                                                        <span id="buttonSpinner" style="display: none;">
+                                                                            <div class="spinner"></div>
+                                                                        </span>
+                                                                    </button>
+
+                                                                {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
+                                                                <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    </div>
+                                                </Form>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-
-               {{-- modal para adicionar produtos ao carrinho --}}
-            <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                            <div class="modal-header,btn btn-warning">
-                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
-                                    X
-                                </button>
+            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
+        </div>
+           {{-- container da bebidas --}}
+        <div class="container mx-auto p-4">
+            <div class="border-b-2 border-gray-300 mb-4">
+                <!-- Cabeçalho da seção com um botão de toggle -->
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSection('beer-section')">
+                    <h2 class="text-xl font-bold">BEBIDAS</h2>
+                    <!-- Ícone de seta para abrir/fechar -->
+                    <span id="beer-arrow" class="transform transition-transform duration-300">▼</span>
+                </div>
+                <!-- Conteúdo que será ocultado/mostrado -->
+                <div id="beer-section" class="mt-4 hidden">
+                    {{-- Conteúdo dos lanches aqui --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($productBeer as $item)
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            @if($item->photo)
+                            <div class="w-full img flex justify-center">
+                                <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                     class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                             </div>
-                            <div class="modal-body">
-                                <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
-                                    @csrf
-                                    <div class="text  pt-4 rounded">
-                                    <div class="grup-control">
-                                        <fieldset class="text-center">
+                            @endif
+                            <div class="p-2">
+                                <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
+                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
+                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
 
-                                                <div class="label text-center">
-                                                    <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
-                                                    <strong><h1>PRODUTO</h1></strong>
-                                                    <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                    <strong><h1>DESCRIÇÃO</h1></strong>
-                                                    <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                <strong><h1>QUANTIDADE</h1></strong>
-                                                    <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
-                                                </div>
-                                                <div class="label3 text-center p-2">
-                                                    <strong><h1>PREÇO UNITARIO</h1></strong>
-                                                    <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
-                                                </div>
-                                                    <div class="text-center p-2">
-                                                        <strong><label for="additional">ADICIONAIS</label></strong>
-                                                        <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
-                                                    </div>
+                                <div class="">
+                                    @if ($toggle->is_open ?? '' )
 
-                                                    <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
-                                                        @foreach($additional as $item)
-                                                            <div class="flex items-center justify-between space-x-2 container">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
-                                                                    <label for="additional-{{ $item->id }}" class="text-lg">
-                                                                        {{ $item->name }}
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center">
-                                                                    <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
-                                                                    <input
-                                                                        type="number"
-                                                                        id="quantity-{{ $item->id }}"
-                                                                        name="additional_quantities[{{ $item->id }}]"
-                                                                        min="1"
-                                                                        value="1"
-                                                                        class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                                        >
-                                                                </div>
+                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                        data-bs-target="#firstModal{{$item->id}}">
+                                          add ao carrinho
+                                    </button>
+
+                                   @else
+
+                                    @include('layouts.button')
+
+                                   @endif
+                                </div>
+                            </div>
+                        </div>
+
+                           {{-- modal para adicionar produtos ao carrinho --}}
+                        <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <div class="modal-header,btn btn-warning">
+                                            {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                            <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
+                                                X
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
+                                                @csrf
+                                                <div class="text  pt-4 rounded">
+                                                <div class="grup-control">
+                                                    <fieldset class="text-center">
+
+                                                            <div class="label text-center">
+                                                                <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
+                                                                <strong><h1>PRODUTO</h1></strong>
+                                                                <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
                                                             </div>
-                                                        @endforeach
-
-
-                                                    </div>
-
-
-                                                <div class=" p-2 text-center">
-                                                <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
-                                                </div>
-                                                <div class="flex flex-col gap-2">
-
-                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
-                                                        <span id="buttonText">ADICIONAR</span>
-                                                        <span id="buttonSpinner" style="display: none;">
-                                                            <div class="spinner"></div>
-                                                        </span>
-                                                    </button>
-
-                                                {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
-                                                <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
-                                                </div>
-                                        </fieldset>
-                                    </div>
-                                    </div>
-                                </Form>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-            @endforeach
-        </div>
-
-        <h1 class="text-center pb-2  font-semibold text-gray-600 rounded p-6 m-2">BEBIDAS</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            @foreach ($productBeer as $item)
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                @if($item->photo)
-                <div class="w-full img flex justify-center">
-                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
-                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
-                </div>
-                @endif
-                <div class="p-2">
-                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
-
-                    <div class="">
-                        @if ($toggle->is_open ?? '' )
-
-                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
-                            data-bs-target="#firstModal{{$item->id}}">
-                              add ao carrinho
-                        </button>
-
-                       @else
-
-                        @include('layouts.button')
-
-                       @endif
-                    </div>
-                </div>
-            </div>
-
-               {{-- modal para adicionar produtos ao carrinho --}}
-            <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                            <div class="modal-header,btn btn-warning">
-                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
-                                    X
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
-                                    @csrf
-                                    <div class="text  pt-4 rounded">
-                                    <div class="grup-control">
-                                        <fieldset class="text-center">
-
-                                                <div class="label text-center">
-                                                    <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
-                                                    <strong><h1>PRODUTO</h1></strong>
-                                                    <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                    <strong><h1>DESCRIÇÃO</h1></strong>
-                                                    <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                <strong><h1>QUANTIDADE</h1></strong>
-                                                    <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
-                                                </div>
-                                                <div class="label3 text-center p-2">
-                                                    <strong><h1>PREÇO UNITARIO</h1></strong>
-                                                    <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
-                                                </div>
-                                                    {{-- <div class="text-center p-2">
-                                                        <strong><label for="additional">ADICIONAIS</label></strong>
-                                                        <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
-                                                    </div> --}}
-
-                                                    {{-- <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
-                                                        @foreach($additional as $item)
-                                                            <div class="flex items-center justify-between space-x-2 container">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
-                                                                    <label for="additional-{{ $item->id }}" class="text-lg">
-                                                                        {{ $item->name }}
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center">
-                                                                    <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
-                                                                    <input
-                                                                        type="number"
-                                                                        id="quantity-{{ $item->id }}"
-                                                                        name="additional_quantities[{{ $item->id }}]"
-                                                                        min="1"
-                                                                        value="1"
-                                                                        class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                                        >
-                                                                </div>
+                                                            <div class=" mt-2 label2 text-center">
+                                                                <strong><h1>DESCRIÇÃO</h1></strong>
+                                                                <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
                                                             </div>
-                                                        @endforeach
-
-
-                                                    </div> --}}
-
-
-                                                {{-- <div class=" p-2 text-center">
-                                                    <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                    <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
-                                                </div> --}}
-                                                <div class="flex flex-col gap-2">
-
-                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
-                                                        <span id="buttonText">ADICIONAR</span>
-                                                        <span id="buttonSpinner" style="display: none;">
-                                                            <div class="spinner"></div>
-                                                        </span>
-                                                    </button>
-
-                                                {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
-                                                <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
-                                                </div>
-                                        </fieldset>
-                                    </div>
-                                    </div>
-                                </Form>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-            @endforeach
-        </div>
-
-        <h1 class="text-center pb-2 font-semibold text-gray-600  rounded p-6 m-2">COMBOS</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            @foreach ($productCombo as $item)
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                @if($item->photo)
-                <div class="w-full img flex justify-center">
-                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
-                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
-                </div>
-                @endif
-                <div class="p-2">
-                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
-
-                    <div class="">
-                        @if ($toggle->is_open ?? '' )
-
-                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
-                            data-bs-target="#firstModal{{$item->id}}">
-                              add ao carrinho
-                        </button>
-
-                       @else
-
-                        @include('layouts.button')
-
-                       @endif
-                    </div>
-                </div>
-            </div>
-
-               {{-- modal para adicionar produtos ao carrinho --}}
-            <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                            <div class="modal-header,btn btn-warning">
-                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
-                                    X
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
-                                    @csrf
-                                    <div class="text  pt-4 rounded">
-                                    <div class="grup-control">
-                                        <fieldset class="text-center">
-
-                                                <div class="label text-center">
-                                                    <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
-                                                    <strong><h1>PRODUTO</h1></strong>
-                                                    <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                    <strong><h1>DESCRIÇÃO</h1></strong>
-                                                    <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
-                                                </div>
-                                                <div class=" mt-2 label2 text-center">
-                                                <strong><h1>QUANTIDADE</h1></strong>
-                                                    <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
-                                                </div>
-                                                <div class="label3 text-center p-2">
-                                                    <strong><h1>PREÇO UNITARIO</h1></strong>
-                                                    <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
-                                                </div>
-                                                    <div class="text-center p-2">
-                                                        <strong><label for="additional">ADICIONAIS</label></strong>
-                                                        <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
-                                                    </div>
-
-                                                    <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
-                                                        @foreach($additional as $item)
-                                                            <div class="flex items-center justify-between space-x-2 container">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
-                                                                    <label for="additional-{{ $item->id }}" class="text-lg">
-                                                                        {{ $item->name }}
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center">
-                                                                    <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
-                                                                    <input
-                                                                        type="number"
-                                                                        id="quantity-{{ $item->id }}"
-                                                                        name="additional_quantities[{{ $item->id }}]"
-                                                                        min="1"
-                                                                        value="1"
-                                                                        class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                                        >
-                                                                </div>
+                                                            <div class=" mt-2 label2 text-center">
+                                                            <strong><h1>QUANTIDADE</h1></strong>
+                                                                <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
                                                             </div>
-                                                        @endforeach
+                                                            <div class="label3 text-center p-2">
+                                                                <strong><h1>PREÇO UNITARIO</h1></strong>
+                                                                <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
+                                                            </div>
 
+                                                            <div class="flex flex-col gap-2">
 
-                                                    </div>
+                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                    <span id="buttonText">ADICIONAR</span>
+                                                                    <span id="buttonSpinner" style="display: none;">
+                                                                        <div class="spinner"></div>
+                                                                    </span>
+                                                                </button>
 
-
-                                                <div class=" p-2 text-center">
-                                                <strong><h1>OBSERVAÇÃO</h1></strong>
-                                                <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
+                                                            {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
+                                                            <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                    </fieldset>
                                                 </div>
-                                                <div class="flex flex-col gap-2">
-
-                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
-                                                        <span id="buttonText">ADICIONAR</span>
-                                                        <span id="buttonSpinner" style="display: none;">
-                                                            <div class="spinner"></div>
-                                                        </span>
-                                                    </button>
-
-                                                {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
-                                                <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
                                                 </div>
-                                        </fieldset>
-                                    </div>
-                                    </div>
-                                </Form>
+                                            </Form>
+                                        </div>
+                                </div>
                             </div>
+                        </div>
+
+                        @endforeach
+
+
                     </div>
                 </div>
             </div>
-
-            @endforeach
+            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
         </div>
-
-        <h1 class="text-center pb-2  font-semibold text-gray-600  rounded p-6 m-2">BOMBONIERE</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-2">
-
-            @foreach ($productBomboniere as $item)
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                @if($item->photo)
-                <div class="w-full img flex justify-center">
-                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
-                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+          {{-- container dos combos --}}
+        <div class="container mx-auto p-4">
+            <div class="border-b-2 border-gray-300 mb-4">
+                <!-- Cabeçalho da seção com um botão de toggle -->
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSection('combos-section')">
+                    <h2 class="text-xl font-bold">  COMBOS</h2>
+                    <!-- Ícone de seta para abrir/fechar -->
+                    <span id="combos-arrow" class="transform transition-transform duration-300">▼</span>
                 </div>
-                @endif
-                <div class="p-2">
-                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                <!-- Conteúdo que será ocultado/mostrado -->
+                <div id="combos-section" class="mt-4 hidden">
+                    {{-- Conteúdo dos lanches aqui --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($productCombo as $item)
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            @if($item->photo)
+                            <div class="w-full img flex justify-center">
+                                <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                     class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+                            </div>
+                            @endif
+                            <div class="p-2">
+                                <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
+                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
+                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
 
-                    <div class="">
-                        @if ($toggle->is_open ?? '' )
+                                <div class="">
+                                    @if ($toggle->is_open ?? '' )
 
-                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
-                            data-bs-target="#firstModal{{$item->id}}">
-                              add ao carrinho
-                        </button>
+                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                        data-bs-target="#firstModal{{$item->id}}">
+                                          add ao carrinho
+                                    </button>
 
-                       @else
+                                   @else
 
-                        @include('layouts.button')
+                                    @include('layouts.button')
 
-                       @endif
+                                   @endif
+                                </div>
+                            </div>
+                        </div>
+
+                           {{-- modal para adicionar produtos ao carrinho --}}
+                        <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <div class="modal-header,btn btn-warning">
+                                            {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                            <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
+                                                X
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
+                                                @csrf
+                                                <div class="text  pt-4 rounded">
+                                                <div class="grup-control">
+                                                    <fieldset class="text-center">
+
+                                                            <div class="label text-center">
+                                                                <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
+                                                                <strong><h1>PRODUTO</h1></strong>
+                                                                <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
+                                                            </div>
+                                                            <div class=" mt-2 label2 text-center">
+                                                                <strong><h1>DESCRIÇÃO</h1></strong>
+                                                                <input type="text" disabled class=" p-2 rounded " id="description" value="{{ $item->description }}"/><br>
+                                                            </div>
+                                                            <div class=" mt-2 label2 text-center">
+                                                            <strong><h1>QUANTIDADE</h1></strong>
+                                                                <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
+                                                            </div>
+                                                            <div class="label3 text-center p-2">
+                                                                <strong><h1>PREÇO UNITARIO</h1></strong>
+                                                                <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
+                                                            </div>
+                                                                <div class="text-center p-2">
+                                                                    <strong><label for="additional">ADICIONAIS</label></strong>
+                                                                    <h3>Selecione quantos tipos de adicionais desejar e quantidade que desejar</h3>
+                                                                </div>
+
+                                                                <div id="additional-container" class="text-left rounded multiselect-container space-y-4">
+                                                                    @foreach($additional as $item)
+                                                                        <div class="flex items-center justify-between space-x-2 container">
+                                                                            <div class="flex items-center space-x-2">
+                                                                                <input type="checkbox" id="additional-{{ $item->id }}" name="additional_ids[]" value="{{ $item->id }}" class="form-checkbox h-5 w-5 text-blue-600">
+                                                                                <label for="additional-{{ $item->id }}" class="text-lg">
+                                                                                    {{ $item->name }}
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="flex items-center">
+                                                                                <span class="text-green font-bold mr-4">R$ @money($item->price)</span>
+                                                                                <input
+                                                                                    type="number"
+                                                                                    id="quantity-{{ $item->id }}"
+                                                                                    name="additional_quantities[{{ $item->id }}]"
+                                                                                    min="1"
+                                                                                    value="1"
+                                                                                    class="w-16 p-2 border border-gray-400 bg-white rounded-lg text-center mt-1 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                                    >
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
+
+
+                                                                </div>
+
+
+                                                            <div class=" p-2 text-center">
+                                                            <strong><h1>OBSERVAÇÃO</h1></strong>
+                                                            <input type="text" autocomplete="off" class="  rounded " placeholder="Ex: sem tomate" name="observation" id="observation" value="{{$item->observation}}">
+                                                            </div>
+                                                            <div class="flex flex-col gap-2">
+
+                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                    <span id="buttonText">ADICIONAR</span>
+                                                                    <span id="buttonSpinner" style="display: none;">
+                                                                        <div class="spinner"></div>
+                                                                    </span>
+                                                                </button>
+
+                                                            {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
+                                                            <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                    </fieldset>
+                                                </div>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @endforeach
+
+
                     </div>
                 </div>
             </div>
-
-               {{-- modal para adicionar produtos ao carrinho --}}
-            <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                            <div class="modal-header,btn btn-warning">
-                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
-                                    X
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
-                                    @csrf
-                                    <div class="text  pt-4 rounded">
-                                    <div class="grup-control">
-                                        <fieldset class="text-center">
-
-                                                <div class="label text-center">
-                                                    <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
-                                                    <strong><h1>PRODUTO</h1></strong>
-                                                    <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
-                                                </div>
-                                           +
-                                                <div class=" mt-2 label2 text-center">
-                                                <strong><h1>QUANTIDADE</h1></strong>
-                                                    <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
-                                                </div>
-                                                <div class="label3 text-center p-2">
-                                                    <strong><h1>PREÇO UNITARIO</h1></strong>
-                                                    <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
-                                                </div>
-
-
-                                                <div class="flex flex-col gap-2">
-
-                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
-                                                        <span id="buttonText">ADICIONAR</span>
-                                                        <span id="buttonSpinner" style="display: none;">
-                                                            <div class="spinner"></div>
-                                                        </span>
-                                                    </button>
-
-                                                {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
-                                                <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
-                                                </div>
-                                        </fieldset>
-                                    </div>
-                                    </div>
-                                </Form>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-            @endforeach
+            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
         </div>
+        {{-- container de bomboneirer --}}
+        <div class="container mx-auto p-4">
+            <div class="border-b-2 border-gray-300 mb-4">
+                <!-- Cabeçalho da seção com um botão de toggle -->
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSection('bomboniere-section')">
+                    <h2 class="text-xl font-bold">BOMBONIERE</h2>
+                    <!-- Ícone de seta para abrir/fechar -->
+                    <span id="bomboniere-arrow" class="transform transition-transform duration-300">▼</span>
+                </div>
+                <!-- Conteúdo que será ocultado/mostrado -->
+                <div id="bomboniere-section" class="mt-4 hidden">
+                    {{-- Conteúdo dos lanches aqui --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($productBomboniere as $item)
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            @if($item->photo)
+                            <div class="w-full img flex justify-center">
+                                <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                     class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+                            </div>
+                            @endif
+                            <div class="p-2">
+                                <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
+                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
+                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
 
+                                <div class="">
+                                    @if ($toggle->is_open ?? '' )
+
+                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                        data-bs-target="#firstModal{{$item->id}}">
+                                          add ao carrinho
+                                    </button>
+
+                                   @else
+
+                                    @include('layouts.button')
+
+                                   @endif
+                                </div>
+                            </div>
+                        </div>
+
+                           {{-- modal para adicionar produtos ao carrinho --}}
+                        <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <div class="modal-header,btn btn-warning">
+                                            {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                            <button type="button" class="btn-close text-center" data-bs-dismiss="modal"   aria-label="Close">
+                                                X
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <Form id="mainForm" action="{{ route('store.cart',$item->id)}}" method="post">
+                                                @csrf
+                                                <div class="text  pt-4 rounded">
+                                                <div class="grup-control">
+                                                    <fieldset class="text-center">
+
+                                                            <div class="label text-center">
+                                                                <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do produto" class="img-fluid p-2 mx-auto d-block"><br>
+                                                                <strong><h1>PRODUTO</h1></strong>
+                                                                <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
+                                                            </div>
+                                                       +
+                                                            <div class=" mt-2 label2 text-center">
+                                                            <strong><h1>QUANTIDADE</h1></strong>
+                                                                <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>
+                                                            </div>
+                                                            <div class="label3 text-center p-2">
+                                                                <strong><h1>PREÇO UNITARIO</h1></strong>
+                                                                <input type="text"  disabled class=" rounded text-center " name="price" id="price" value="{{number_format($item->price,2,',','.')?? '' }}"/><br>
+                                                            </div>
+
+
+                                                            <div class="flex flex-col gap-2">
+
+                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                    <span id="buttonText">ADICIONAR</span>
+                                                                    <span id="buttonSpinner" style="display: none;">
+                                                                        <div class="spinner"></div>
+                                                                    </span>
+                                                                </button>
+
+                                                            {{-- <button class="btn btn-success text-with bg-success m-2" type="submit">ADICIONAR</button> --}}
+                                                            <button type="button" class="btn btn-warning bg-warning m-2"data-bs-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                    </fieldset>
+                                                </div>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
+        </div>
 
     </main>
 
@@ -646,15 +659,15 @@
         </div>
     </footer>
        {{-- carrinho --}}
-    <div class="fixed bottom-4 right-4">
+    <div class="fixed bottom-8 right-4">
         <a href="{{ route('cart.show')}}">
             <button class="bg-red-600 text-white p-4 rounded-full shadow-lg hover:bg-red-500 transition duration-300">
-                 <i class="fas fa-shopping-cart text-2xl"></i>
-                @if($productCount)
-                <span class="absolute top-0 right-0 bg-yellow-400 text-red-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">{{ $productCount }}</span>
-                @endif
-                @if(!$productCount)
-                  <i class="fa-solid fa-sad-tear text-2xl"></i>
+                 <i class="fas fa-shopping-cart text-xl"></i>
+                     @if($productCount)
+                    <span class="absolute top-0 right-0 bg-yellow-400 text-red-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">{{ $productCount }}</span>
+                    @endif
+                    @if(!$productCount)
+                  <i class="fa-solid fa-sad-tear text-xl"></i>
                @endif
             </button>
         <a>
@@ -687,6 +700,23 @@
         buttonSpinner.style.display = 'block';
     });
     });
+
+    // mostrar div com os produtos
+
+    function toggleSection(sectionId) {
+    // Alternar visibilidade da seção
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('hidden');
+
+    // Alternar a seta de "▼" para "▲"
+    const arrow = document.getElementById(sectionId.replace('-section', '-arrow'));
+    if (section.classList.contains('hidden')) {
+        arrow.textContent = '▼';
+    } else {
+        arrow.textContent = '▲';
+    }
+}
+
 //     document.addEventListener('DOMContentLoaded', function() {
 //     // Desabilitar todos os campos de quantidade inicialmente
 //     document.querySelectorAll('input[type="number"]').forEach(function(quantityField) {

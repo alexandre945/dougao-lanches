@@ -401,7 +401,12 @@
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <div class="text-center  overflow-auto">
 
-                                    <button type="submit" id="submitButton" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                    <button type="submit" id="submitButton" class="text-sm p-2
+                                    border-b-2 border-l-2 border-r-2
+                                    bg-gradient-to-r from-cyan-100 to-emerald-500
+                                    rounded mb-2 mt-2 shadow-lg
+                                    hover:shadow-xl transition-shadow
+                                    duration-300">
                                         <span id="buttonText">ENVIAR PEDIDO</span>
                                         <span id="buttonSpinner" style="display: none;">
                                             <div class="spinner"></div>
@@ -414,13 +419,23 @@
 
                                     <div class="p-2 text-center">
                                         <a href="{{ route('client.show')}}">
-                                            <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                            <button class="text-sm p-2 border-b-2 border-r-2
+                                            border-l-2 rounded mb-2 mt-2 shadow-lg
+                                            bg-gradient-to-r from-cyan-100 to-emerald-500
+                                            hover:shadow-xl transition-shadow
+                                            duration-300">
                                                 <SPAN>CONTINUAR COMPRANDO</SPAN>
                                             </button>
                                         </a>
                                     </div>
 
-                                    <button class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 " data-bs-toggle="modal"
+                                    <button class="text-sm p-2 border-b-4
+                                     border-l-2 border-r-2
+                                     bg-gradient-to-r from-cyan-100 to-emerald-500
+                                     rounded mb-2 mt-2 shadow-lg
+                                     hover:shadow-xl
+                                     transition-shadow duration-300 "
+                                     data-bs-toggle="modal"
                                         data-bs-target="#firstModal">
                                         <span>CADASTRAR UM NOVO ENDEREÇO</span>
                                     </button>
@@ -634,14 +649,24 @@
                         {{-- modal para avaliação --}}
 
                      <!-- Button trigger modal -->
-                     <button type="button" class="bg-gradient-to-r from-yellow-400 to-yellow-600  font-bold py-2 px-4 rounded-lg shadow-lg hover:from-yellow-500 hover:to-yellow-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all duration-300 ease-in-out transform hover:scale-105" data-bs-toggle="modal" data-bs-target="#firstModal1">
+                     <button type="button" class="border-b-2 border-l-2 border-r-2
+                        bg-gradient-to-r from-cyan-100 to-emerald-500
+                        rounded mb-2 mt-2 shadow-lg
+                        hover:shadow-xl
+                        transition-all duration-300 ease-in-out
+                        transform hover:scale-105
+                        p-2 hover:bg-none hover:bg-emerald-600 hover:text-white"
+                            data-bs-toggle="modal" data-bs-target="#firstModal1">
                         Avaliar o estabelecimento
                     </button>
 
 
 
+
+
+
                     <!-- Modal para avaliação -->
-            <div class="modal fade" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade bg-yellow-100" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -675,14 +700,26 @@
 
                                 <!-- Botão de envio -->
                                 <div class="text-right">
-                                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition">
+                                    <button type="submit" class="border-b-2 border-l-2 border-r-2
+                                    bg-gradient-to-r from-cyan-100 to-emerald-500
+                                    rounded mb-2 mt-2 shadow-lg
+                                    hover:shadow-xl
+                                    transition-all duration-300 ease-in-out
+                                    transform hover:scale-105
+                                    p-2 hover:bg-none hover:bg-emerald-600 hover:text-white">
                                         Enviar Avaliação
                                     </button>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="bg-yellow-500 text-black p-2 rounded" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="bg-gradient-to-r from-yellow-300
+                             to-red-500 border-r-2
+                               hover:bg-none hover:bg-red-400
+                               transition-all duration-400 ease-in-out
+                               hover:text-white
+                               p-2 rounded"
+                               data-bs-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>

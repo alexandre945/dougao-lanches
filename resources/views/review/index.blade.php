@@ -28,7 +28,7 @@
            <div class="bg-white ">
                     <!-- Exibe as avaliações -->
                 @foreach ($reviews as $review)
-                    <div class="review mb-3 border-l-2 md:border-r-2  md:border-t-4 border-b  bg-yellow-100 rounded m-2 p-2">
+                    <div class="review mb-3 border-l-2 bg-slate-50 rounded m-2 p-2">
                         <strong>Avaliação: </strong>{{ $ratingsdescriptions[$review->rating] }} {{$review->rating}} /5<br>
                         <strong>Comentário: </strong>{{ $review->comment }}<br>
                         <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
@@ -43,6 +43,11 @@
         <div class="d-flex justify-content-center">
             {{ $reviews->links() }}
         </div>
+        <a href="{{ route('client.show') }}">
+            <button class="bg-gradient-to-r from-yellow-400 to-bluee border-l-4 border-blue hover:bg-gradient-to-l hover:from-blue-600 hover:to-yellow-400  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Voltar
+            </button>
+        </a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
