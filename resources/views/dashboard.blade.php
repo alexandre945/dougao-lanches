@@ -162,7 +162,7 @@
                         @foreach ($product as $item)
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                                 @if($item->photo)
-                                <div class="w-full img flex justify-center">
+                                <div class="w-full img flex justify-center mt-2">
                                     <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                          class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                                 </div>
@@ -663,7 +663,7 @@
         </div>
     </footer> --}}
        {{-- carrinho --}}
-    <div class="fixed bottom-2 right-4">
+    <div class="fixed bottom-4 right-4">
         <a href="{{ route('cart.show')}}">
             <button class="bg-red-600 text-white p-4 rounded-full shadow-lg hover:bg-red-500 transition duration-300">
                  <i class="fas fa-shopping-cart text-xl"></i>
