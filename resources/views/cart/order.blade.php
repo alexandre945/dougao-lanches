@@ -54,6 +54,7 @@
                  @include('layouts.statusNavegation')
               </div>
             </div>
+
           @forelse ($orders as $item)
 
 
@@ -81,83 +82,97 @@
                     <div class="overflow-auto">
                         <div class="bg-white rounded-lg shadow-lg p-2 mt-2">
 
-                                    @foreach ($item->orderList as $list)
+                                    @foreach ( $item->orderList as $list )
+                                     @if ( $list && !$list->blindCart )
+                                        <div class="mb-4  pb-2 pr-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>produto</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    {{ $list->product->name ?? ''}}
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <div class="mb-4  pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>produto</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                {{ $list->product->name ?? ''}}
+                                        <div class="mb-4 border-b pb-2 pr-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>Quantidade</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    {{ $list->quamtity}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="mb-4 border-b pb-2 pr-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>Preço</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    @money( $list->value )
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @else
+                                        @if( !empty( $list->blindCart ))
+                                           <div class="mb-4 border-b pb-2 pr-4">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Brindes</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        {{ $list->blindCart->name ?? 'sem nome' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
 
-                                    <div class="mb-4 border-b pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Quantidade</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                {{ $list->quamtity}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4 border-b pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Preço</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                {{$list->value }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if( $list->product && $list->product->category_id !=2 )
-                                    <div class="mb-4 border-b pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Observação</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                {{$list->observation ?? '//' }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-4 border-b pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Adicionais</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                @forelse ($list->orderAdditional as $additional)
-                                                    {{ $additional->name }} ( {{$additional->pivot->quantity}} )
-                                                 @empty
-                                                    //
-                                                @endforelse
-                                            </div>
-                                        </div>
-                                    </div>
+                                        @endif
 
 
-                                    <div class="mb-4 border-b pb-2 pr-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Brindes</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                @if ($list->blindCart)
-                                                {{ $list->blindCart->name }}
-                                                @break
-                                            @else
-                                                //
-                                            @endif
+                                    @if( $list->product && $list->product->category_id !=2 && $list->product->category_id != 4)
+                                        <div class="mb-4 border-b pb-2 pr-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>Observação</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    {{$list->observation ?? '//' }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="mb-4 border-b pb-2 pr-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="font-bold text-gray-700">
+                                                    <span>Adicionais</span>
+                                                </div>
+                                                <div class="text-gray-700">
+                                                    @forelse ($list->orderAdditional as $additional)
+                                                        {{ $additional->name }} ( {{$additional->pivot->quantity}} )
+                                                    @empty
+                                                        //
+                                                    @endforelse
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
+                                    @if( !$list->blindCart)
+                                    <div class="mb-4 border-b pb-2">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="font-bold text-gray-700">
+                                                <span>Descrição</span>
+                                            </div>
+                                            <div class="text-gray-700">
+
+                                                <span>{{ $list->product->description ?? ''}}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
 
                                     @endif
                                     <div class=" bg-yellow-200 pb-2">
@@ -175,7 +190,7 @@
                         </div>
 
                     </div>
-
+                       {{-- container que mostra endereço --}}
                     <div class="container pb-4">
                         <div class="bg-white rounded shadow-lg p-4 mt-4">
                             <h1 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h1>

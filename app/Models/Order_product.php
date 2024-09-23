@@ -16,7 +16,7 @@ class Order_product extends Model
         return $this->belongsTo(Product::class,'product_id', 'id');
        }
 
-    public function blinCart()
+    public function blindCart()
 
        {
         return $this->belongsTo(BlindCart::class,'blind_carts_id', 'id');

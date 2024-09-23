@@ -132,85 +132,99 @@
                                  <div class=" ">
 
                                     @forelse ($cart as $item)
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
+                                       @if( $item->orderProductProduct && !$item->blindCart )
+                                            <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>produto</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        {{ $item->orderProductProduct->name ?? ''}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Quatidade</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        <span>{{$item->quanty}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
                                                 <div class="font-bold text-gray-700">
-                                                    <span>produto</span>
+                                                    <span>Preço</span>
                                                 </div>
                                                 <div class="text-gray-700">
-                                                    {{ $item->orderProductProduct->name ?? ''}}
+                                                    <span>@money($item->orderProductProduct->price ?? 0)</span>
+                                                </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
-                                                <div class="font-bold text-gray-700">
-                                                    <span>Quatidade</span>
-                                                </div>
-                                                <div class="text-gray-700">
-                                                    <span>{{$item->quanty}}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Preço</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                <span>@money($item->orderProductProduct->price ?? 0)</span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        @if( $item->orderProductProduct && $item->orderProductProduct->category_id !=2 )
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Observação</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                @if( $item->observation)
-                                                <span>{{ $item->observation }}</span>
-                                                @else
-                                                //
-                                                @endif
-                                            </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Adicionais</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                <span>
-                                                    @forelse ($item->orderProductAdditional as $additional)
-                                                    {{ $additional->name }} ( {{$additional->pivot->quantity}} )
-                                                @empty
-                                                //
-                                                @endforelse
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Brinde</span>
-                                            </div>
-                                            <div class="text-gray-700">
-                                                @if( $item->blindCart)
-                                                <span>{{ $item->blinCart->name ?? '' }}</span>
-                                                @else
-                                                //
-                                                @endif
-                                            </div>
-                                            </div>
-                                        </div>
                                         @else
+                                           @if(!empty($item->blindCart))
+                                                <div class="mb-4 border-b pb-2">
+                                                    <div class="flex justify-between items-center mb-2">
+                                                        <div class="font-bold text-gray-700">
+                                                            <span>Blinde</span>
+                                                        </div>
+                                                        <div class="text-gray-700">
+                                                            <span>{{ $item->blindCart->name ?? 'Brinde sem nome' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
 
+                                        @if( $item->orderProductProduct && $item->orderProductProduct->category_id != 2 && $item->orderProductProduct->category_id != 4 )
+                                            <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Observação</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        @if( $item->observation)
+                                                        <span>{{ $item->observation }}</span>
+                                                        @else
+                                                        //
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Adicionais</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        <span>
+                                                            @forelse ($item->orderProductAdditional as $additional)
+                                                                {{ $additional->name }} ( {{$additional->pivot->quantity}} )
+                                                            @empty
+                                                            //
+                                                            @endforelse
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                           @if( !$item->blindCart)
+                                                <div class="mb-4 border-b pb-2">
+                                                    <div class="flex justify-between items-center mb-2">
+                                                        <div class="font-bold text-gray-700">
+                                                            <span>Descrição</span>
+                                                        </div>
+                                                        <div class="text-gray-700">
+
+                                                            <span>{{ $item->orderProductProduct->description ?? ''}}</span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         @endif
                                         <div class="mb-4 border-b pb-2">
                                             <div class="flex justify-between items-center mb-2">
@@ -301,7 +315,7 @@
                                         </td>
 
                                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                                            @if ($item->blinCart)
+                                            @if ($item->)
                                             <span class="bg-gray-100 text-gray-700 rounded p-2 px-4">{{ $item->blinCart->name ?? '' }}</span>
                                             @else
                                             <span class="bg-gray-100 text-gray-500 rounded p-2 px-4">//</span>

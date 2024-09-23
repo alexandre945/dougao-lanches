@@ -67,7 +67,7 @@ class OrderProductController extends Controller
 
 
         $cart = Order_product::where('user_id', $users)
-            ->with('orderProductProduct', 'orderProductAdditional', 'blinCart')
+            ->with('orderProductProduct', 'orderProductAdditional', 'blindCart')
             ->get();
         $blindCart = BlindCart::where('user_id', $users)->get();
 
@@ -113,7 +113,7 @@ class OrderProductController extends Controller
                 $query->withPivot('quantity'); // Certifica-se de que a quantidade está sendo carregada
             },
             'orderProductProduct',
-            'blinCart'
+            'blindCart'
         ])->get();
 
 

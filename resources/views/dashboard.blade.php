@@ -51,10 +51,10 @@
     @vite('resources/css/app.css')
 
     <header class="text-center mb-8 pt-8">
-        <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
+        <h1 class="text-4xl font-bold text-red-600 pt-4">DOUGÃO LANCHES</h1>
         {{-- <p class="text-sm md:text-md text-gray-600">Lanches deliciosos entregue em sua casa</p> --}}
             {{-- div do logout --}}
-        <div class=" logout absolute top-0 left-0   px-4  md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
+        <div class=" logout absolute top-0 left-0   px-4 mb-4 md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
                 <x-slot name="trigger">
                     <button class="  button inline-flex px-3 py-2 mt-2  text-sm leading-4 font-medium rounded-md text-yellow hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -146,6 +146,7 @@
         </div>
     <main class="container mx-auto p-4">
            {{-- container dos lanches --}}
+
         <div class="container mx-auto p-4">
             <div class="border-b-2 border-gray-300 mb-4">
                 <!-- Cabeçalho da seção com um botão de toggle -->
@@ -168,8 +169,8 @@
                                 @endif
                                 <div class="p-2">
                                     <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                    <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                                    <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                                    <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+                                     <h2 class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</h2>
                                     <!-- Botão de adicionar ao carrinho ou outra ação -->
                                     <div class="">
                                         @if ($toggle->is_open ?? '' )
@@ -282,6 +283,7 @@
             <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
         </div>
            {{-- container da bebidas --}}
+
         <div class="container mx-auto p-4">
             <div class="border-b-2 border-gray-300 mb-4">
                 <!-- Cabeçalho da seção com um botão de toggle -->
@@ -297,15 +299,15 @@
                         @foreach ($productBeer as $item)
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
-                            <div class="w-full img flex justify-center">
+                            <div class="w-full img flex justify-center mt-4">
                                 <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                      class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                             </div>
                             @endif
                             <div class="p-2">
                                 <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                                <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+                                <p class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</p>
 
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
@@ -390,6 +392,7 @@
             <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
         </div>
           {{-- container dos combos --}}
+
         <div class="container mx-auto p-4">
             <div class="border-b-2 border-gray-300 mb-4">
                 <!-- Cabeçalho da seção com um botão de toggle -->
@@ -405,15 +408,15 @@
                         @foreach ($productCombo as $item)
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
-                            <div class="w-full img flex justify-center">
+                            <div class="w-full img flex justify-center mt-4">
                                 <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                      class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                             </div>
                             @endif
                             <div class="p-2">
                                 <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                                <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+                                <p class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</p>
 
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
@@ -533,6 +536,7 @@
             <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
         </div>
         {{-- container de bomboneirer --}}
+
         <div class="container mx-auto p-4">
             <div class="border-b-2 border-gray-300 mb-4">
                 <!-- Cabeçalho da seção com um botão de toggle -->
@@ -548,15 +552,15 @@
                         @foreach ($productBomboniere as $item)
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
-                            <div class="w-full img flex justify-center">
+                            <div class="w-full img flex justify-center mt-4">
                                 <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                      class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                             </div>
                             @endif
                             <div class="p-2">
                                 <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                <h2 class="font-semibold mb-2">R$ @money( $item->price )</h2>
-                                <p class="text-gray-600 mb-4">{{ $item->description}}</p>
+                                <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+                                <h2 class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</h2>
 
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
@@ -642,7 +646,7 @@
 
 
 
-    <footer class="bg-red-600 text-white p-4 mt-6">
+    {{-- <footer class="bg-red-600 text-white p-4 mt-6">
         <div class="container mx-auto flex justify-between items-center">
             <p>&copy; 2023 Dougão Lanches todos direitos reservados.</p>
             <div class="flex space-x-4">
@@ -657,9 +661,9 @@
                 </a>
             </div>
         </div>
-    </footer>
+    </footer> --}}
        {{-- carrinho --}}
-    <div class="fixed bottom-8 right-4">
+    <div class="fixed bottom-2 right-4">
         <a href="{{ route('cart.show')}}">
             <button class="bg-red-600 text-white p-4 rounded-full shadow-lg hover:bg-red-500 transition duration-300">
                  <i class="fas fa-shopping-cart text-xl"></i>
