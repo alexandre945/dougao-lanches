@@ -52,16 +52,7 @@ class adminController extends Controller
             $selectedAddressTypeId = $request->input('addressType');
             $addressId = $request->input('address_id');
             $addressUserTypesId = $request->input('address_user_types_id');
-        //     dump($selectedAddressTypeId);
-        //     dump($addressId);
-        //     dump( $addressUserTypesId);
-
-
-        //    dd('Aqui está o valor de addressId e selectedAddressTypeId');
-
-
-
-
+ 
             if ( $total < 20.00)
                 {
                 return redirect()->back()->with('total', 'o valor de sua compra precisa ser maior que 20,00 reais');
@@ -146,9 +137,6 @@ class adminController extends Controller
             $totalPointsEarned -= $totalBlindPoints;
 
 
-
-
-
                 //se existir pontos na tabela faz opdate no numero de pontos se não cria
 
             LoyaltyPoint::updateOrCreate(
@@ -223,19 +211,21 @@ class adminController extends Controller
 
             // Carregar pedidos do usuário com as relações necessárias
             $orders = Order::orderBy('id', 'desc')
-                ->with([
-                    'orderUser',  // Relação com o usuário que fez o pedido
-                    'orderList' => function($query) {
-                        $query->with([
-                            'addressUserType.address',  // Relação com o tipo de endereço e o endereço em si
-                            'orderAdditional' => function($q) {
-                                $q->withPivot('quantity');  // Inclui a quantidade de cada adicional
-                            }
-                        ]);
-                    }
-                ])
-                ->where('status', 'processando')
-                ->get();
+            ->with([
+            'orderUser',  // Relação com o usuário que fez o pedido
+            'orderList' => function($query) {
+            $query->with([
+                'addressUserType.address',  // Relação com o tipo de endereço e o endereço em si
+                'orderAdditional' => function($q) {
+                    $q->withPivot('quantity');  // Inclui a quantidade de cada adicional
+                },
+                'blindCart'  // Certifique-se de carregar o relacionamento com BlindCart
+            ]);
+            }
+            ])
+    ->where('status', 'processando')
+    ->get();
+
 
             return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
         }

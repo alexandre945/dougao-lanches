@@ -668,7 +668,7 @@
             <button class="bg-red-600 text-white p-4 rounded-full shadow-lg hover:bg-red-500 transition duration-300">
                  <i class="fas fa-shopping-cart text-xl"></i>
                      @if($productCount)
-                    <span class="absolute top-0 right-0 bg-yellow-400 text-red-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">{{ $productCount }}</span>
+                    <span class="absolute top-0 right-0 bg-yellow-400 text-red-600 rounded-full w-6 h-6 flex items-center justify-center text-xs ">{{ $productCount }}</span>
                     @endif
                     @if(!$productCount)
                   <i class="fa-solid fa-sad-tear text-xl"></i>

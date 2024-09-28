@@ -57,9 +57,7 @@
 
           @forelse ($orders as $item)
 
-
             <div class=" p-2 pt-2">
-
 
                 @php
                     $userCount = $orders->where('user_id', $item->user_id)->count();
@@ -83,7 +81,8 @@
                         <div class="bg-white rounded-lg shadow-lg p-2 mt-2">
 
                                     @foreach ( $item->orderList as $list )
-                                     @if ( $list && !$list->blindCart )
+                                    {{-- <pre>{{ dd($list->blindCart) }}</pre> --}}
+                                    @if ( $list->product && !$list->product->blindCart )
                                         <div class="mb-4  pb-2 pr-4">
                                             <div class="flex justify-between items-center mb-2">
                                                 <div class="font-bold text-gray-700">
@@ -115,24 +114,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @else
-                                        @if( !empty( $list->blindCart ))
-                                           <div class="mb-4 border-b pb-2 pr-4">
-                                                <div class="flex justify-between items-center mb-2">
-                                                    <div class="font-bold text-gray-700">
-                                                        <span>Brindes</span>
-                                                    </div>
-                                                    <div class="text-gray-700">
-                                                        {{ $list->blindCart->name ?? 'sem nome' }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
+                                    @endif
 
-                                        @endif
-
-
-                                    @if( $list->product && $list->product->category_id !=2 && $list->product->category_id != 4)
+                                    @if( $list->product && $list->product->category_id !=2 && $list->product->category_id != 4 )
                                         <div class="mb-4 border-b pb-2 pr-4">
                                             <div class="flex justify-between items-center mb-2">
                                                 <div class="font-bold text-gray-700">
@@ -159,36 +143,50 @@
                                             </div>
                                         </div>
                                     @else
-                                    @if( !$list->blindCart)
-                                    <div class="mb-4 border-b pb-2">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <div class="font-bold text-gray-700">
-                                                <span>Descrição</span>
+
+                                       @if( $list->product && ($list->product->category_id == 2 || $list->product->category_id == 4))
+                                        <div class="mb-4 border-b pb-2">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Descrição</span>
+                                                    </div>
+                                                    <div class="text-gray-700">
+                                                        <span>{{ $list->product->description ?? ''}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="text-gray-700">
-
-                                                <span>{{ $list->product->description ?? ''}}</span>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
+                                       @endif
                                     @endif
-                                    <div class=" bg-yellow-200 pb-2">
-                                        <div class="flex justify-between items-center mb-2">
 
-                                        <div class="text-gray-700 text-center">
-
-                                        </div>
-                                        </div>
-                                    </div>
-
-
+                                          <!-- Exibir o separador somente entre os produtos -->
+                                        @if (!$loop->last)  <!-- Condição: mostrar apenas se não for o último produto -->
+                                            <div class="flex justify-center items-center my-4">
+                                                <div class="border-t border-gray-300 flex-grow"></div>
+                                                 <span class="mx-2 text-blue">✦</span>
+                                                <div class="border-t border-gray-300 flex-grow"></div>
+                                            </div>
+                                        @endif
 
                                     @endforeach
-                        </div>
 
+                                    @foreach( $item->orderList as $list)
+                                        @if( $list->blindCart )
+                                            <div class="mb-4 border-b pb-2 pr-4">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <div class="font-bold text-gray-700">
+                                                        <span>Brinde</span>
+                                                    </div>
+
+                                                    <div class="text-gray-700">
+                                                        {{ $list->blindCart->name ?? 'sem nome' }}
+                                                        @break
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                    @endif
+                                   @endforeach
+                        </div>
                     </div>
                        {{-- container que mostra endereço --}}
                     <div class="container pb-4">

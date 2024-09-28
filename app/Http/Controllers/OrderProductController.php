@@ -34,12 +34,6 @@ class OrderProductController extends Controller
         $selectedAdditionals = $request->input('additional_ids', []); // IDs dos adicionais
         $additionalQuantities = $request->input('additional_quantities', []); // Quantidades dos adicionais
 
-
-        // $blindCart = BlindCart::findOrFail($id);
-        // $blindCartId = $blindCart->id ?? '';
-         // Capturar os IDs e Quantidades
-
-    // dd($selectedAdditionals, $additionalQuantities);
         $cart = Order_product::create([
             'blind_carts_id' => $blindCartId ?? null,
             'product_id' => $products,
@@ -63,8 +57,6 @@ class OrderProductController extends Controller
                 $cart->orderProductAdditional()->attach($additionalId, ['quantity' => 1]);
             }
         }
-
-
 
         $cart = Order_product::where('user_id', $users)
             ->with('orderProductProduct', 'orderProductAdditional', 'blindCart')

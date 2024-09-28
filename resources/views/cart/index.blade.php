@@ -344,7 +344,7 @@
                                 <div class="ml-4 mr-4  container">
                                     <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
-                                    <form id="mainForm" action="{{ route('admin.create') }}" method="post">
+                    <form id="mainForm" action="{{ route('admin.create') }}" method="post">
 
                                     @csrf
 
@@ -355,7 +355,7 @@
                                         <input type="hidden" name="total" value=" @money ($total)">
 
                                         @foreach ($cart as $item)
-                                            <input type="hidden" name="blindCartId" value="{{ $item->blinCart->id ?? ''}} ">
+                                            <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
 
                                         @endforeach
                                 </div>
@@ -427,7 +427,7 @@
                                         </span>
                                     </button>
 
-                                    </form>
+                    </form>
 
                                 </div>
 
@@ -579,11 +579,11 @@
 
 
                                         <fieldset>
-                                        <legend class="text-base text-center">Tipo de endereço</legend>
+                                         <legend class="text-base text-center">Tipo de endereço</legend>
                                             <select  name="addressTypeSelect" id="addressType" class="shadow  appearance-none border rounded w-full py-2 pb-2 mb-2 mt-2 text-gray-700 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                                    @php
-                                                    $hasAddressType = false;
-                                                    @endphp
+                                                        @php
+                                                        $hasAddressType = false;
+                                                        @endphp
                                                     @foreach($addressUserTypes as $addressUserType)
                                                         @if ($addressUserType->addressType)
 
@@ -597,7 +597,6 @@
                                                                     data-address-user-type-id="{{ $addressUserType->id }}">
                                                                     {{ $addressUserType->addressType->name }}
                                                                 </option>
-
                                                         @endif
                                                     @endforeach
 
@@ -673,12 +672,6 @@
                             data-bs-toggle="modal" data-bs-target="#firstModal1">
                         Avaliar o estabelecimento
                     </button>
-
-
-
-
-
-
                     <!-- Modal para avaliação -->
             <div class="modal fade bg-yellow-100" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

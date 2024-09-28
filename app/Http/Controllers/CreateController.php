@@ -22,7 +22,7 @@ class CreateController extends Controller
         public function store(ProductRequest $request)
 
         {
-            
+
 
             $imagePath = $request->file('image')->store('upload', 'public');
             $category = Category::all();
@@ -36,9 +36,6 @@ class CreateController extends Controller
                 'category_id'   => $request->category,
 
             ]);
-
-
-
 
                 return redirect()->back()->with('success', 'produto cadastrado com suceeso!');
         }
