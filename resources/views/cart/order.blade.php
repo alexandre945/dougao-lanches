@@ -58,9 +58,14 @@
           @forelse ($orders as $item)
 
             <div class=" p-2 pt-2">
+                @php
+
+                  $user = $item->user_id
+
+                @endphp
 
                 @php
-                    $userCount = $orders->where('user_id', $item->user_id)->count();
+                    $userCount = $orders->where('user_id', $user )->count();
                 @endphp
 
                 <div class="card-body ">
