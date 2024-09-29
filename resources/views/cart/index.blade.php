@@ -224,17 +224,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             @endif
                                         @endif
                                         <div class="mb-4 border-b pb-2">
                                             <div class="flex justify-between items-center mb-2">
 
-                                            <div class="text-gray-700 text-center">
+                                              @if( !$item->blindCart)
+
+                                              <div class="text-gray-700 text-center">
                                                 <form action="{{ route('cart.delete', $item->id) }}" method="POST">
                                                     @csrf
                                                     <button type="submit" class="text-white bg-red-500 hover:bg-red-600 rounded px-4 py-2 text-sm font-semibold">Excluir</button>
                                                 </form>
-                                            </div>
+                                              </div>
+
+                                              @endif
                                             </div>
                                         </div>
                                         @empty

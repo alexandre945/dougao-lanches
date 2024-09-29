@@ -182,7 +182,7 @@
 
                                        @else
 
-                                        @include('layouts.button')
+
 
                                        @endif
                                     </div>
@@ -258,7 +258,7 @@
                                                                 </div>
                                                                 <div class="flex flex-col gap-2">
 
-                                                                    <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                    <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-indigo-400 border-l-4 border-t-2 border-bluee pt-2 pb-2 mr-10 ml-10 rounded hover:bg-none hover:bg-green hover:text-white">
                                                                         <span id="buttonText">ADICIONAR</span>
                                                                         <span id="buttonSpinner" style="display: none;">
                                                                             <div class="spinner"></div>
@@ -280,7 +280,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
+
         </div>
            {{-- container da bebidas --}}
 
@@ -319,7 +319,7 @@
 
                                    @else
 
-                                    @include('layouts.button')
+
 
                                    @endif
                                 </div>
@@ -364,7 +364,7 @@
 
                                                             <div class="flex flex-col gap-2">
 
-                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-indigo-400 border-l-4 border-t-2 border-bluee pt-2 pb-2 mr-10 ml-10 rounded hover:bg-none hover:bg-green hover:text-white">
                                                                     <span id="buttonText">ADICIONAR</span>
                                                                     <span id="buttonSpinner" style="display: none;">
                                                                         <div class="spinner"></div>
@@ -428,7 +428,7 @@
 
                                    @else
 
-                                    @include('layouts.button')
+
 
                                    @endif
                                 </div>
@@ -508,7 +508,7 @@
                                                             </div>
                                                             <div class="flex flex-col gap-2">
 
-                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-indigo-400 border-l-4 border-t-2 border-bluee pt-2 pb-2 mr-10 ml-10 rounded hover:bg-none hover:bg-green hover:text-white">
                                                                     <span id="buttonText">ADICIONAR</span>
                                                                     <span id="buttonSpinner" style="display: none;">
                                                                         <div class="spinner"></div>
@@ -572,7 +572,7 @@
 
                                    @else
 
-                                    @include('layouts.button')
+
 
                                    @endif
                                 </div>
@@ -615,7 +615,7 @@
 
                                                             <div class="flex flex-col gap-2">
 
-                                                                <button type="submit" id="submitButton" class="bg-slate-300 pt-2 pb-2 mr-10 ml-10 rounded">
+                                                                <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-indigo-400 border-l-4 border-t-2 border-bluee pt-2 pb-2 mr-10 ml-10 rounded hover:bg-none hover:bg-green hover:text-white">
                                                                     <span id="buttonText">ADICIONAR</span>
                                                                     <span id="buttonSpinner" style="display: none;">
                                                                         <div class="spinner"></div>

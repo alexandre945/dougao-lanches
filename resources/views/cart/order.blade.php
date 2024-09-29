@@ -74,7 +74,13 @@
                         <p class="font-bold">Total: @money($item->total)</p>
                         <p class="text-card">Entrega: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
                         <p class="text-card">Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
-                        <p class="text-card">Observação: {{ $item->observation ?? '//' }}</p>
+                        @if($item->payment) <!-- Se for dinheiro -->
+                        <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
+                        <!-- Se for cartão -->
+                        @else
+                            <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
+                        @endif
+
                     </div>
 
                     <div class="overflow-auto">

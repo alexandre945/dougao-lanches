@@ -48,16 +48,17 @@
                   </div>
 
                 @endif
-              <div class="text-center pt-2">
-                <h1 class="p-2 ">ÁREA ADMINISTRATIVA</h1>
-                 <h2 class="p-2">aqui você pode excluir,editar ou desativar um lanche</h2>
-           </div>
+                <div class="text-center py-6">
+                    <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+                    <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um Lanche</p>
+                </div>
+
 
          <div class=" ">
-           <div class=" flex">
-             <a href="{{ route('showbeer')}}"> <div class="bg-emerald-400 text-white border  p-2 mt-2 ml-12 rounded font-bold">BEBIDAS</div></a>
-             <a href="{{ route('user.bomboniere')}}">  <div class=" bg-emerald-400 border text-white p-2 rounded mt-2 ml-2 font-bold">BOMBONIÉRE</div></a>
-             <a href="{{ route('showcombo')}}"><div class=" bg-emerald-400 border text-white p-2 rounded mt-2 ml-2 font-bold">COMBOS</div></a>
+           <div class=" flex justify-center space-x-4">
+             <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
+             <a href="{{ route('user.bomboniere')}}">  <div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2">BOMBONIÉRE</div></a>
+             <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">COMBOS</div></a>
          </div>
            <div class=" w-full  pr-4 overflow-auto">
 
@@ -194,7 +195,7 @@
                       </tbody>
                 </table>
                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-emerald-400 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button class="bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Voltar
                     </button>
                 </a>
