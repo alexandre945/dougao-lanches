@@ -74,29 +74,29 @@ class productionController extends Controller
 
         // Atualize o status do pedido
 
-        $order->update(['status' => 'saiu para entrega']);
+        $order->update(['status' => 'entregue']);
 
 
 
-            $phone = $order->orderUser->address->first()->fone;
+            // $phone = $order->orderUser->address->first()->fone;
 
-            $userName = $order->orderUser->name;
+            // $userName = $order->orderUser->name;
 
-            $message = "Seu pedido de número: " . $orderId . " acabou de sair para entrega. " . $userName . ", obrigado por comprar no Dougão Lanches.";
+            // $message = "Seu pedido de número: " . $orderId . " acabou de sair para entrega. " . $userName . ", obrigado por comprar no Dougão Lanches.";
 
 
-            $data = [
-                "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
-                "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
-                "message" => [$message],
-                "phone" => [$phone]
-            ];
+            // $data = [
+            //     "instance_id" => "BA4B88RMNQQZE9SA7ZMEEZT5",
+            //     "instance_token" => "3ed00a88-733d-4b1a-bbec-6fe1d4a7d22e",
+            //     "message" => [$message],
+            //     "phone" => [$phone]
+            // ];
 
-            // Envie a mensagem
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'user_token_id' => 'd68f5c6e-3def-4273-b368-79144c0214ab',
-            ])->post('https://api.gzappy.com/v1/message/send-message', $data);
+            // // Envie a mensagem
+            // $response = Http::withHeaders([
+            //     'Content-Type' => 'application/json',
+            //     'user_token_id' => 'd68f5c6e-3def-4273-b368-79144c0214ab',
+            // ])->post('https://api.gzappy.com/v1/message/send-message', $data);
 
 
         return redirect()->back();

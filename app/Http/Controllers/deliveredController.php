@@ -18,13 +18,12 @@ class deliveredController extends Controller
         $date = now()->format('d/m/y H:i:s');
         $user      = Auth::user();
         $users     = $user->id ?? '';
-        $order = Order::all();
 
 
-        $userAddresses = Address::where('user_id', $users)->with('userAdress')->get();
-        $order = Order::orderBy('id', 'desc')->where(['status' => ('entregue')])->get();
+        $orders = Order::orderBY('id', 'desc')->with('orderUser')->where('status', 'entregue')->get();
 
-        return view('status.delivered', compact('order', 'userAddresses'));
+
+        return view('status.delivered', compact('orders', 'date', 'users'));
     }
 
     /**

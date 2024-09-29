@@ -207,7 +207,7 @@
                         <!-- Saiu Para Entrega Button -->
                         <form action="{{ route('status.delivery', $item->id) }}" method="POST" class="flex-1">
                             @csrf
-                            <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                            <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-whitek focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
                                 SAIU PARA ENTREGA
                             </button>
                         </form>
