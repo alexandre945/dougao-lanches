@@ -197,7 +197,7 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                   
+
 
                         <!-- Voltar Button -->
                         <a href="{{ route('panel.admin') }}" class="flex-1">
@@ -215,7 +215,7 @@
             <marquee>Para o dia: {{ $date }}</marquee>
         @endforelse
     </div>
-    <a href="{{ route('panel.admin')}}">
+    <a href="{{ route('panel.admin') }}">
         <button class="bg-slate-300 mt-2 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Voltar
         </button>

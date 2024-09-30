@@ -15,7 +15,7 @@
 
             <div class="card p-2 pt-2 ">
             @forelse ($orders as $item)
-    <form action="{{ route('pdf.imprimird',$item->id)}}" method="POST">
+  
 
                         @php
 
@@ -198,10 +198,10 @@
 
                     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
 
-                        </form>
+
 
                         <!-- Saiu Para Entrega Button -->
-                        <form action="{{ route('status.delivery', $item->id) }}" method="POST" class="flex-1">
+                        <form action="{{ route('status.fordelivered', $item->id) }}" method="POST" class="flex-1">
                             @csrf
                             <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-whitek focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
                                 ENTREGUE
@@ -209,7 +209,7 @@
                         </form>
 
                         <!-- Voltar Button -->
-                        <a href="{{ route('panel.admin') }}" class="flex-1">
+                        <a href="{{route('panel.admin') }}" class="flex-1">
                             <button class="bg-gradient-to-r from-purple-400 to-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:from-purple-500 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
                                 Voltar
                             </button>

@@ -52,7 +52,7 @@ class adminController extends Controller
             $selectedAddressTypeId = $request->input('addressType');
             $addressId = $request->input('address_id');
             $addressUserTypesId = $request->input('address_user_types_id');
- 
+
             if ( $total < 20.00)
                 {
                 return redirect()->back()->with('total', 'o valor de sua compra precisa ser maior que 20,00 reais');

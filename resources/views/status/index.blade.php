@@ -15,7 +15,7 @@
 
             <div class="card p-2 pt-2 ">
             @forelse ($orders as $item)
-    <form action="{{ route('pdf.imprimird',$item->id)}}" method="POST">
+   
 
                         @php
 
@@ -202,7 +202,7 @@
                             <button type="submit" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600  font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue  hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
                                 IMPRIMIR
                             </button>
-                        </form>
+
 
                         <!-- Saiu Para Entrega Button -->
                         <form action="{{ route('status.delivery', $item->id) }}" method="POST" class="flex-1">
@@ -228,11 +228,11 @@
             <marquee>Para o dia: {{ $date }}</marquee>
         @endforelse
     </div>
-    <a href="{{ route('panel.admin')}}">
-        <button class="bg-slate-300 mt-2 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Voltar
-        </button>
-    </a>
+        <a href="{{route('panel.admin')}}">
+            <button class="bg-slate-300 mt-2 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Voltar
+            </button>
+        </a>
   </div>
 </body>
 </html>
