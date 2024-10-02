@@ -223,11 +223,33 @@ class adminController extends Controller
             ]);
             }
             ])
-    ->where('status', 'processando')
-    ->get();
+            ->where('status', 'processando')
+            ->get();
+
+            //metados para contar os pedidos do usuario
 
 
-            return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
+           $items = Order::with('orderUser')->get();
+
+           $userOrderCount = [];
+
+               // Itera sobre os pedidos para contar quantos pedidos cada usuário fez
+                foreach ($items as $item) {
+                    if ($item->user_id) { // Verifica se o pedido tem um user_id
+                        // Se o usuário já estiver no array, incrementa a contagem
+                        if (isset($userOrderCount[$item->user_id])) {
+                            $userOrderCount[$item->user_id]++;
+                        } else {
+                            // Caso contrário, começa a contagem com 1
+                            $userOrderCount[$item->user_id] = 1;
+                        }
+                    }
+                }
+
+
+
+
+            return view('cart.order', compact('date', 'userId', 'orders', 'newOrder', 'items', 'userOrderCount'));
         }
 
 

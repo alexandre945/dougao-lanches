@@ -136,7 +136,7 @@
                             <p class="text-sm text-gray-600 text-center">{{ $time->waitingtime ?? ''}} minutos</p>
                         @if($order && $order->created_at->isToday())
                             <p class="text-sm text-gray-600">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
-                            <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green">{{$order->status ?? ''}}</span></p>
+                            <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green font-bold text-xl">{{$order->status ?? ''}}</span></p>
                         @endif
                     </div>
 

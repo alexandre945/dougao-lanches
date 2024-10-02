@@ -34,25 +34,19 @@
 <body>
     @vite('resources/css/app.css')
 
-    <div class="container">
+    <div class="container ">
 
-          <div class="text-center pt-2">
-               <h1>ÁREA ADMINISTRATIVA</h1>
-                <h2>aqui você pode excluir,editar ou desativar um combo</h2>
-          </div>
-
-        <div class=" ">
-          <div class=" flex">
-            <a href="{{ route('showbeer')}}"> <div class=" border text-white p-2 mt-2 ml-12 rounded bg-emerald-400">BEBIDAS</div></a>
-            <a href="{{ route('user.bomboniere')}}">  <div class=" border text-white p-2 rounded mt-2 ml-2 bg-emerald-400">BOMBONIÉRE</div></a>
-            <a href="{{ route('create.product')}}">  <div class=" border text-white p-2 rounded mt-2 ml-2 bg-emerald-400">LANCHES</div></a>
+        <div class="text-center py-6">
+            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um Combo</p>
         </div>
 
-          {{-- <div class=" flex text-cnter  bg-orange-500">
-              <a href="{{ route('showbeer')}}"> <div class=" border text-white p-2 mt-2 ml-12 rounded font-bold">BEBIDAS/USER</div></a>
-              <a href="">   <div class=" border text-white p-2 rounded mt-2 ml-2 font-bold">COMBOS/USER</div></a>
-            <a href="{{ route('create.product')}}">  <div class=" border text-white p-2 rounded mt-2 ml-2 font-bold">LANCHES/USER</div></a>
-          </div> --}}
+        <div class=" ">
+            <div class=" flex">
+                <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
+                <a href="{{ route('user.bomboniere')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BOMBONIÉRE</div></a>
+                <a href="{{ route('create.product')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded">LANCHES</div></a>
+            </div>
         </div>
 
         <div class=" w-full overflow-auto">
@@ -178,7 +172,7 @@
             </table>
          </div>
          <a href="{{ route('panel.admin')}}">
-          <button class="bg-emerald-400 text-white hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded " type="submit">
               Voltar
           </button>
       </a>

@@ -36,33 +36,27 @@
 
     <div class="container">
 
-          <div class="text-center pt-2">
-               <h1 class="pb-2">ÁREA ADMINISTRATIVA</h1>
-               <h2 class="pb-2">aqui você pode excluir,editar e desativar um produto</h2>
-
-          </div>
-
-        <div class=" ">
-          <div class=" flex">
-            <a href="{{ route('showbeer')}}"> <div class=" border text-white p-2 mt-2 ml-12 rounded font-bold bg-emerald-400">BEBIDAS</div></a>
-            <a href="{{ route('showcombo')}}"><div class=" border text-white p-2 rounded mt-2 ml-2 font-bold bg-emerald-400">COMBOS</div></a>
-          <a href="{{ route('create.product')}}">  <div class=" border text-white p-2 rounded mt-2 ml-2 font-bold bg-emerald-400">LANCHES</div></a>
+        <div class="text-center py-6">
+            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um produto</p>
         </div>
 
-          {{-- <div class=" flex text-cnter  bg-orange-500">
-              <a href="{{ route('showbeer')}}"> <div class=" border text-white p-2 mt-2 ml-12 rounded font-bold">BEBIDAS/USER</div></a>
-              <a href="">   <div class=" border text-white p-2 rounded mt-2 ml-2 font-bold">COMBOS/USER</div></a>
-            <a href="{{ route('create.product')}}">  <div class=" border text-white p-2 rounded mt-2 ml-2 font-bold">LANCHES/USER</div></a>
-          </div> --}}
+        <div class=" pb-4 ">
+          <div class=" flex">
+            <a href="{{ route('showbeer')}}"> <div class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
+            <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">COMBOS</div></a>
+            <a href="{{ route('create.product')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded">LANCHES</div></a>
+          </div>
+
         </div>
 
         <div class=" w-full overflow-auto ">
-            <table class="w-full overflow-auto ">
+            <table class="w-full overflow-auto  table table-sm">
               <thead>
                 <tr>
                     <th class="p-2">PRODUTOS</th>
                     <th class="p-2">DESCRIÇÃO</th>
-                    <th class="p-12" >PREÇO</th>
+                    <th class="" >PREÇO</th>
                 </tr>
               </thead>
               <tbody class="">
@@ -180,7 +174,7 @@
             </table>
          </div>
          <a href="{{ route('panel.admin')}}">
-          <button class="bg-emerald-400 text-white hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded focus:outline-none" type="submit">
               Voltar
           </button>
       </a>

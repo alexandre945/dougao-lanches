@@ -58,7 +58,7 @@
           @forelse ($orders as $item)
 
             <div class=" p-2 pt-2">
-                @php
+                {{-- @php
 
                   $user = $item->user_id
 
@@ -66,7 +66,7 @@
 
                 @php
                     $userCount = $orders->where('user_id', $user )->count();
-                @endphp
+                @endphp --}}
 
                 <div class="card-body ">
                     <div class=" text-start bg-white rounded-lg shadow-lg p-2">
@@ -74,14 +74,15 @@
                             Pedido N- {{ $item->id }}
                         </div>
                         <p class="text-card">Nome do Cliente: {{ $item->orderUser->name }}</p>
-                        <p class="text-card">Quantidade de Pedidos na Plataforma: {{ $userCount }}</p>
+                        <p class="text-card">Quantidade de Pedidos na Plataforma: {{ $userOrderCount[$item->user_id] ?? 0 }}</p>
                         <p class="text-card">Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
                         <p class="font-bold">Total: @money($item->total)</p>
                         <p class="text-card">Entrega: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
                         <p class="text-card">Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
-                        @if($item->payment) <!-- Se for dinheiro -->
+                            <!-- Se for dinheiro -->
+                        @if($item->payment)
                         <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
-                        <!-- Se for cartão -->
+                            <!-- Se for cartão -->
                         @else
                             <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
                         @endif

@@ -15,32 +15,26 @@
 
             <div class="card p-2 pt-2 ">
             @forelse ($orders as $item)
-   
 
-                        @php
 
-                            $user = $item->user_id
-
-                        @endphp
-
-                        @php
-                            // $userOrderCount = $userCount->firstWhere('id', $users)->UserOrder_count;
-                            $userCount = $item->where('user_id', $user)->count();
-                        @endphp
                 <div class="">
                     <div class=" text-start bg-white rounded-lg shadow-lg p-2">
                         <div class="text-center mb-2">
                             Pedido N- {{ $item->id }}
                         </div>
-                        {{-- Seu conteúdo do pedido aqui --}}
+                      
                         <p>Nome do Cliente: {{ $item->orderUser->name }}</p>
-                        <p>Quantidade de Pedidos na Plataforma: {{ $userCount }}</p>
                         <p>Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
                         <p>Total: @money($item->total)</p>
                         <p>Entrega: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
                         <p>Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
-                        <p>Observação: {{ $item->observation ?? 'Nenhuma observação' }}</p>
-                        {{-- Adicione outras informações conforme necessário --}}
+                             <!-- Se for dinheiro -->
+                             @if($item->payment)
+                             <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
+                                 <!-- Se for cartão -->
+                             @else
+                                 <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
+                             @endif
                     </div>
                     <div class="overflow-auto">
                       <div class="bg-white rounded-lg shadow-lg p-2 mt-2">
