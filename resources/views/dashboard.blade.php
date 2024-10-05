@@ -105,14 +105,21 @@
                     <div>
                         <div class="pt-2 ml-2  pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
                             @if ($toggle->is_open == 0 ?? '')
-                            @php
-                                // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
-                                $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
-                            @endphp
+                                @php
+                                    // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
+                                    $now = \Carbon\Carbon::now();
+                                    $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
+                                    $isBetweenClosingHours = $now->hour >= 19 && $now->hour < 24;
+                                @endphp
 
                             @if ($isMonday)
                                 <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
                                 <span class="text-sm"> Abre terça-feira às 19:00h</span>
+                            @elseif ($isBetweenClosingHours)
+                                <div class="bg-yellow-200 red p-2">
+                                    <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
+                                    <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
+                                </div>
                             @else
                                 <div class="bg-yellow-200 red pl-2 pr-2">
                                     <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
