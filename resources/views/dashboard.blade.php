@@ -113,15 +113,19 @@
                                 @endphp
 
                             @if ($isMonday)
+                            <div class="bg-yellow-200 p-4 rounded">
                                 <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
                                 <span class="text-sm"> Abre terça-feira às 19:00h</span>
+                            </div>
+
+
                             @elseif ($isBetweenClosingHours)
                                 <div class="bg-yellow-200 red p-2">
                                     <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
                                     <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
                                 </div>
                             @else
-                                <div class="bg-yellow-200 red pl-2 pr-2">
+                                <div class="bg-yellow-200 red pl-2 p-2">
                                     <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
                                     <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                                 </div>
