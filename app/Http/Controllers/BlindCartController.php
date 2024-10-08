@@ -32,17 +32,17 @@ class BlindCartController extends Controller
      */
     public function store(Request $request, $id)
     {
-       
+
         $users = Auth::user()->id;
         $name = $request->name;
         $points = $request->points;
         $blindCartId = $request->id;
-     
+
         $orderPoints = Order::where('user_id', $users)->get();
 
         $totalPointsEarned = 0;
 
-        // if ($orderPoints) 
+        // if ($orderPoints)
         //     {
         //         foreach ($orderPoints as $order) {
         //             $totalPointsEarned += ($order->total / 5) * 1;
@@ -53,18 +53,18 @@ class BlindCartController extends Controller
         //         ['points_earned' => $totalPointsEarned ?? '']
         //         );
         //     }
-        
+
         $loyaut = LoyaltyPoint::where('user_id', $users)->get();
 
-        if ($loyaut->isEmpty()) 
+        if ($loyaut->isEmpty())
             {
                 return redirect()->back()->with('denied', 'Você não possui pontos suficientes para resgatar este brinde');
             }
 
-        
+
         $loyauts = $loyaut[0]->points_earned;
 
-        if ($loyauts < $points) 
+        if ($loyauts < $points)
             {
                 return redirect()->back()->with('denied','Você não possui pontos  para resgatar este blinde');
             }
@@ -78,15 +78,15 @@ class BlindCartController extends Controller
             {
                 $loyaut[0]->update([
                     'points_earned' => $loyauts - $points
-                ]); 
+                ]);
             }
-          
-        
-    
-         
+
+
+
+
           $blindCartId = $blind->id;
-         
-            
+
+
             $cart = Order_product::create([
                 'blind_carts_id' => $blindCartId,
                 'product_id' => $products ?? 0,
@@ -96,8 +96,8 @@ class BlindCartController extends Controller
                 'price' => $price ?? 0
 
             ]);
-            
-                return redirect()->back()->with('remuve', 'resgate de blinde solicitado com sucesso');
+
+                return redirect()->back()->with('remuve', 'resgate de blinde solicitado com sucesso confira no seu carrinho!');
     }
 
     /**

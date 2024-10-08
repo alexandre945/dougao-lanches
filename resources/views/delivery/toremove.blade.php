@@ -59,8 +59,8 @@
             @if ( session('remuve'))
 
                 <div class="">
-                    <p class="text-green">
-                        {{ session('remuve')}}
+                    <p class="text-green text-2xl">
+                        {{session('remuve')}}
                     </p>
                 </div>
 

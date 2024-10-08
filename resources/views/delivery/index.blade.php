@@ -55,7 +55,7 @@
 
             @if (session('brind'))
                 <div class="blind rounded text-white p-2">
-                    <p>{{session('brind')}}</p>
+                    <p class="text-green text-2xl">{{session('brind')}}</p>
                 </div>
 
             @endif

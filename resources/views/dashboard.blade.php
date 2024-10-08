@@ -131,8 +131,8 @@
                                 </div>
                             @endif
                             @else
-                                    <div class=" border text-green-800 p-2 rounded">
-                                        <span class="text-green font-semibold text-sm"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
+                                    <div class=" border text-green-800 p-2 rounded bg-greend">
+                                        <span class="text-green font-semibold text-sm  border"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
                                         <p class="text-sm text-gray-600">Aberto até 24:00h</p>
                                     </div>
                             @endif
@@ -142,14 +142,25 @@
 
                     </div>
                     {{-- div que mostra tempo para entrega --}}
+
                     <div class="ml-2">
                         <span class="text-blue font-semibold text-sm md:text-1xl"><i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega</span>
-                            <p class="text-sm text-gray-600 text-center">{{ $time->waitingtime ?? ''}} minutos</p>
+                        <p class="text-sm text-gray-600 text-center">{{ $time->waitingtime ?? ''}} minutos</p>
+
                         @if($order && $order->created_at->isToday())
-                            <p class="text-sm text-gray-600">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
-                            <p class="  pb-2  sm:text-sm md-text-xl"> Status: <span class="text-green font-bold text-xl">{{$order->status ?? ''}}</span></p>
+                            <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
+
+                            <p class="pb-2 sm:text-sm md:text-xl">
+                                Status:
+                                <span class="{{ $order->status == 'Recusado' ? 'text-red-600' : 'text-green' }} font-bold text-xl">
+                                    {{ $order->status ?? '' }}
+                                </span>
+                            </p>
+
                         @endif
                     </div>
+
+
 
                 </div>
                 <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h as 24:00h</p>

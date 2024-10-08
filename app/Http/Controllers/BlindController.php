@@ -58,7 +58,7 @@ class BlindController extends Controller
                     'points_earned' => $loyauts - $points
                 ]);
 
-                return redirect()->back()->with('brind','resgate enviado com suceso');
+                return redirect()->back()->with('brind','resgate enviado com suceso confira junto com responsavel na Lanchonete');
 
 
    }

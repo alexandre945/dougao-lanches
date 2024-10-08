@@ -68,6 +68,7 @@
 
                                         var audio = new Audio('{{ asset('sounds/audio.mp3') }}');
                                             audio.play();
+
                                     </script>
                                 @endif
 

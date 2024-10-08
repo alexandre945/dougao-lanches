@@ -147,6 +147,7 @@ class adminController extends Controller
 
 
 
+
             $product = Order_product::where('user_id', $users)->delete();
 
                 //enviar mensagens via gzappy
@@ -191,7 +192,9 @@ class adminController extends Controller
                 //     );
 
 
-            return redirect()->back()->with('new_order', true)->with('successmessage', 'Pedido enviado com sucesso, tempo de espera para acitação em média 12 minutos!.');
+            return redirect()->back()->with('new_order', true)
+                                     ->with('successmessage', 'Pedido enviado com sucesso, tempo de espera para acitação em média 12 minutos!.');
+                                    
 
 
         } else {
