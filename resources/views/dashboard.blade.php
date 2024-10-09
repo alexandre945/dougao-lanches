@@ -125,7 +125,7 @@
                                     <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
                                 </div>
                             @else
-                                <div class="bg-yellow-200 red pl-2 p-2">
+                                <div class="bg-yellow-200 rounded pl-2 p-2">
                                     <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
                                     <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                                 </div>
@@ -137,8 +137,6 @@
                                     </div>
                             @endif
                       </div>
-
-
 
                     </div>
                     {{-- div que mostra tempo para entrega --}}

@@ -31,7 +31,7 @@
             <div class=" text-center">
                 <h1 class="text-1xl md:text-2xl font-bold">{{Auth::user()->name}}</h1>
                 @if($points[0]->points_earned ?? '' > 0)
-                    <p class="">
+                    <p class="font-bold text-xl text-green">
                         Você tem {{ $points[0]->points_earned ?? ''}} pts
                     </p>
                 @else
@@ -55,14 +55,14 @@
 
             @if (session('brind'))
                 <div class="blind rounded text-white p-2">
-                    <p class="text-green text-2xl">{{session('brind')}}</p>
+                    <p class="text-green zkkz">{{session('brind')}}</p>
                 </div>
 
             @endif
 
             @if ( session('denied'))
-                <div class="denied text-center p-4">
-                    <p>
+                <div class=" text-center p-4 bg-yellow-200 rounded">
+                    <p class="text-red-800 text-xl md:2xl">
                         {{ session('denied')}}
                     </p>
                 </div>

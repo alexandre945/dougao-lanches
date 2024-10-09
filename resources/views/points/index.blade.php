@@ -15,19 +15,19 @@
 <body class="bg-yellow-100">
     <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
 
-        <div class="flex justify-center items-center text-yellow-500 mb-6">
+        <div class="flex justify-center items-center  mb-6">
             <a href="{{ route('cart.show')}}" class="text-center">
-                <i class="fa-solid fa-cart-flatbed-suitcase fa-beat  md:fa-beat fa-2x"></i>
-                <p class="text-xl font-bold">Minhas Compras</p>
+                <i class="fa-solid fa-cart-flatbed-suitcase fa-beat  md:fa-beat "></i>
+                <p class=" font-bold">Minhas Compras</p>
             </a>
         </div>
 
         <div class="text-center">
-            <h2 class="text-2xl font-bold text-blue-500">Bem-vindo ao seu Cartão Fidelidade</h2>
-            <h1 class="text-4xl font-bold text-blue-600 mt-2">{{ Auth::user()->name }}</h1>
+            <h2 class="text-2xl font-bold ">Bem-vindo ao seu Cartão Fidelidade</h2>
+            <h1 class="text-4xl font-bold  mt-2">{{ Auth::user()->name }}</h1>
 
             @if($points[0]->points_earned ?? '' > 0)
-                <p class="text-xl text-green-600 mt-2">
+                <p class="text-xl text-green font-bold mt-2">
                     Você tem {{ $points[0]->points_earned ?? ''}} pts
                 </p>
             @else
@@ -38,12 +38,12 @@
         </div>
 
         <div class="mt-6 text-center">
-            <p class="text-xl">Escolha a forma mais conveniente para resgatar seu brinde</p>
+            <p class="text-xl">Escolha a forma que seja mais conveniente para resgatar seu brinde</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <!-- Opção 1: Resgatar na Lanchonete -->
-            <div class="bg-yellow-200 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+            <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <a href="{{ route('delivery.index') }}" class="block text-center">
                     <h5 class="text-lg font-bold mb-2">Resgatar na Lanchonete</h5>
                     <p class="text-left">Clique aqui para resgatar seu brinde retirando na lanchonete.</p>
@@ -51,7 +51,7 @@
             </div>
 
             <!-- Opção 2: Resgatar com Pedido -->
-            <div class="bg-yellow-200 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+            <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <a href="{{ route('delivery.show') }}" class="block text-center">
                     <h5 class="text-lg font-bold mb-2">Resgatar com Pedido</h5>
                     <p class="text-left">Clique aqui para resgatar seu brinde junto com um pedido.</p>
@@ -59,7 +59,7 @@
             </div>
 
             <!-- Regras: Retirar na Lanchonete -->
-            <div class="bg-yellow-200 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+            <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <h3 class="text-lg font-bold mb-2">Regras para Retirar o Brinde na Lanchonete</h3>
                 <p class="text-left">
                     Para resgatar seu brinde na lanchonete, clique no botão acima e selecione seu brinde com base nos pontos acumulados.
@@ -68,7 +68,7 @@
             </div>
 
             <!-- Regras: Pedir o Brinde com Pedido -->
-            <div class="bg-yellow-200 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+            <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <h3 class="text-lg font-bold mb-2">Regras para Pedir o Brinde com um Pedido</h3>
                 <p class="text-left">
                     Para resgatar seu brinde junto com um pedido, selecione o brinde com base nos pontos acumulados. O brinde será
