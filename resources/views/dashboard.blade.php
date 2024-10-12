@@ -55,10 +55,14 @@
     @vite('resources/css/app.css')
 
     <header class="text-center mb-8 pt-8">
-         <div class="flex items-center justify-center space-x-4 mt-4">
-            <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
+        <div class="flex items-center justify-center space-x-4 mt-4">
+            <h1 class="text-xl md:text-4xl font-bold text-red-600 relative">
+                <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
+                <span class="relative">DOUGÃO LANCHES</span>
+            </h1>
             <img src="{{ asset('image/logo-2.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded-full border">
-         </div>
+        </div>
+
 
         <div class=" logout absolute top-0 left-0   px-4 mb-4 md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
