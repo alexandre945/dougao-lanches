@@ -141,10 +141,13 @@
                                 </div>
                             @endif
                             @else
-                                    <div class=" border text-green-800 p-2 rounded bg-greend">
-                                        <span class="text-green font-semibold text-sm  border"><i class="fas fa-clock mr-2"></i>Aberto agora</span>
-                                        <p class="text-sm text-gray-600">Aberto até 24:00h</p>
-                                    </div>
+                            <div class="border text-green-800 p-2 rounded bg-greend">
+                                <span class="text-green font-semibold text-sm">
+                                    <i class="fas fa-clock"></i>Aberto agora
+                                </span>
+                                <p class="text-sm text-gray-600 ">Aberto até 24:00h</p>
+                            </div>
+
                             @endif
                       </div>
 
