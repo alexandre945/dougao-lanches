@@ -17,6 +17,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
              {{-- select --}}
     <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
+
+    <link rel="preload" as="image" href="{{ asset('image/logo-2.png') }}">
+
+
     <style>
     .spinner {
             border: 4px solid rgba(0,0,0,0.1);
@@ -51,9 +55,11 @@
     @vite('resources/css/app.css')
 
     <header class="text-center mb-8 pt-8">
-        <h1 class="text-4xl font-bold text-red-600 pt-4">DOUGÃO LANCHES</h1>
-        {{-- <p class="text-sm md:text-md text-gray-600">Lanches deliciosos entregue em sua casa</p> --}}
-            {{-- div do logout --}}
+         <div class="flex items-center justify-center space-x-4 mt-4">
+            <h1 class="text-4xl font-bold text-red-600">DOUGÃO LANCHES</h1>
+            <img src="{{ asset('image/logo-2.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded-full border">
+         </div>
+
         <div class=" logout absolute top-0 left-0   px-4 mb-4 md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
             <x-dropdown width="48">
                 <x-slot name="trigger">
@@ -113,11 +119,11 @@
                                 @endphp
 
                             @if ($isMonday)
-                            <div class="bg-yellow-200 p-4 rounded">
-                                <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
-                                <span class="text-sm"> Abre terça-feira às 19:00h</span>
-                            </div>
 
+                                <div class="bg-yellow-200 p-4 rounded">
+                                    <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
+                                    <span class="text-sm"> Abre terça-feira às 19:00h</span>
+                                </div>
 
                             @elseif ($isBetweenClosingHours)
                                 <div class="bg-yellow-200 red p-2">
@@ -158,8 +164,6 @@
                         @endif
                     </div>
 
-
-
                 </div>
                 <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h as 24:00h</p>
             </div>
@@ -182,10 +186,10 @@
                         @foreach ($product as $item)
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                                 @if($item->photo)
-                                <div class="w-full img flex justify-center mt-2">
-                                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
-                                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
-                                </div>
+                                    <div class="w-full img flex justify-center mt-2">
+                                        <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                            class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+                                    </div>
                                 @endif
                                 <div class="p-2">
                                     <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
