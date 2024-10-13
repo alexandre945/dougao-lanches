@@ -60,21 +60,28 @@
 
             <!-- Regras: Retirar na Lanchonete -->
             <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
-                <h3 class="text-lg font-bold mb-2">Regras para Retirar o Brinde na Lanchonete</h3>
+                <h3 class="text-lg font-bold mb-2">Condições para Resgatar o Brinde na Lanchonete</h3>
                 <p class="text-left">
-                    Para resgatar seu brinde na lanchonete, clique no botão acima e selecione seu brinde com base nos pontos acumulados.
-                    O responsável verificará sua solicitação no sistema e autorizará a retirada do brinde.
+                    - Você deve fazer o resgate do blinde e o responsavel faz a verificação na Lanchonete.<br>
+                    - O resgate está sujeito à verificação de pontos disponíveis.<br>
+                    - Brindes só poderão ser retirados pessoalmente na lanchonete.<br>
+                    - O cliente deve ter saldo suficiente para o brinde desejado.
                 </p>
             </div>
 
+
             <!-- Regras: Pedir o Brinde com Pedido -->
             <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
-                <h3 class="text-lg font-bold mb-2">Regras para Pedir o Brinde com um Pedido</h3>
+                <h3 class="text-lg font-bold mb-2">Condições para Resgatar o Brinde com Pedido</h3>
                 <p class="text-left">
-                    Para resgatar seu brinde junto com um pedido, selecione o brinde com base nos pontos acumulados. O brinde será
-                    entregue junto com o pedido, respeitando as regras de valor mínimo para entrega.
+                    - O brinde será entregue com o pedido, respeitando o saldo de pontos e o valor mínimo de entrega.<br>
+                    - Não é possível acumular brindes para um mesmo pedido.<br>
+                    - Em caso de falta de estoque do brinde, o cliente será informado para escolher outro.<br>
+                    - É necessário ter algum item no carrinho para em seguida selecionar seu blinde.<br>
+                    - E seu blinde vai estar no seu carrinho junto com seu pedido.
                 </p>
             </div>
+
         </div>
     </div>
 

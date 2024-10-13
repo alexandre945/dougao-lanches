@@ -38,6 +38,15 @@ class BlindCartController extends Controller
         $points = $request->points;
         $blindCartId = $request->id;
 
+            // Verificar se o usuário tem itens no carrinho
+        $cartItems = Order_product::where('user_id', $users)->count();
+
+        if ($cartItems == 0) {
+            return redirect()->back()->with('emptyCart', 'Você precisa adicionar itens ao carrinho antes de resgatar um brinde.');
+        }
+
+
+        // Recuperar pontos do usuário
         $orderPoints = Order::where('user_id', $users)->get();
 
         $totalPointsEarned = 0;

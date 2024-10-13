@@ -110,7 +110,7 @@
 
     <div class="container max-w-full p-2 md:p-4">
         <div class="bg-white rounded-lg shadow-lg p-2">
-            <div class="flex  md:flex-row justify-between items-center mb-4">
+            <div class="flex  md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
                 <div class="pt-2 ml-2 pb-2">
                     @if ($toggle->is_open == 0 ?? '')
@@ -165,7 +165,9 @@
                     @endif
                 </div>
             </div>
-            <p class="text-sm text-gray-600">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
+            <div class="">
+                <p class="text-sm text-gray-600">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
+            </div>
         </div>
     </div>
 
