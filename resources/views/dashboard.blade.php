@@ -108,73 +108,69 @@
     </header>
 
 
-        <div class="container max-auto p-2 md:p-4">
-            <div class="bg-white rounded-lg shadow-lg p-2 ">
-                <div class="flex justify-between items-center mb-4">
-                    {{-- logica para mostrar se a Lanchonte estafechada ou aberta --}}
-                    <div>
-                        <div class="pt-2 ml-2  pb-2" @if ($toggle->is_open == 0 ?? '') inertex @endif>
-                            @if ($toggle->is_open == 0 ?? '')
-                                @php
-                                    // Verificar se o dia da semana é segunda-feira (considerando o formato padrão do Carbon)
-                                    $now = \Carbon\Carbon::now();
-                                    $isMonday = \Carbon\Carbon::now()->dayOfWeek === 1;
-                                    $isBetweenClosingHours = $now->hour >= 19 && $now->hour < 24;
-                                @endphp
+    <div class="container max-w-full p-2 md:p-4">
+        <div class="bg-white rounded-lg shadow-lg p-2">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
+                <div class="pt-2 ml-2 pb-2">
+                    @if ($toggle->is_open == 0 ?? '')
+                        @php
+                            $now = \Carbon\Carbon::now();
+                            $isMonday = $now->dayOfWeek === 1;
+                            $isBetweenClosingHours = $now->hour >= 19 && $now->hour < 24;
+                        @endphp
 
-                            @if ($isMonday)
-
-                                <div class="bg-yellow-200 p-4 rounded">
-                                    <p class="sm:text-sm md:text-xl text-rose-400" ><i class="fas fa-clock mr-2"></i> Fechada</p>
-                                    <span class="text-sm"> Abre terça-feira às 19:00h</span>
-                                </div>
-
-                            @elseif ($isBetweenClosingHours)
-                                <div class="bg-yellow-200 red p-2">
-                                    <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
-                                    <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
-                                </div>
-                            @else
-                                <div class="bg-yellow-200 rounded pl-2 p-2">
-                                    <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
-                                    <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
-                                </div>
-                            @endif
-                            @else
-                            <div class="border text-green-800 p-2 rounded bg-greend">
-                                <span class="text-green font-semibold text-sm">
-                                    <i class="fas fa-clock"></i>Aberto agora
-                                </span>
-                                <p class="text-sm text-gray-600 ">Aberto até 24:00h</p>
+                        @if ($isMonday)
+                            <div class="bg-yellow-200 p-4 rounded">
+                                <p class="sm:text-sm md:text-xl text-rose-400"><i class="fas fa-clock mr-2"></i>Fechada</p>
+                                <span class="text-sm">Abre terça-feira às 19:00h</span>
                             </div>
-
-                            @endif
-                      </div>
-
-                    </div>
-                    {{-- div que mostra tempo para entrega --}}
-
-                    <div class="ml-2">
-                        <span class="text-blue font-semibold text-sm md:text-1xl"><i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega</span>
-                        <p class="text-sm text-gray-600 text-center">{{ $time->waitingtime ?? ''}} minutos</p>
-
-                        @if($order && $order->created_at->isToday())
-                            <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong class="">{{$order->id ?? ''}}</strong></p>
-
-                            <p class="pb-2 sm:text-sm md:text-xl">
-                                Status:
-                                <span class="{{ $order->status == 'Recusado' ? 'text-red-600' : 'text-green' }} font-bold text-xl">
-                                    {{ $order->status ?? '' }}
-                                </span>
-                            </p>
-
+                        @elseif ($isBetweenClosingHours)
+                            <div class="bg-yellow-200 red p-2">
+                                <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
+                                <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
+                            </div>
+                        @else
+                            <div class="bg-yellow-200 rounded pl-2 p-2">
+                                <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
+                                <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
+                            </div>
                         @endif
-                    </div>
-
+                    @else
+                        <div class="border text-green-800 p-2 rounded bg-greend">
+                            <span class="text-green font-semibold text-sm whitespace-nowrap">
+                                <i class="fas fa-clock"></i>Aberto agora
+                            </span>
+                            <p class="text-sm text-gray-600">Aberto até 24:00h</p>
+                        </div>
+                    @endif
                 </div>
-                <p class="text-sm text-gray-600">Horario de funcionamento de terça a Domingo: 19:00h as 24:00h</p>
+
+                {{-- Div que mostra tempo de entrega --}}
+                <div class="ml-2 text-center">
+                    <span class="text-blue font-semibold text-sm md:text-1xl whitespace-nowrap">
+                        <i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega
+                    </span>
+                    <p class="text-sm text-gray-600">{{ $time->waitingtime ?? '' }} minutos</p>
+
+                    @if($order && $order->created_at->isToday())
+                        <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
+
+                        <p class="pb-2 sm:text-sm md:text-xl">
+                            Status:
+                            <span class="{{ $order->status == 'Recusado' ? 'text-red-600' : 'text-green' }} font-bold text-xl">
+                                {{ $order->status ?? '' }}
+                            </span>
+                        </p>
+                    @endif
+                </div>
             </div>
+            <p class="text-sm text-gray-600">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
         </div>
+    </div>
+
+
+
     <main class="container mx-auto p-4">
            {{-- container dos lanches --}}
 
