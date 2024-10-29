@@ -42,7 +42,7 @@
         @endif
 
         @if (session('refused'))
-            <div class="bg-yellow-300 border p-2 ml-12 mr-12 mb-4" style="background-color: rgb(243, 217, 66);">
+            <div class="bg-yellow-300 border p-2 ml-12 mr-12 mb-4 text-center" style="background-color: rgb(243, 217, 66);">
                 <p>{{ session('refused') }}</p>
             </div>
         @endif
@@ -292,6 +292,80 @@
 </div>
 
 @vite('resources/js/app.js')
+
+    <script>
+
+                // Função para verificar o status da lanchonete
+        function verificarStatusLanchonete() {
+            return fetch('/statusLanchonete')
+                .then(response => response.json())
+                .then(data => data.isOpen) // Retorna true se a lanchonete estiver aberta
+                .catch(error => {
+                    console.error('Erro ao verificar o status da lanchonete:', error);
+                    return false; // Em caso de erro, considerar fechado para evitar requisições
+                });
+        }
+
+        // Recuperar o timestamp do último pedido verificado do localStorage (se existir)
+        let ultimoPedidoVerificado = localStorage.getItem('ultimoPedidoVerificado') ? new Date(localStorage.getItem('ultimoPedidoVerificado')) : null;
+        let audioHabilitado = false;
+
+        // Tocar som "silencioso" para habilitar o áudio
+        const audioSilencioso = new Audio('/sounds/new_order.mp3');
+        audioSilencioso.volume = 0; // Definir volume zero para ser inaudível
+        audioSilencioso.play()
+            .then(() => {
+                audioHabilitado = true; // Agora o áudio está habilitado
+            })
+            .catch(error => console.error('Erro ao ativar áudio:', error));
+
+        // Função para verificar se há um novo pedido
+        function verificarNovoPedido() {
+            fetch('/checkNewOrder')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ultimo_pedido) {
+                        const ultimoPedidoAtual = new Date(data.ultimo_pedido);
+
+                        // Verificar se é um pedido novo em relação ao último verificado
+                        if (!ultimoPedidoVerificado || ultimoPedidoAtual > ultimoPedidoVerificado) {
+                            // Atualizar o timestamp do último pedido verificado
+                            ultimoPedidoVerificado = ultimoPedidoAtual;
+                            localStorage.setItem('ultimoPedidoVerificado', ultimoPedidoAtual); // Salvar no localStorage
+
+                            // Reproduzir som ao detectar novo pedido, se permitido
+                            if (audioHabilitado) {
+                                const audio = new Audio('/sounds/canpainhaSounds.mp3');
+                                audio.play()
+
+                                .then(() => {
+                                    // Espera um pequeno tempo para recarregar após tocar o som
+                                    setTimeout(() => location.reload(), 1000); // 1000 ms (1 segundo)
+                                })
+                                .catch(error => console.error('Erro ao reproduzir o áudio:', error));
+
+                            }
+
+
+                        }
+                    }
+                })
+                .catch(error => console.error('Erro ao verificar novos pedidos:', error));
+        }
+          // Iniciar a verificação de pedidos apenas se a lanchonete estiver aberta
+            verificarStatusLanchonete().then(isOpen => {
+                if (isOpen) {
+                    // Se a lanchonete estiver aberta, iniciar o intervalo de verificação
+                    setInterval(verificarNovoPedido, 10000);
+                    verificarNovoPedido(); // Primeira chamada imediata
+                } else {
+                    console.log("Lanchonete fechada - verificação de novos pedidos pausada.");
+                }
+            });
+
+
+    </script>
+
 
 </body>
 </html>

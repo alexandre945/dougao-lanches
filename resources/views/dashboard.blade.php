@@ -108,7 +108,7 @@
     </header>
 
 
-    <div class="container max-w-full p-2 md:p-4">
+    <div class="container max-w-8 p-2 md:p-4">
         <div class="bg-white rounded-lg shadow-lg p-2">
             <div class="flex  md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
@@ -136,14 +136,15 @@
                                 <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                             </div>
                         @endif
-                    @else
-                        <div class="border text-green-800 p-2 rounded bg-greend">
-                            <span class="text-green font-semibold text-sm whitespace-nowrap">
-                                <i class="fas fa-clock"></i>Aberto agora
-                            </span>
-                            <p class="text-sm text-gray-600">Aberto até 24:00h</p>
-                        </div>
-                    @endif
+
+                        @else
+                            <div class="border text-green-800 p-2 rounded bg-greend">
+                                <span class="text-green font-semibold text-sm whitespace-nowrap">
+                                    <i class="fas fa-clock"></i>Aberto agora
+                                </span>
+                                <p class="text-sm text-gray-600">Aberto até 24:00h</p>
+                            </div>
+                        @endif
                 </div>
 
                 {{-- Div que mostra tempo de entrega --}}

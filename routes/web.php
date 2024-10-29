@@ -22,6 +22,7 @@ use App\Http\Controllers\ProductStatusController;
 use App\Http\Controllers\statusController;
 use App\Http\Controllers\statusRefusedController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckNewOrderController;
 use App\Http\Controllers\DeliveryBlindController;
 use App\Http\Controllers\ListModelController;
 use App\Http\Controllers\updateAdminController;
@@ -130,6 +131,10 @@ Route::post('/statusProduct,{id}',[ProductStatusController::class, 'update'])->n
 
 Route::post('/is_open',[ClientController::class, 'toggle'])->name('toggle.open');
 
+       //rota para verificar is_open para sinal de notificação
+
+Route::get('/statusLanchonete',[toggleController::class, 'status'])->name('status.lanchonete');
+
      //rota sonora
 
 Route::get('/alert-sound', function ()  {
@@ -228,6 +233,10 @@ Route::delete('/list-delete,{id}', [ListModelController::class, 'delete'])->name
 
 Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+//rota para verificar se há novo pedido
+
+Route::get('/checkNewOrder',[CheckNewOrderController::class, 'index'])->name('checkneworder');
 
 
 

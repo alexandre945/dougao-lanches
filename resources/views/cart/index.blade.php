@@ -72,13 +72,7 @@
                                     </script>
                                 @endif
 
-                                @if (session('new_order_admin'))
-                                    <script>
-                                        // Reproduzir som de notificação para o administrador
-                                        var audio = new Audio('{{ asset('sounds/admin_audio.mp3') }}');
-                                        audio.play();
-                                    </script>
-                                @endif
+                          
 
                             @if (session('successmessage'))
 
@@ -98,7 +92,7 @@
 
                               @if (session('menssagem'))
 
-                                <div class="text-red-500 bg-slate-300 p-2">
+                                <div class="text-red-500  p-2">
                                   {{ session('menssagem')}}
                                 </div>
 
