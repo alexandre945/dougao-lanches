@@ -107,10 +107,9 @@
 
     </header>
 
-
     <div class="container max-w-8 p-2 md:p-4">
         <div class="bg-white rounded-lg shadow-lg p-2">
-            <div class="flex  md:flex-row justify-between items-center">
+            <div class="flex flex-col md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
                 <div class="pt-2 ml-2 pb-2">
                     @if ($toggle->is_open == 0 ?? '')
@@ -121,30 +120,35 @@
                         @endphp
 
                         @if ($isMonday)
-                            <div class="bg-yellow-200 p-4 rounded">
-                                <p class="sm:text-sm md:text-xl text-rose-400"><i class="fas fa-clock mr-2"></i>Fechada</p>
+                            <div class="bg-yellow-200 p-2 rounded">
+                                <p class="sm:text-sm md:text-xl text-rose-400">
+                                    <i class="fas fa-clock mr-2"></i>Fechada
+                                </p>
                                 <span class="text-sm">Abre terça-feira às 19:00h</span>
                             </div>
                         @elseif ($isBetweenClosingHours)
-                            <div class="bg-yellow-200 red p-2">
-                                <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
-                                <p class="sm:text-sm md:text-md">Já fechamos hoje.</p>
+                            <div class="bg-yellow-200 rounded p-2">
+                                <span class="text-rose-400 font-semibold">
+                                    <i class="fas fa-clock mr-2"></i>Fechada
+                                </span>
+                                <p class="text-sm md:text-md">Já fechamos hoje.</p>
                             </div>
                         @else
                             <div class="bg-yellow-200 rounded pl-2 p-2">
-                                <span class="text-rose-400 font-semibold"><i class="fas fa-clock mr-2"></i>Fechada</span>
+                                <span class="text-rose-400 font-semibold">
+                                    <i class="fas fa-clock mr-2"></i>Fechada
+                                </span>
                                 <p class="sm:text-sm md:text-md">Abre hoje às 19:00h</p>
                             </div>
                         @endif
-
-                        @else
-                            <div class="border text-green-800 p-2 rounded bg-greend">
-                                <span class="text-green font-semibold text-sm whitespace-nowrap">
-                                    <i class="fas fa-clock"></i>Aberto agora
-                                </span>
-                                <p class="text-sm text-gray-600">Aberto até 24:00h</p>
-                            </div>
-                        @endif
+                    @else
+                        <div class="border text-green-800 p-2 rounded bg-greend">
+                            <span class="text-green font-semibold text-sm whitespace-nowrap">
+                                <i class="fas fa-clock pr-2"></i>Aberto agora
+                            </span>
+                            <p class="text-sm text-gray-600">Aberto até 24:00h</p>
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Div que mostra tempo de entrega --}}
@@ -156,7 +160,6 @@
 
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
-
                         <p class="pb-2 sm:text-sm md:text-xl">
                             Status:
                             <span class="{{ $order->status == 'Recusado' ? 'text-red-600' : 'text-green' }} font-bold text-xl">
@@ -166,11 +169,13 @@
                     @endif
                 </div>
             </div>
-            <div class="">
-                <p class="text-sm text-gray-600">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
+
+            <div class="mt-4">
+                <p class="text-sm text-gray-600 text-center">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
             </div>
         </div>
     </div>
+
 
 
 

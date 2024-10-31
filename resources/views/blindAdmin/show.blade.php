@@ -38,7 +38,7 @@
     @vite('resources/css/app.css')
      <div class="container">
         <div class="container">
-            <h2 class="text-center p-2 font-bold">BLINDES ENTREGUÊS</h2>
+            <h2 class="text-center p-2 font-bold pt-4">BLINDES ENTREGUÊS</h2>
                 @if( session('entregue'))
                     <div class="successes">
                     <p>
@@ -58,8 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  @forelse ($blinds as $item)
-                    @foreach($blinds as $blindItem)
+                  @forelse ($blinds as $blindItem)
                             <tr>
                                 @csrf
                                 <td>{{ $blindItem->blindUser->name }}</td>
@@ -67,8 +66,6 @@
                                 <td>{{ $blindItem->points }}</td>
                                 <td>{{ $blindItem->status }}</td>
                             </tr>
-                    @endforeach
-
                   @empty
                   <p> Sem blindes para: @datetime(now())</p>
                   @endforelse
@@ -84,6 +81,8 @@
 
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+    {{ $blinds->links() }}
 </body>
 </html>
 
