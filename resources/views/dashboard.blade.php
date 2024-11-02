@@ -99,19 +99,19 @@
               {{-- rota do admin --}}
           <div class="absolute top-0 right-0 md:pt-4">
             @can('access')
-                <button  class="c p-2 rounded bg-amber-200 text-sm">
-                    <a class="p-8" href="{{ route('panel.admin')}}">ADMIN</a>
+                <button  class="text-1xl pt-2 md:text-3xl">
+                    <a class="p-8" href="{{ route('panel.admin')}}"><i class="fas fa-solid fa-user-secret"></i></a>
                 </button>
             @endcan
           </div>
 
     </header>
 
-    <div class="container max-w-8 p-2 md:p-4">
+    <div class="container max-w-4xl mx-auto p-4 md:p-8">
         <div class="bg-white rounded-lg shadow-lg p-2">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
-                <div class="pt-2 ml-2 pb-2">
+                <div class="pt-2 ml-2  md:ml-8 pb-2">
                     @if ($toggle->is_open == 0 ?? '')
                         @php
                             $now = \Carbon\Carbon::now();
@@ -120,21 +120,21 @@
                         @endphp
 
                         @if ($isMonday)
-                            <div class="bg-yellow-200 p-2 rounded">
+                            <div class="bg-yellow-200 pr-8 pl-8 pb-2 pt-2 rounded">
                                 <p class="sm:text-sm md:text-xl text-rose-400">
                                     <i class="fas fa-clock mr-2"></i>Fechada
                                 </p>
                                 <span class="text-sm">Abre terça-feira às 19:00h</span>
                             </div>
                         @elseif ($isBetweenClosingHours)
-                            <div class="bg-yellow-200 rounded p-2">
+                            <div class="bg-yellow-200 rounded pr-8 pl-8 pb-2 pt-2">
                                 <span class="text-rose-400 font-semibold">
                                     <i class="fas fa-clock mr-2"></i>Fechada
                                 </span>
                                 <p class="text-sm md:text-md">Já fechamos hoje.</p>
                             </div>
                         @else
-                            <div class="bg-yellow-200 rounded pl-2 p-2">
+                            <div class="bg-yellow-200 rounded pr-8 pl-8 pb-2 pt-2">
                                 <span class="text-rose-400 font-semibold">
                                     <i class="fas fa-clock mr-2"></i>Fechada
                                 </span>
@@ -142,7 +142,7 @@
                             </div>
                         @endif
                     @else
-                        <div class="border text-green-800 p-2 rounded bg-greend">
+                        <div class="border text-green-800 pr-8 pl-8 pb-2 pt-2 rounded bg-greend">
                             <span class="text-green font-semibold text-sm whitespace-nowrap">
                                 <i class="fas fa-clock pr-2"></i>Aberto agora
                             </span>
@@ -151,8 +151,14 @@
                     @endif
                 </div>
 
+                    {{-- <p class="text-3xl">😋</p> --}}
+                    <div class="w-40 hidden md:block text-center">
+                        <img src="{{ asset('image/lanche.webp')}}" alt=""  class="h-24 w-auto rounded-full bg-opacity-90 inline-block p-2">
+                    </div>
+
+
                 {{-- Div que mostra tempo de entrega --}}
-                <div class="ml-2 text-center">
+                <div class=" md:mr-8 text-center">
                     <span class="text-blue font-semibold text-sm md:text-1xl whitespace-nowrap">
                         <i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega
                     </span>

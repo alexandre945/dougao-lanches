@@ -164,7 +164,7 @@ Route::post('/update-admin',[updateAdminController::class, 'update'])->name('upd
 
         //  view admin
 
-Route::get('/panel-admin',[panelAdminController::class, 'index'])->name('panel.admin');
+Route::get('/panel-admin',[panelAdminController::class, 'index'])->name('panel.admin')->middleware('can:access');
 
     // rota de resumo dos pedidos graficos
 Route::get('/summary',[summaryController::class, 'index'])->name('summary.index');
