@@ -100,7 +100,7 @@
           <div class="absolute top-0 right-0 md:pt-4">
             @can('access')
                 <button  class="text-1xl pt-2 md:text-3xl">
-                    <a class="p-8" href="{{ route('panel.admin')}}"><i class="fas fa-solid fa-user-secret"></i></a>
+                    <a class="p-8" href="{{ route('panel.admin')}}"><i class="fas fa-solid fa-user-secret text-3xl"></i></a>
                 </button>
             @endcan
           </div>
@@ -153,7 +153,7 @@
 
                     {{-- <p class="text-3xl">😋</p> --}}
                     <div class="w-40 hidden md:block text-center">
-                        <img src="{{ asset('image/lanche.webp')}}" alt=""  class="h-24 w-auto rounded-full bg-opacity-90 inline-block p-2">
+                        <img src="{{ asset('image/lanche.png')}}" alt=""  class="h-24 w-auto rounded-full bg-opacity-90 inline-block p-2 text-blue">
                     </div>
 
 
@@ -201,31 +201,31 @@
                     {{-- Conteúdo dos lanches aqui --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($product as $item)
-                            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div class="bg-white rounded-lg shadow-lg overflow-auto">
                                 @if($item->photo)
                                     <div class="w-full img flex justify-center mt-2">
                                         <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                             class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                                     </div>
                                 @endif
-                                <div class="p-2">
+                                <div class="p-2 ">
                                     <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                    <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+
+                                        <p class="text-gray-600 mb-1 mr-2">{{ $item->description}}</p>
+
                                      <h2 class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</h2>
                                     <!-- Botão de adicionar ao carrinho ou outra ação -->
                                     <div class="">
                                         @if ($toggle->is_open ?? '' )
 
-                                        <button class="btn btn-success ml-10 " data-bs-toggle="modal"
-                                            data-bs-target="#firstModal{{$item->id}}">
-                                              add ao carrinho
-                                        </button>
+                                            <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                                data-bs-target="#firstModal{{$item->id}}">
+                                                add ao carrinho
+                                            </button>
 
-                                       @else
+                                        @else
 
-
-
-                                       @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>
