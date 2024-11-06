@@ -262,7 +262,7 @@
                                 ACEITAR PEDIDO
                             </button>
                         </form>
-                        <form action="{{ route('refused.status', $item->id) }}" method="post">
+                        {{-- <form action="{{ route('refused.status', $item->id) }}" method="post">
                             @csrf
                             <button class="
                                 bg-gradient-to-r from-yellow-300 to-red-300
@@ -274,7 +274,36 @@
                                 border-b-2 hover:bg-red-500 ">
                                 RECUSAR PEDIDO
                             </button>
-                        </form>
+                        </form> --}}
+                        <!-- Botão para abrir o modal -->
+                        <button type="button" onclick="openModal()"
+                        class="bg-gradient-to-r from-yellow-300 to-red-300 rounded p-2 text-sm hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 border-r-4 border-l border-t border-red-500 border-b-2 hover:bg-red-500">
+                        RECUSAR PEDIDO
+                        </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="refuseModal" style="display: none;" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="bg-white rounded-lg p-6 w-96">
+                            <h2 class="text-xl font-bold mb-4">Motivo da Recusa</h2>
+
+                            <form action="{{ route('refused.status', $item->id) }}" method="post">
+                                @csrf
+                                <label for="rejection_reason">Escolha o motivo:</label>
+                                
+                                    <select name="rejection_reason" id="rejection_reason" class="w-full border border-gray-300 rounded p-2 mt-2 mb-4">
+                                        <option value="já fechamos">Já fechamos</option>
+                                        <option value="ingredientes indisponíveis">Ingredientes indisponíveis</option>
+                                        <option value="não atendemos nesta localidade">Não atendemos nesta localidade</option>
+                                    </select>
+
+                                <button type="submit" class="bg-green text-white rounded p-2 w-full hover:bg-red-700 transition-all duration-300 ease-in-out">
+                                    Confirmar Recusa
+                                </button>
+                            </form>
+
+                            <button onclick="closeModal()" class="text-red-500 mt-4">Cancelar</button>
+                        </div>
                     </div>
 
                 </div>
@@ -294,6 +323,15 @@
 @vite('resources/js/app.js')
 
     <script>
+
+           //função para abrir modal
+        function openModal() {
+                document.getElementById('refuseModal').style.display = 'flex';
+            }
+
+            function closeModal() {
+                document.getElementById('refuseModal').style.display = 'none';
+            }
 
                 // Função para verificar o status da lanchonete
         function verificarStatusLanchonete() {

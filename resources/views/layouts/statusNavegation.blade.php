@@ -57,6 +57,14 @@
                         Entregue
                     </a>
                 </li>
+                <li class="mb-2">
+                    <a href="{{ route('status.denied') }}" class="flex items-center px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base lg:text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h3M21 10h-3m-4-4l-4 4-4-4" />
+                        </svg>
+                        Recusado
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

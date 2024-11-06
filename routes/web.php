@@ -33,6 +33,7 @@ use App\Http\Controllers\toggleController;
 use App\Http\Controllers\verificationOrderController;
 use App\Http\Controllers\WaitingTimeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatusDeniedController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -237,6 +238,11 @@ Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index'
 //rota para verificar se há novo pedido
 
 Route::get('/checkNewOrder',[CheckNewOrderController::class, 'index'])->name('checkneworder');
+
+  //rota para acessar pedidos recusados
+
+ Route::get('/order-denied', [StatusDeniedController::class, 'show'])->name('status.denied');
+
 
 
 

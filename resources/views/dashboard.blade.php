@@ -170,7 +170,14 @@
                             Status:
                             <span class="{{ $order->status == 'Recusado' ? 'text-red-500' : 'text-green' }} font-bold text-xl">
                                 {{ $order->status ?? '' }}
+
                             </span>
+                          @if( $order->status == 'Recusado')
+                                <p class="text-sm text-red-500">
+                                    Motivo: {{ $order->rejection_reason}}
+                                </p>
+                          @endif
+
                         </p>
                     @endif
                 </div>
@@ -181,9 +188,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <main class="container mx-auto p-4">
            {{-- container dos lanches --}}
