@@ -168,7 +168,7 @@
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
                         <p class="pb-2 sm:text-sm md:text-xl">
                             Status:
-                            <span class="{{ $order->status == 'Recusado' ? 'text-red-500' : 'text-green' }} font-bold text-xl">
+                            <span class="{{ $order->status == 'Recusado' ? 'color: #ef4444;' : 'text-green' }} font-bold text-xl">
                                 {{ $order->status ?? '' }}
 
                             </span>
