@@ -166,19 +166,22 @@
 
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
-                        <p class="pb-2 sm:text-sm md:text-xl">
+
+                        @if( $order->status == 'Recusado')
+                            <p class="text-sm text-red-500">
+                                <span class="text-2xl">
+                                    {{ $order->status ?? '' }}
+                                </span><br>
+                        Motivo: {{ $order->rejection_reason}}
+                            </p>
+                        @else
+                           <p class="pb-2 sm:text-sm md:text-xl">
                             Status:
-                            <span class="{{ $order->status == 'Recusado' ? 'color: #ef4444;' : 'text-green' }} font-bold text-xl">
+                            <span class=" font-bold text-xl text-green">
                                 {{ $order->status ?? '' }}
-
                             </span>
-                          @if( $order->status == 'Recusado')
-                                <p class="text-sm text-red-500">
-                                    Motivo: {{ $order->rejection_reason}}
-                                </p>
-                          @endif
-
                         </p>
+                        @endif
                     @endif
                 </div>
             </div>
