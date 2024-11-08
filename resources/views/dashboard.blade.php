@@ -171,7 +171,7 @@
 
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
-
+@dd($order->status)
                         @if($order->status != 'Recusado')
                             <p class="pb-2 sm:text-sm md:text-xl">
                                 Status:
