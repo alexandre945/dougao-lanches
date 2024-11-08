@@ -22,6 +22,11 @@
 
 
     <style>
+
+    .denied{
+        color: rgb(243, 76, 76);
+    }
+
     .spinner {
             border: 4px solid rgba(0,0,0,0.1);
             border-left: 4px solid #1c8ad3;
@@ -168,12 +173,13 @@
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
 
                         @if( $order->status == 'Recusado')
-                            <p class="text-sm text-red-500">
-                                <span class="text-2xl">
+
+                                <span class="text-2xl denied">
                                     {{ $order->status ?? '' }}
                                 </span><br>
-                        Motivo: {{ $order->rejection_reason}}
-                            </p>
+                                <p class="text-sm denied">
+                                    Motivo: {{ $order->rejection_reason}}
+                                </p>
                         @else
                            <p class="pb-2 sm:text-sm md:text-xl">
                             Status:
