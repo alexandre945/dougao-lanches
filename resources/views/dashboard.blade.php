@@ -23,7 +23,7 @@
 
     <style>
 
-    .denied{
+    .denied {
         color: rgb(243, 76, 76);
     }
 
@@ -154,7 +154,7 @@
                             <p class="text-sm text-gray-600">Aberto até 24:00h</p>
                         </div>
                     @endif
-                </div>
+            </div>
 
                     {{-- <p class="text-3xl">😋</p> --}}
                     <div class="w-40 hidden md:block text-center">
@@ -172,21 +172,21 @@
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
 
-                        @if( $order->status == 'Recusado')
+                        @if($order->status == 'Recusado')
 
                                 <span class="text-2xl denied">
-                                    {{ $order->status ?? '' }}
+                                    {{$order->status ?? ''}}
                                 </span><br>
                                 <p class="text-sm denied">
-                                    Motivo: {{ $order->rejection_reason}}
+                                    Motivo: {{$order->rejection_reason}}
                                 </p>
                         @else
-                           <p class="pb-2 sm:text-sm md:text-xl">
-                            Status:
-                            <span class=" font-bold text-xl text-green">
-                                {{ $order->status ?? '' }}
-                            </span>
-                        </p>
+                                {{-- <p class="pb-2 sm:text-sm md:text-xl">
+                                    Status:
+                                    <span class=" font-bold text-xl text-green">
+                                        {{$order->status ?? ''}}
+                                    </span>
+                                </p> --}}
                         @endif
                     @endif
                 </div>
