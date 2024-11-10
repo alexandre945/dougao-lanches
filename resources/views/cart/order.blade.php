@@ -290,12 +290,16 @@
                             <form action="{{ route('refused.status', $item->id) }}" method="post">
                                 @csrf
                                 <label for="rejection_reason">Escolha o motivo:</label>
-                                
+
                                     <select name="rejection_reason" id="rejection_reason" class="w-full border border-gray-300 rounded p-2 mt-2 mb-4">
                                         <option value="já fechamos">Já fechamos</option>
                                         <option value="ingredientes indisponíveis">Ingredientes indisponíveis</option>
                                         <option value="não atendemos nesta localidade">Não atendemos nesta localidade</option>
                                     </select>
+                                      {{-- campo para usuario escrever o motivo da rejeiçaõ --}}
+
+                                      <label for="custom_rejection_reason">OU escreva o motivo:</label>
+                                      <textarea name="custom_rejection_reason" id="custom_rejction_reason" cols="30" rows="5"></textarea>
 
                                 <button type="submit" class="bg-green text-white rounded p-2 w-full hover:bg-red-700 transition-all duration-300 ease-in-out">
                                     Confirmar Recusa

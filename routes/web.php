@@ -224,7 +224,7 @@ Route::get('/waitingtime-index', [WaitingTimeController::class, 'index'])->name(
 
 Route::get('/list',[ListModelController::class, 'index'])->name('list.index');
 
-//rota para cadstrar item da lista
+//rota para cadstrar item da lista++++
 
 Route::post('/list-create', [ListModelController::class, 'create'])->name('list.create');
 
