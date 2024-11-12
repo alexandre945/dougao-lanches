@@ -15,6 +15,8 @@ use App\Models\Order;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\LoyaltyPoint;
+use App\Models\Point;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use function PHPSTORM_META\map;
 
@@ -148,10 +150,13 @@ class OrderProductController extends Controller
             $orderId = $lastOrder->id;
 
         }
+        $user      = Auth::user()->id;
+        $points = LoyaltyPoint::where('user_id', $user)->get();
+        $point = Point::all();
 
         $reviews = Review::with('user')->orderby('created_at', 'desc')->take(3)->get();
 
-        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes', 'additionalOrderProducts', 'orderId', 'reviews'));
+        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes', 'additionalOrderProducts', 'orderId', 'reviews', 'points','point'));
     }
 
     public function delete(Request $request, $id)

@@ -46,15 +46,43 @@
                              </div>
 
                          </div>
-                         <div class="bg-white rounded-lg shadow-lg p-6 mb-8 pb-2">
-                             <h3 class="pb-2 text-sm text-start  md:text-center">Com Dougão Lanches o valor de seus pedidos viram pontos
-                                verifique se você possui pontos aqui no seu cartão fideledade.
-                            </h3>
-                            <a href="{{route('index.point')}}"  class="text-xs md:text-sm pt-2">
-                                CARTÃO FIDELIDADE
-                              <i class="fa-solid fa-id-card fa-2xl color " ></i>
-                            </a>
-                         </div>
+
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg p-6 mb-8 pb-2 relative group max-w-sm mx-auto">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-id-card fa-3x mb-2"></i>
+                                <h3 class="text-lg font-semibold mb-1">CARTÃO FIDELIDADE</h3>
+                                <p class="text-sm opacity-90">Com Dougão Lanches, seus pedidos viram pontos!</p>
+                            </div>
+
+                                @if($points[0]->points_earned ?? '' > 0)
+                                <p class="text-sm text-white mt-2">
+                                    Você tem {{ $points[0]->points_earned ?? ''}} pts
+                                </p>
+                                @else
+                                    <p class="text-sm text-white mt-4">
+                                        Você ainda não possui pontos, mas não fique triste! Suas compras acumulam pontos. Continue comprando.
+                                    </p>
+                                @endif
+
+                            <!-- Nome do usuário no centro do cartão -->
+                            <div class="mt-4 flex items-center justify-center bg-white rounded-full px-4 py-2 text-indigo-700 font-bold text-md shadow">
+                                {{ Auth::user()->name }}
+                            </div>
+
+                            <!-- Link para o cartão fidelidade -->
+                            <a href="{{ route('index.point') }}" class="absolute inset-0 z-10"></a>
+
+                            <!-- Informações adicionais ao passar o mouse -->
+                            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded-lg transition-opacity duration-300 p-4">
+                                <p class="text-center text-md font-bold">Olá, {{ Auth::user()->name }}!</p>
+                                <p class="text-center text-sm mt-1">Você possui <strong>{{ Auth::user()->points }}</strong> pontos!</p>
+                                <p class="text-center text-xs mt-2">Clique para verificar detalhes.</p>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
 
                         {{-- <audio controls autoplay>
@@ -72,7 +100,7 @@
                                     </script>
                                 @endif
 
-                          
+
 
                             @if (session('successmessage'))
 
