@@ -39,7 +39,7 @@
 <body>
         <div class="  text-center md: p-2 relative bg-yellow-100">
                     <div class="container max-auto relative">
-                        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
 
                              <div class="text-center mt-2absolute">
                                   <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
@@ -47,17 +47,18 @@
 
                          </div>
 
-                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg p-6 mb-8 pb-2 relative group max-w-sm mx-auto">
-                            <div class="flex flex-col items-center justify-center">
-                                <i class="fa-solid fa-id-card fa-3x mb-2"></i>
-                                <h3 class="text-lg font-semibold mb-1">CARTÃO FIDELIDADE</h3>
-                                <p class="text-sm opacity-90">Com Dougão Lanches, seus pedidos viram pontos!</p>
-                            </div>
+                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
+
+                                <summary class="flex flex-col items-center justify-center">
+                                    <i class="fa-solid fa-id-card fa-3x mb-2"></i>
+                                    <h3 class="text-lg font-semibold mb-1">CARTÃO FIDELIDADE</h3>
+                                    <p class="text-sm opacity-90">Com Dougão Lanches, seus pedidos viram pontos!</p>
+                                </summary>
 
                                 @if($points[0]->points_earned ?? '' > 0)
-                                <p class="text-sm text-white mt-2">
-                                    Você tem {{ $points[0]->points_earned ?? ''}} pts
-                                </p>
+                                    <p class="text-sm text-white mt-2">
+                                        Você tem {{ $points[0]->points_earned ?? ''}} pts
+                                    </p>
                                 @else
                                     <p class="text-sm text-white mt-4">
                                         Você ainda não possui pontos, mas não fique triste! Suas compras acumulam pontos. Continue comprando.
@@ -68,20 +69,17 @@
                             <div class="mt-4 flex items-center justify-center bg-white rounded-full px-4 py-2 text-indigo-700 font-bold text-md shadow">
                                 {{ Auth::user()->name }}
                             </div>
-
-                            <!-- Link para o cartão fidelidade -->
-                            <a href="{{ route('index.point') }}" class="absolute inset-0 z-10"></a>
-
-                            <!-- Informações adicionais ao passar o mouse -->
+                             <!-- Conteúdo adicional ao passar o mouse -->
                             <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded-lg transition-opacity duration-300 p-4">
                                 <p class="text-center text-md font-bold">Olá, {{ Auth::user()->name }}!</p>
                                 <p class="text-center text-sm mt-1">Você possui <strong>{{ Auth::user()->points }}</strong> pontos!</p>
                                 <p class="text-center text-xs mt-2">Clique para verificar detalhes.</p>
                             </div>
-                        </div>
 
+                            <!-- Link para o cartão fidelidade abaixo da div de hover -->
+                            <a href="{{ route('index.point') }}" class="absolute inset-0 z-0"></a>
 
-
+                         </details>
 
                     </div>
 
@@ -267,7 +265,7 @@
                                         </div>
                                         @empty
 
-                                        <div class="bg-yellow-200 p-4 rounded">
+                                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
                                             <p class="text-gray-200">Sua sacola esta vazia</p>
                                         </div>
                                       @endforelse
@@ -366,9 +364,9 @@
                             </table> --}}
                         </div>
                             {{-- Div total --}}
-                        <div class="container max-auto  ">
+                        <div class=" container max-auto ">
 
-                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2 ">
+                            <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
                                 <div class="ml-4 mr-4  container">
                                     <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
