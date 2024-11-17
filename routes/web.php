@@ -28,6 +28,7 @@ use App\Http\Controllers\ListModelController;
 use App\Http\Controllers\updateAdminController;
 use App\Http\Controllers\panelAdminController;
 use App\Http\Controllers\pointsController;
+use App\Http\Controllers\PoliticaPrivacidadeController;
 use App\Http\Controllers\summaryController;
 use App\Http\Controllers\toggleController;
 use App\Http\Controllers\verificationOrderController;
@@ -242,6 +243,10 @@ Route::get('/checkNewOrder',[CheckNewOrderController::class, 'index'])->name('ch
   //rota para acessar pedidos recusados
 
  Route::get('/order-denied', [StatusDeniedController::class, 'show'])->name('status.denied');
+
+  //rota para redenrizar view de politica de privacidade
+
+Route::get('/privacidade', [PoliticaPrivacidadeController::class, 'index'])->name('privacidade.index');
 
 
 
