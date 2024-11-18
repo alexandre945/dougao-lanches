@@ -35,6 +35,7 @@ use App\Http\Controllers\verificationOrderController;
 use App\Http\Controllers\WaitingTimeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StatusDeniedController;
+use App\Http\Controllers\TermsUseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -247,6 +248,14 @@ Route::get('/checkNewOrder',[CheckNewOrderController::class, 'index'])->name('ch
   //rota para redenrizar view de politica de privacidade
 
 Route::get('/privacidade', [PoliticaPrivacidadeController::class, 'index'])->name('privacidade.index');
+
+  //rota para mostrar a view de politica de uso
+
+Route::get('/terms-use', [TermsUseController::class, 'index'])->name('terms.index');
+
+  //rota para o usuario pedir exclusão de seus dados
+
+Route::get('/data-deletion', [TermsUseController::class, 'deletion'])->name('data.deletion');
 
 
 

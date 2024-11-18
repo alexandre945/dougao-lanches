@@ -103,50 +103,6 @@ class adminController extends Controller
 
             }
 
-            //buscar todos os pedidos do usuario e somar
-
-            $orderPoints = Order::where('user_id', $users)->get();
-
-
-            $totalOrderAmount = 0;
-
-            foreach ($orderPoints as $order) {
-                $totalOrderAmount += $order->total;
-
-            }
-                //buscar todos os blindes que o usuario já resgatou
-
-
-
-                //transformando total gasto em pontos
-
-            $totalPointsEarned = floor($totalOrderAmount / 5) * 1;
-
-
-
-            $totalBlindPointsCart  = BlindCart::where('user_id', $users)->sum('points');
-
-            $totalBlindPointsDirect = blind::where('user_id', $users)->sum('points');
-
-            // Somar pontos dos dois tipos de resgate
-
-            $totalBlindPoints = $totalBlindPointsCart + $totalBlindPointsDirect;
-
-            //subtrair pontos resgatados do total de pontos
-
-            $totalPointsEarned -= $totalBlindPoints;
-
-
-                //se existir pontos na tabela faz opdate no numero de pontos se não cria
-
-            LoyaltyPoint::updateOrCreate(
-                ['user_id' => $users],
-                ['points_earned' =>   $totalPointsEarned ?? '']
-            );
-
-
-
-
 
             $product = Order_product::where('user_id', $users)->delete();
 
@@ -194,7 +150,7 @@ class adminController extends Controller
 
             return redirect()->back()->with('new_order', true)
                                      ->with('successmessage', 'Pedido enviado com sucesso, tempo de espera para acitação em média 12 minutos!.');
-                                    
+
 
 
         } else {
@@ -256,27 +212,6 @@ class adminController extends Controller
         }
 
 
-
-    // public function index(Request $request)
-    //     {
-    //         $newOrder = true;
-    //         $user = Auth::user();
-    //         $userId = $user->id ?? '';
-
-    //         $date = now()->format('d/m/y H:i:s');
-
-    //         // Carregar pedidos do usuário com as relações necessárias
-    //         $orders = Order::orderBy('id', 'desc')
-    //             ->with(['orderUser', 'orderList.addressUserType.address', 'orderAdditional'])
-    //             ->where('status', 'processando')
-    //             ->get();
-
-
-
-    //         return view('cart.order', compact('date', 'userId', 'orders', 'newOrder'));
-    //     }
-
-
   public function update(Request $request, $id)
 
       {
@@ -284,12 +219,35 @@ class adminController extends Controller
 
         $order->update(['status' => ('aceito')]);
 
+         // ID do usuário
+        $userId = $order->user_id;
+
+         // buscar todos os pedidos "aceitos" ou já "entrergus " do usuário
+
+         $orderPoints = Order::where('user_id', $userId)
+         ->whereNotIn('status', ['recusado', 'processando'])
+         ->get();
 
 
-        // $blindCartId = BlindCart::findOrFail($blindCartId);
+    // Calcular o total gasto em pedidos válidos
+    $totalOrderAmount = $orderPoints->sum('total');
 
-        // $blindCartId->update(['status' => ('impresso')]);
+    // Converter total gasto em pontos
+    $totalPointsEarned = floor($totalOrderAmount / 5);
 
+    // Buscar e somar pontos resgatados
+    $totalBlindPointsCart = BlindCart::where('user_id', $userId)->sum('points');
+    $totalBlindPointsDirect = Blind::where('user_id', $userId)->sum('points');
+    $totalBlindPoints = $totalBlindPointsCart + $totalBlindPointsDirect;
+
+    // Subtrair pontos resgatados do total de pontos, garantindo que não seja negativo
+    $totalPointsEarned = max(0, $totalPointsEarned - $totalBlindPoints);
+
+    // Atualizar ou criar o registro de pontos de fidelidade
+    LoyaltyPoint::updateOrCreate(
+        ['user_id' => $userId],
+        ['points_earned' => $totalPointsEarned]
+    );
 
         return redirect()->back()->with('acept','você aceitou este pedido, pode encontralo nos pedidos aceitos no memu acima!');
       }
