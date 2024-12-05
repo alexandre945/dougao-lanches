@@ -104,8 +104,8 @@
               {{-- rota do admin --}}
           <div class="absolute top-0 right-0 md:pt-4">
             @can('access')
-                <button  class="text-1xl pt-2 md:text-3xl">
-                    <a class="p-8" href="{{ route('panel.admin')}}"><i class="fas fa-solid fa-user-secret text-3xl"></i></a>
+                <button  class="text-SM pt-2 pb-2  font-bold bg-yellow-200 rounded border-2 m-2">
+                    <a class="p-8" href="{{ route('panel.admin')}}">ADIMINISTRATIVO</a>
                 </button>
             @endcan
           </div>

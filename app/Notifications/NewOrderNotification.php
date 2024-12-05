@@ -7,27 +7,32 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use App\Http\Models\oder;
+use NotificationChannels\Twilio\TwilioSmsMessage;
 
 class NewOrderNotification extends Notification
 {
-    // use Queueable;
-    protected $audioUrl;
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct($audioUrl)
+    protected $order;
+
+
+
+    public function __construct($order)
         {
-            $this->audioUrl = $audioUrl;
+            $this->order = $order;
         }
 
 
-    public function toBrowser($notifiable)
+    public function via($notifiable)
        {
-        
-        return (new BroadcastMessage())
-        ->data(['audio_url' => $this->audioUrl]);
+
+   return ['twilio'];
 
        }
+    public function toTwilio($notifiable)
+       {
+        return (new TwilioSmsMessage())
+            ->content("Novo pedido! ID: {$this->order->id}. Total R$ {$this->order->total}");
+       }
 
-  
+
 }

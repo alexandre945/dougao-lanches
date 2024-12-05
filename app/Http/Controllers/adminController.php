@@ -11,6 +11,8 @@ use App\Models\Order_product;
 use App\Models\LoyaltyPoint;
 use App\Models\blind;
 use App\Models\BlindCart;
+use App\Models\User;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\DB;
@@ -146,6 +148,18 @@ class adminController extends Controller
                 //             "body" => "Novo pedido recebido. Verifique o painel de administração para detalhes."
                 //         )
                 //     );
+                // Verifique se o número está presente
+                
+                // $admin = User::where('access_level', 'admin')
+                // ->with(['address' => function ($query) {
+                //     $query->whereNotNull('fone');
+                // }])
+                // ->first();
+
+                // if ($admin) {
+                //     $admin->notify(new NewOrderNotification($order));
+                // }
+
 
 
             return redirect()->back()->with('new_order', true)
