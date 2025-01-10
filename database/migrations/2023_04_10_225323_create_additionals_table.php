@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('additionals', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('price');
-            $table->string('name');  
+            $table->float('price');
+            $table->string('name');
+            $table->integer('quantity')->nullable()->default('1');
             $table->timestamps();
         });
     }

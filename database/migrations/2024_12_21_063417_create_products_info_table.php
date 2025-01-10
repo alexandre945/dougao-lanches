@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waiting_times', function (Blueprint $table) {
+        Schema::create('products_info', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default('time');
-            $table->string('waitingtime');
+            $table->boolean('payment')->default(0); // 0 = cartão, 1 = dinheiro
+            $table->boolean('delivery')->default(0); // 0 = retirar, 1 = entregar
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relaciona com usuários
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waiting_times');
+        Schema::dropIfExists('products_info');
     }
 };

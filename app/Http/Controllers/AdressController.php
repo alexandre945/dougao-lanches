@@ -26,7 +26,7 @@ class AdressController extends Controller
             'zipcode'       => $request->zipcode,
             'complement'    => $request->complement,
             'user_id'       => $users,
-            'fone'          => $request->fone,
+            'fhone'          => $request->fhone,
             // 'address_type_id' => $request->address_type
 
         ]);
@@ -41,7 +41,7 @@ class AdressController extends Controller
 
 
          //criar tabela pivor address_user_id
-         
+
          $addType = $addTypeCreate->id;
          $addressId = $address->id;
 

@@ -12,12 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->foreignId('product_id')->onDelete('cascade');
+            $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
-            $table->enum('status',['processando','aceito','em produção','saiu para emtrega'])->dafault('processando');
-            $table->enum('retirada',['Lanchonete','entregar'])->default('entregar');
-            $table->double('fee')->default('6');
+            $table->decimal('total');
+            $table->string('rejection_reason')->nullable();
+            $table->enum('status',['processando','aceito','produção','saiu para emtrega'])->dafault('processando');
+            $table->foreignId('additional_id')->nullable();
+            $table->double('delivery_fee')->default('6');
+            $table->boolean('payment');
+            $table->boolean('delivery');
+            $table->double('quantity');
+            $table->string('observation')->nullable();
             $table->timestamps();
         });
     }

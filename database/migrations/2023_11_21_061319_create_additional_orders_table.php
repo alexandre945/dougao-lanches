@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('additional_id')->nullable();
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->integer('quantity')->default(1);
 
             $table->timestamps();
 

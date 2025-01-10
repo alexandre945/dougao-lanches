@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/03e947ed86.js" crossorigin="anonymous"></script>
-    <script src="{{asset('js/index-cart.js')}}"></script>
+    {{-- <script src="{{asset('js/index-cart.js')}}"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <title>centerCart</title>
@@ -249,7 +249,7 @@
                                             @endif
                                         @endif
                                         <div class="mb-4 border-b pb-2">
-                                            <div class="flex justify-between items-center mb-2">
+                                            <div class=" items-center mb-2">
 
                                               @if( !$item->blindCart)
 
@@ -268,7 +268,7 @@
                                         <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
                                             <p class="text-gray-200">Sua sacola esta vazia</p>
                                         </div>
-                                      @endforelse
+                                    @endforelse
 
 
                                  </div>
@@ -276,36 +276,137 @@
 
                         </div>
                             {{-- Div total --}}
-                        <div class=" container max-auto ">
+                            <div class=" container max-auto ">
 
-                            <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
-                                <div class="ml-4 mr-4  container">
-                                    <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
+                                <div class=" rounded-lg shadow-lg p-6 mb-4">
+                                    <div class="ml-4 mr-4  container">
+                                        <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
-                                       <form id="mainForm" action="{{ route('admin.create') }}" method="post">
+                                        <form id="mainForm" action="{{ route('admin.create') }}" method="post">
 
-                                        @csrf
+                                                @csrf
 
-                                    <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
+                                                <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
+                                             
+                                                        <p class="font-bold">@money($total)</p>
+                                              
+                                                    <input type="hidden" name="total" value=" @money ($total)">
 
-                                        <samp  class=" font-bold  p-2  rounded custom-border   mb-2"  id="toremove"> R$ @money($total)</samp>
-                                        <samp  class=" font-bold  p-2  rounded custom-border   mb-2"  id="delivery"></samp>
-                                        <input type="hidden" name="total" value=" @money ($total)">
+                                                @foreach ($cart as $item)
+                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
 
-                                        @foreach ($cart as $item)
-                                            <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
-
-                                        @endforeach
+                                                @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="container max-auto ">
-                            <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
+                        {{-- este fim de form é lla de baixo --}}
+                        </form>
+                            <div class="container max-auto ">
+
+                                    <div class="p-4 text-center">
+
+                                                @if(session('success'))
+                                                <div class=" text-center  bg-white text-green p-4  rounded font-bold">
+                                                    <p>{{ session('success')}}</p>
+                                                </div>
+                                                @endif
+                                        <div class="sm:flex-col space-x-4 justify-center text-center">
+                                            <h2 class="text-gray-700 pb-2 font-bold">Forma de entrega</h2>
+                                            <div class=" flex space-x-2 tex-center items-center justify-center">
+                                                <spam >Retirar na Lanchonete </spam>
+                                            <form id="delivery-form" action="{{ route('update.delivery') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="delivery" id="delivery-input" value="{{ $productInfo->delivery }}">
+                                                <button type="submit"
+                                                        class=" w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                        data-value="1">
+                                                        @if($productInfo->delivery == 0)
+                                                            <i class="fa-solid fa-square-check" style= color:green;></i>
+                                                        @else
+                                                            <i class="fa-regular fa-circle"></i>
+                                                        @endif
+
+                                                    </button>
+
+                                            </div>
+
+                                            <div class="flex space-x-2 tex-center items-center justify-center">
+
+                                                <span >Entregar em domicílio</span>
+
+                                                <button
+                                                    type="submit"
+                                                    class="delivery-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700
+                                                  "
+                                                    data-value="1">
+                                                    @if($productInfo->delivery == 1)
+                                                        <i class="fa-solid fa-square-check" style= color:green;></i>
+                                                    @else
+                                                        <i class="fa-regular fa-circle"></i>
+                                                    @endif
+                                                </button>
+                                            </form>
+                                            </div>
+                                        </div>
+           {{-- @dd($productInfo->delivery) --}}
+                                        <h2 class="text-gray-700 pb-2 mt-4 font-bold">Forma de pagamento</h2>
+
+                                        {{-- form para updat na forma de entrega e pagamento --}}
+                                        <form id="payment-form" action="{{ route('update.paymente') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="payment" id="payment-input" value="{{ $productInfo->payment }}">
+
+                                            <div class="flex space-x-4 justify-center">
+                                                <div>
+                                                    <span>Dinheiro</span>
+                                                    <button type="submit"
+                                                        class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                       >
+                                                        @if($productInfo->payment == 1)
+                                                            <i class="fa-solid fa-square-check" style="color: green;"></i>
+                                                        @else
+                                                            <i class="fa-regular fa-circle"></i>
+                                                        @endif
+                                                    </button>
+                                                </div>
+
+                                                <div>
+                                                    <span>Cartão</span>
+                                                    <button type="submit"
+                                                        class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                        >
+                                                        @if($productInfo->payment == 0)
+                                                            <i class="fa-solid fa-square-check" style="color: green;"></i>
+                                                        @else
+                                                            <i class="fa-regular fa-circle"></i>
+                                                        @endif
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <div class="pl-4 pt-2">
+                                            <label for="" class="pb-2 text-gray-700 text-sm">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
+                                            <input
+                                            type="text"
+                                            class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300"
+                                            name="observation"
+                                            id="observation"
+                                            placeholder="ex: troco para 50 reais"
+                                            @if($productInfo->payment == 0) disabled @endif
+                                            >
+
+                                        </div>
+
+                                    </div>
+                            </div>
+                            {{-- <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <div class="text-center">
                                     <p class="text-gray-700 pb-2 text-sm">o pagamento será realizado na entrega</p>
                                 </div>
-                                   {{-- forma de entrega --}}
+
                                 <div class="p-4 relative">
                                     <div class=" w-full flex flex-col md:flex-row md:justify-center md:text-center">
                                          <div class=" mb-4 md:mb-0 flex items-center space-x-2">
@@ -320,7 +421,7 @@
                                           </div>
                                     </div>
                                 </div>
-                                     {{-- forma de pagamento --}}
+
                                 <div class=" relative">
                                     <h2 class="text-gray-700 pb-2">forma de pagamento</h2>
                                      <div class="pb-4 w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
@@ -346,8 +447,8 @@
                                     <input type="text" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" name="observation" id="observation" placeholder="ex: troco para 50 reais">
                                 </div>
 
-                            </div>
-                        </div>
+                            </div> --}}
+
                           {{-- botões de enviar continuar e cadastrar --}}
                         <div class="container max-auto">
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
@@ -365,7 +466,8 @@
                                                     <div class="spinner"></div>
                                                 </span>
                                             </button>
-                                            </form>
+                                        {{-- fim ddo forme de envio de pedidos aqui --}}
+
 
 
                                 </div>
@@ -398,11 +500,7 @@
 
                             <div class="container max-auto">
                                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                                    @if(session('success'))
-                                        <div class=" text-center  bg-white text-green p-4  rounded font-bold">
-                                            <p>{{ session('success')}}</p>
-                                        </div>
-                                    @endif
+                                  
                                     {{-- modal para cadastrar o endereço --}}
                                     <div class="text-center text-3xl">
 
@@ -483,11 +581,11 @@
                                                                         <div class="mb-4">
                                                                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
                                                                             <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
-                                                                            @error('fone')
-                                                                                <div class="p-2">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
-                                                                                </div>
-                                                                            @enderror
+                                                                                @error('fhone')
+                                                                                    <div class="p-2">
+                                                                                    <span class="error text-red-500">{{ $message }}</span>
+                                                                                    </div>
+                                                                                @enderror
                                                                         </div>
 
                                                                         <div class="mb-4 ">
@@ -668,7 +766,7 @@
                                     data-bs-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                         </div>
                             @php
                                 $ratingsDescripitions = array(
@@ -710,6 +808,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script>
+
 
 $(document).ready(function() {
     // Esconder todos os contêineres de detalhes de endereço
@@ -777,36 +876,34 @@ for (let i = 0; i <opcoes.length; i++) {
 
    // Selecionando os elementos relevantes
 
-    const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
-    const observationInput = document.getElementById('observation');
+    // const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
+    // const observationInput = document.getElementById('observation');
 
     // Função para verificar e atualizar o estado do campo de observação
 
-    function updateObservationField() {
-        // Verificando qual opção de pagamento está selecionada
+    // function updateObservationField() {
+    //     // Verificando qual opção de pagamento está selecionada
 
-        const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+    //     const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
 
-        // Se a opção selecionada for "Cartão", desabilita o campo de observação
+    //     // Se a opção selecionada for "Cartão", desabilita o campo de observação
 
-        if (selectedPayment === '0') {
-            observationInput.disabled = true;
-            observationInput.classList.add('disabled');
-        } else {
-            observationInput.disabled = false;
-            observationInput.classList.remove('disabled');
-        }
-    }
+    //     if (selectedPayment === '0') {
+    //         observationInput.disabled = true;
+    //         observationInput.classList.add('disabled');
+    //     } else {
+    //         observationInput.disabled = false;
+    //         observationInput.classList.remove('disabled');
+    //     }
+    // }
 
     // Adicionando um event listener para cada botão de rádio de pagamento
 
-    paymentRadioButtons.forEach(function(radioButton) {
-        radioButton.addEventListener('change', updateObservationField);
-    });
+
 
     // Chamando a função para atualizar o estado do campo de observação quando a página carregar
 
-    updateObservationField();
+    // updateObservationField();
 
 
     document.getElementById('addressType').addEventListener('change', function() {

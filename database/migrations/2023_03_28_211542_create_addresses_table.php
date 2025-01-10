@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('city')->default('São_Lourenço');
             $table->string('district');
             $table->string('street');
             $table->string('number');
             $table->string('zipcode');
             $table->string('complement')->nullable();
+            $table->string('fhone')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });
@@ -31,4 +32,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('addresses');
     }
-}; 
+};

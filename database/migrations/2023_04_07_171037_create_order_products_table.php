@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('quanty')->nullable()->default('1');
             $table->string('observation')->nullable();
             $table->string('photo')->nullable();
+            $table->foreignId('blind_carts_id')->nullable();
             $table->timestamps();
         });
     }

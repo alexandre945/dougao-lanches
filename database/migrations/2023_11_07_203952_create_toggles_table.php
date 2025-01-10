@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('toggles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('is_open')->default(1);
+            $table->boolean('is_open')->default(true); // Apenas o campo booleano
             $table->timestamps();
         });
     }

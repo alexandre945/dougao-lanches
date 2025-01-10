@@ -36,6 +36,7 @@ use App\Http\Controllers\WaitingTimeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StatusDeniedController;
 use App\Http\Controllers\TermsUseController;
+use App\Http\Controllers\UpdateTotalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -226,7 +227,7 @@ Route::get('/waitingtime-index', [WaitingTimeController::class, 'index'])->name(
 
 Route::get('/list',[ListModelController::class, 'index'])->name('list.index');
 
-//rota para cadstrar item da lista++++
+//rota para cadstrar item da lista
 
 Route::post('/list-create', [ListModelController::class, 'create'])->name('list.create');
 
@@ -256,6 +257,21 @@ Route::get('/terms-use', [TermsUseController::class, 'index'])->name('terms.inde
   //rota para o usuario pedir exclusão de seus dados
 
 Route::get('/data-deletion', [TermsUseController::class, 'deletion'])->name('data.deletion');
+
+   //rota para atualizar o valor com taxa de entrega
+
+Route::get('/product-info', [UpdateTotalController::class, 'show'])->name('product.info.index');
+
+   //rota para atualizar modo de pagamento
+   
+Route::post('/update-paymemte', [OrderProductController::class, 'updatepaymente'])->name('update.paymente'); 
+
+    //rota para alterar delivery
+    
+Route::post('/update-delivery', [OrderProductController::class, 'updateDelivery'])->name('update.delivery');
+
+
+
 
 
 

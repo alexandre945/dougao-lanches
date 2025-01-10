@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('additional_orders', function (Blueprint $table) {
-        //     $table->integer('quantity')->unsigned()->after('id')->default(1);
-        // });
+        Schema::table('order_products', function (Blueprint $table) {
+            $table->decimal('total', 10, 2)->default(0.00)->after('price');
+        });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('additional_orders', function (Blueprint $table) {
-        //     $table->dropColumn('quantity');
-        // });
+        Schema::table('order_products', function (Blueprint $table) {
+            $table->dropColumn('total');
+        });
     }
 };

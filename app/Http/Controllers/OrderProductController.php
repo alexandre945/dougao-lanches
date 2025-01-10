@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\LoyaltyPoint;
 use App\Models\Point;
+use App\Models\ProductInfo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use function PHPSTORM_META\map;
 
@@ -33,8 +34,32 @@ class OrderProductController extends Controller
         $users = $user->id;
         $price = $product->price;
 
+          // Verificar ou criar registro em products_info
+        $productInfo = ProductInfo::firstOrCreate(
+            ['user_id' => $user->id], // Condição para verificar existência
+            ['payment' => 0, 'delivery' => 0] // Valores padrão para criação
+        );
+
         $selectedAdditionals = $request->input('additional_ids', []); // IDs dos adicionais
         $additionalQuantities = $request->input('additional_quantities', []); // Quantidades dos adicionais
+
+          // Calcular o total inicial com base no produto principal
+            $quantity = $request->quanty;
+            $total = $product->price * $quantity;
+
+              // Adicionar o preço dos adicionais ao total
+            foreach ($selectedAdditionals as $additionalId) {
+                $additional = Additional::find($additionalId); // Obter o adicional pelo ID
+                $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
+                if ($additional) {
+                    $total += $additional->price * $additionalQuantity;
+                }
+            }
+              // Adicionar os adicionais à tabela pivot
+                // foreach ($selectedAdditionals as $additionalId) {
+                //     $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
+                //     $cart->orderProductAdditional()->attach($additionalId, ['quantity' => $additionalQuantity]);
+                // }
 
         $cart = Order_product::create([
             'blind_carts_id' => $blindCartId ?? null,
@@ -42,7 +67,9 @@ class OrderProductController extends Controller
             'quanty' => $request->quanty,
             'observation' => $request->observation,
             'user_id' => $users,
-            'price' => $price
+            'price' => $price,
+            'total' => $total
+
         ]);
 
         // $selectedAdditionals = $request->input('additional', []);
@@ -87,77 +114,73 @@ class OrderProductController extends Controller
         return view('cart.index', compact('cart', 'user'));
     }
 
+
     public function show(Request $request)
     {
-        $product = Product::all();
         $user = Auth::user();
         $users = $user->id ?? '';
 
+        // Endereço do usuário
         $address = Address::where('user_id', $users)->with('userAdress')->latest()->first();
 
-
+        // Tipos de endereço e associações do usuário
         $addressTypes = AddressType::all();
-
         $addressUserTypes = AddressUserType::where('user_id', $users)->with('addressType')->get();
 
-
+        // Recuperar os itens do carrinho do usuário
         $cart = Order_product::where('user_id', $users)
-        ->with([
-            'orderProductAdditional' => function ($query) {
-                $query->withPivot('quantity'); // Certifica-se de que a quantidade está sendo carregada
-            },
-            'orderProductProduct',
-            'blindCart'
-        ])->get();
+            ->with([
+                'orderProductAdditional' => function ($query) {
+                    $query->withPivot('quantity');
+                },
+                'orderProductProduct',
+                'blindCart',
+            ])
+            ->get();
 
+        // Calcular o total somando os valores do campo 'total'
+        $total = $cart->sum('total');
 
+        // Pegar os dados da tabela `products_infos`
+        $productInfo = ProductInfo::where('user_id', $users)->first();
 
-    // Verifique se há produtos no carrinho
+        // Verificar se há produtos no carrinho e pegar adicionais, se necessário
+        $additionalOrderProducts = $cart->isNotEmpty()
+            ? DB::table('additional_order_products')
+                ->whereIn('order_product_id', $cart->pluck('id'))
+                ->get()
+            : collect();
 
-        if ($cart->isNotEmpty()) {
-            $orderId = $cart[0]->id;
+        // Verificar se o usuário tem pedidos e pegar o último
+        $lastOrder = Order::where('user_id', $users)->latest()->first();
+        $orderId = $lastOrder->id ?? null;
 
-            // Recuperar os dados diretamente da tabela additional_order_products
-
-            $additionalOrderProducts = DB::table('additional_order_products')
-                ->where('order_product_id', $orderId)
-                ->get();
-        } else {
-            $additionalOrderProducts = collect(); // Coleção vazia se o carrinho estiver vazio
-        }
-
-        $total = 0;
-
-        $cart->each(function ($item) use (&$total) {
-            // Calcula o total para o produto principal
-            $total += ($item->orderProductProduct ? $item->orderProductProduct->price : 0) * $item->quanty;
-
-            if ($item->orderProductAdditional) {
-                // Itera sobre os adicionais
-                $item->orderProductAdditional->each(function ($additional) use (&$total) {
-                    // Obtém a quantidade do adicional da tabela pivot
-                    $quantity = $additional->pivot->quantity ?? 1;
-                    // Calcula o total do adicional multiplicando o preço pela quantidade
-                    $total += $additional->price * $quantity;
-                });
-            }
-        });
-            $orderId = null;
-        //  verificando se o usuario tem pedidos pegar o ultimo
-
-         $lastOrder = Order::where('user_id', $users )->latest()->first();
-         if ($lastOrder) {
-            $orderId = $lastOrder->id;
-
-        }
-        $user      = Auth::user()->id;
-        $points = LoyaltyPoint::where('user_id', $user)->get();
+        // Pegar os pontos de fidelidade do usuário
+        $points = LoyaltyPoint::where('user_id', $users)->get();
         $point = Point::all();
 
+        // Pegar as últimas avaliações
         $reviews = Review::with('user')->orderby('created_at', 'desc')->take(3)->get();
 
-        return view('cart.index', compact('cart', 'address', 'total', 'users', 'addressTypes', 'addressUserTypes', 'additionalOrderProducts', 'orderId', 'reviews', 'points','point'));
+        // Retornar a view com os dados necessários
+        return view('cart.index', compact(
+            'cart',
+            'address',
+            'total',
+            'users',
+            'addressTypes',
+            'addressUserTypes',
+            'additionalOrderProducts',
+            'orderId',
+            'reviews',
+            'points',
+            'point',
+            'productInfo',
+            'total'
+        ));
     }
+
+
 
     public function delete(Request $request, $id)
     {
@@ -165,4 +188,68 @@ class OrderProductController extends Controller
         $product->delete();
         return redirect()->route('cart.show')->with('delete', 'produto excluido');
     }
+
+    public function updatepaymente(Request $request)
+    {
+        // Validar os dados recebidos
+        $request->validate([
+            'payment' => 'required|in:0,1',
+        ]);
+
+        $userId = Auth::id();
+
+        // Buscar o registro correspondente no banco de dados
+        $productInfo = ProductInfo::where('user_id', $userId)->first();
+
+        if (!$productInfo) {
+            return redirect()->back()->withErrors('Informações do produto não encontradas.');
+        }
+
+        // Alternar o valor de pagamento
+        $newPaymentValue = $request->payment == 1 ? 0 : 1;
+
+        // Atualizar no banco de dados
+        $productInfo->payment = $newPaymentValue;
+        $productInfo->save();
+
+        // Redirecionar com mensagem de sucesso
+        return redirect()->back()->with('success', 'Forma de pagamento atualizada com sucesso!');
+    }
+
+    public function updateDelivery(Request $request)
+    {
+        $request->validate([
+            'delivery' => 'required|in:0,1',
+        ]);
+
+        $userId = Auth::id();
+
+        // Recuperar as informações do produto do usuário
+        $productInfo = ProductInfo::where('user_id', $userId)->first();
+
+        if (!$productInfo) {
+            return redirect()->back()->withErrors('Informações do produto não encontradas.');
+        }
+
+        // Alternar o valor de delivery
+        $newDeliveryValue = $request->delivery == 1 ? 0 : 1;
+        $productInfo->delivery = $newDeliveryValue;
+        $productInfo->save();
+
+        // Atualizar o total na tabela Order_product
+        $orderProduct = Order_product::where('user_id', $userId)->first();
+
+        if ($orderProduct) {
+            $deliveryFee = 6; // Valor fixo da taxa de entrega
+            $orderProduct->total = $newDeliveryValue == 1
+                ? $orderProduct->total + $deliveryFee
+                : $orderProduct->total - $deliveryFee;
+
+            $orderProduct->save();
+        }
+
+        return redirect()->back()->with('success', 'Forma de entrega atualizada com sucesso!');
+    }
+
+
 }

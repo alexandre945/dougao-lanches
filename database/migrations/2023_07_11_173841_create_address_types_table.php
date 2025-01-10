@@ -40,13 +40,13 @@ class CreateAddressTypesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('address_types')) {
-            Schema::create('address_types', function (Blueprint $table) {
-                $table->id();
-                $table->string('name');
-                $table->timestamps();
-            });
-        }
+
+        Schema::create('address_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
     }
 
     /**
