@@ -20,4 +20,15 @@ class Review extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function response()
+    {
+        return $this->hasOne(ReviewResponse::class);
+    }
+
+    public function admin()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

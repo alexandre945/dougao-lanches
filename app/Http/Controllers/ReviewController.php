@@ -15,7 +15,7 @@ class ReviewController extends Controller
     public function index()
     {
 
-      $reviews = Review::with('user')->orderBy('created_at', 'desc')->paginate(10);
+      $reviews = Review::with('user','response')->orderBy('created_at', 'desc')->paginate(10);
       return view('review.index', compact('reviews'));
     }
 
@@ -64,7 +64,9 @@ class ReviewController extends Controller
      */
     public function show(review $review)
     {
-        //
+        // Pegar as últimas avaliações
+        $reviews = Review::with('user','response','admin')->orderby('created_at', 'desc')->paginate(5);
+        return view('review.reviewResponse', compact('reviews'));
     }
 
     /**

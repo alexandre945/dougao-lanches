@@ -73,4 +73,9 @@ class User extends Authenticatable
         return $this->hasOne(ProductInfo::class);
        }
 
+       public function poitsUser()
+         {
+            return $this->hasMany(LoyaltyPoint::class);
+         }
+
 }

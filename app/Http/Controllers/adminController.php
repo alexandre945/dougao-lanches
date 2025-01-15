@@ -65,14 +65,14 @@ class adminController extends Controller
 
             if (Address::where('user_id', $users)->exists()) {
 
-            $total = ($delivery == 1 ? ($total + 6) : $total);
+            // $total = ($delivery == 1 ? ($total + 6) : $total);
 
             $order = Order::create([
                 'observation' => $observation ?? $selectedCreditCard,
-                'payment'     =>  $payment,
                 'user_id'     => $user->id ?? '',
-                'total'       => $total,
+                'payment'     => $payment,
                 'delivery'    => $delivery,
+                'total'       => $total,
                 'quantity'    => $quantity ?? 0,
             ]);
 

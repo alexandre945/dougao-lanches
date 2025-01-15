@@ -39,7 +39,7 @@
 <body>
         <div class="  text-center md: p-2 relative bg-yellow-100">
                     <div class="container max-auto relative md:flex pt-4">
-                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90  rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
 
                              <div class="text-center mt-2absolute">
                                   <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
@@ -47,7 +47,7 @@
 
                          </div>
 
-                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
+                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90  rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
 
                                 <summary class="flex flex-col items-center justify-center">
                                     <i class="fa-solid fa-id-card fa-3x mb-2"></i>
@@ -56,18 +56,18 @@
                                 </summary>
 
                                 @if($points[0]->points_earned ?? '' > 0)
-                                    <p class="text-sm text-white mt-2">
+                                    <p class="text-sm  mt-2">
                                         Você tem {{ $points[0]->points_earned ?? ''}} pts
                                     </p>
                                 @else
-                                    <p class="text-sm text-white mt-4">
+                                    <p class="text-sm  mt-4">
                                         Você ainda não possui pontos, mas não fique triste! Suas compras acumulam pontos. Continue comprando.
                                     </p>
                                 @endif
 
                             <!-- Nome do usuário no centro do cartão -->
                             <div class="mt-4 flex items-center justify-center bg-white rounded-full px-4 py-2 text-indigo-700 font-bold text-md shadow">
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->name ?? ''}}
                             </div>
                              <!-- Conteúdo adicional ao passar o mouse -->
                             <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded-lg transition-opacity duration-300 p-4">
@@ -282,43 +282,48 @@
                                     <div class="ml-4 mr-4  container">
                                         <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
-                                        <form id="mainForm" action="{{ route('admin.create') }}" method="post">
+                <form id="mainForm" action="{{ route('admin.create') }}" method="post">
 
                                                 @csrf
 
                                                 <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
-                                             
+
                                                         <p class="font-bold">@money($total)</p>
-                                              
+
                                                     <input type="hidden" name="total" value=" @money ($total)">
+                                                    <input type="hidden" name="payment" value="{{ $productInfo->payment }}">
+                                                    <input type="hidden" name="delivery" value="{{ $productInfo->delivery }}">
 
                                                 @foreach ($cart as $item)
-                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
+                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id }} ">
 
                                                 @endforeach
                                     </div>
                                 </div>
                             </div>
 
-                        {{-- este fim de form é lla de baixo --}}
-                        </form>
+
+                </form>
                             <div class="container max-auto ">
 
-                                    <div class="p-4 text-center">
+                                    <div class="p-4 text-center bg-white">
 
                                                 @if(session('success'))
                                                 <div class=" text-center  bg-white text-green p-4  rounded font-bold">
                                                     <p>{{ session('success')}}</p>
                                                 </div>
                                                 @endif
-                                        <div class="sm:flex-col space-x-4 justify-center text-center">
+                                                <div class="text-center">
+                                                    <p class="text-gray-700 pb-2 text-sm">o pagamento será realizado na entrega</p>
+                                                </div>
+                                        <div class="sm:flex-col space-x-4 justify-center text-centerbg-white rounded-lg shadow-lg p-2 mb-2 ">
                                             <h2 class="text-gray-700 pb-2 font-bold">Forma de entrega</h2>
                                             <div class=" flex space-x-2 tex-center items-center justify-center">
                                                 <spam >Retirar na Lanchonete </spam>
                                             <form id="delivery-form" action="{{ route('update.delivery') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="delivery" id="delivery-input" value="{{ $productInfo->delivery }}">
-                                                <button type="submit"
+                                                    <button type="submit"
                                                         class=" w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
                                                         data-value="1">
                                                         @if($productInfo->delivery == 0)
@@ -349,60 +354,82 @@
                                             </form>
                                             </div>
                                         </div>
-           {{-- @dd($productInfo->delivery) --}}
-                                        <h2 class="text-gray-700 pb-2 mt-4 font-bold">Forma de pagamento</h2>
 
-                                        {{-- form para updat na forma de entrega e pagamento --}}
-                                        <form id="payment-form" action="{{ route('update.paymente') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="payment" id="payment-input" value="{{ $productInfo->payment }}">
+                                         <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
+                                            <h2 class="text-gray-700 pb-2 mt-4 font-bold">Forma de pagamento</h2>
 
-                                            <div class="flex space-x-4 justify-center">
-                                                <div>
-                                                    <span>Dinheiro</span>
-                                                    <button type="submit"
-                                                        class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
-                                                       >
-                                                        @if($productInfo->payment == 1)
-                                                            <i class="fa-solid fa-square-check" style="color: green;"></i>
-                                                        @else
-                                                            <i class="fa-regular fa-circle"></i>
-                                                        @endif
-                                                    </button>
-                                                </div>
+                                            {{-- form para updat na forma de entrega e pagamento  --}}
 
-                                                <div>
-                                                    <span>Cartão</span>
-                                                    <button type="submit"
-                                                        class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
-                                                        >
-                                                        @if($productInfo->payment == 0)
-                                                            <i class="fa-solid fa-square-check" style="color: green;"></i>
-                                                        @else
-                                                            <i class="fa-regular fa-circle"></i>
-                                                        @endif
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                             <form id="payment-form" action="{{ route('update.paymente') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="payment" id="payment-input" value="{{ $productInfo->payment }}">
 
 
-                                        <div class="pl-4 pt-2">
-                                            <label for="" class="pb-2 text-gray-700 text-sm">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
-                                            <input
-                                            type="text"
-                                            class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300"
-                                            name="observation"
-                                            id="observation"
-                                            placeholder="ex: troco para 50 reais"
-                                            @if($productInfo->payment == 0) disabled @endif
-                                            >
+                                                <div class=" relative">
 
-                                        </div>
+                                                     <div class="pb-4 w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
+                                                        <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
+                                                            <div>
+                                                                <span>Cartão</span>
+                                                                <button type="submit"
+                                                                    class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                                    value="0" onclick="togglePaymentFields(0)">
+                                                                    @if($productInfo->payment == 0)
+                                                                        <i class="fa-solid fa-square-check" style="color: green;"></i>
+                                                                    @else
+                                                                        <i class="fa-regular fa-circle"></i>
+                                                                    @endif
+                                                                </button>
+                                                            </div>
+                                                            <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" >
+                                                                <option  value="visa">Visa</option>
+                                                                <option  value="Master Card">Master Card</option>
+                                                                <option  value="Ouro Card">Ouro Card</option>
+                                                            </select>
+                                                        </div>
 
+                                                        <div class="md:mr-4 mb-2 md:mb-0 flex items-center space-x-2">
+                                                            <div>
+                                                                <span>Dinheiro</span>
+                                                                <button type="submit"
+                                                                    class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                                    value="1" onclick="togglePaymentFields(1)">
+                                                                    @if($productInfo->payment == 1)
+                                                                        <i class="fa-solid fa-square-check" style="color: green;"></i>
+                                                                    @else
+                                                                        <i class="fa-regular fa-circle"></i>
+                                                                    @endif
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+
+                                                     </div>
+                                                     <div class="flex space-x-4 justify-center">
+                                                        <div class="pl-4">
+                                                            <label for="observation" class="pb-2 text-gray-700 text-sm">
+                                                                Se seu pagamento for em dinheiro, preencha este campo aqui em baixo
+                                                            </label><br>
+                                                            <input
+                                                                type="text"
+                                                                class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md
+                                                                hover:shadow-xl transition-shadow duration-300"
+                                                                name="observation"
+                                                                id="observation"
+                                                                placeholder="ex: troco para 50 reais"
+                                                                @if($productInfo->payment == 0) disabled @endif
+                                                            >
+                                                        </div>
+                                                     </div>
+
+                                             </form>
+
+                                         </div>
                                     </div>
                             </div>
+                                        {{-- antigo --}}
                             {{-- <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
+                                <h2 class="text-gray-700 pb-2 mt-4 font-bold">Forma de pagamento</h2>
                                 <div class="text-center">
                                     <p class="text-gray-700 pb-2 text-sm">o pagamento será realizado na entrega</p>
                                 </div>
@@ -500,7 +527,7 @@
 
                             <div class="container max-auto">
                                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                                  
+
                                     {{-- modal para cadastrar o endereço --}}
                                     <div class="text-center text-3xl">
 
@@ -780,19 +807,46 @@
 
               <div class="text-start container max-auto pt-2">
 
-                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                    <h2 class="text-center font-bold text-bluee">Avaliações</h2>
+             
 
-                    @foreach ($reviews as $review)
-                        <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
-                            <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
-                            <strong>Comentário: </strong>{{ $review->comment }}<br>
-                            <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
-                        </div>
-                        <hr>
-                    @endforeach
-                    <a href="{{ route('reviews.index') }}" class="text-bluee  hover:underline">Ver mais</a>
-                 </div>
+
+                      {{-- codico gpt --}}
+
+                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
+                                <h2 class="text-center font-bold text-bluee">Avaliações</h2>
+                                
+                                @foreach ($reviews as $review)
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
+                                        <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
+                                        <strong>Comentário: </strong>{{ $review->comment }}<br>
+                                        <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
+
+                                        @if ($review->response)
+                                        <div class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mt-4 rounded-lg shadow-md">
+                                            <div>
+                                                <strong>Respondido por:</strong> {{ $review->response->user->name }}
+                                            </div>
+                                            <div>
+                                                <strong>Resposta:</strong> {{ $review->response->response }}
+                                            </div>
+                                            <div>
+                                                <em>Respondido em: {{ $review->response->created_at->format('d/m/Y H:i') }}</em>
+                                            </div>
+                                        </div>
+                                        
+                                        @else
+                                            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mt-4 rounded-lg shadow-md">
+                                                <em>Sem resposta do administrador ainda.</em>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <hr>
+                                @endforeach
+
+                                <a href="{{ route('reviews.index') }}" class="text-bluee hover:underline">Ver mais</a>
+                            </div>
+
+
               </div>
         </div>
       {{-- <script>
@@ -810,7 +864,19 @@
     <script>
 
 
-$(document).ready(function() {
+document.getElementById('submitButton').addEventListener('click', function (event) {
+    event.preventDefault(); // Impede o envio automático do formulário
+
+    // Mostra o spinner
+    document.getElementById('buttonSpinner').style.display = 'inline';
+    document.getElementById('buttonText').style.display = 'none';
+
+    // Submete o formulário manualmente
+    document.getElementById('mainForm').submit();
+});
+
+
+  $(document).ready(function() {
     // Esconder todos os contêineres de detalhes de endereço
     $('.containers').hide();
 
@@ -874,28 +940,28 @@ for (let i = 0; i <opcoes.length; i++) {
 
 
 
-   // Selecionando os elementos relevantes
+//    Selecionando os elementos relevantes
 
-    // const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
-    // const observationInput = document.getElementById('observation');
+    const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
+    const observationInput = document.getElementById('observation');
 
     // Função para verificar e atualizar o estado do campo de observação
 
-    // function updateObservationField() {
-    //     // Verificando qual opção de pagamento está selecionada
+    function updateObservationField() {
+        // Verificando qual opção de pagamento está selecionada
 
-    //     const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+        const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
 
-    //     // Se a opção selecionada for "Cartão", desabilita o campo de observação
+        // Se a opção selecionada for "Cartão", desabilita o campo de observação
 
-    //     if (selectedPayment === '0') {
-    //         observationInput.disabled = true;
-    //         observationInput.classList.add('disabled');
-    //     } else {
-    //         observationInput.disabled = false;
-    //         observationInput.classList.remove('disabled');
-    //     }
-    // }
+        if (selectedPayment === '0') {
+            observationInput.disabled = true;
+            observationInput.classList.add('disabled');
+        } else {
+            observationInput.disabled = false;
+            observationInput.classList.remove('disabled');
+        }
+    }
 
     // Adicionando um event listener para cada botão de rádio de pagamento
 
@@ -903,7 +969,7 @@ for (let i = 0; i <opcoes.length; i++) {
 
     // Chamando a função para atualizar o estado do campo de observação quando a página carregar
 
-    // updateObservationField();
+    updateObservationField();
 
 
     document.getElementById('addressType').addEventListener('change', function() {

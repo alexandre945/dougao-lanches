@@ -11,30 +11,48 @@
 </head>
 <body>
 
-       @php
-       $ratingsdescriptions = array(
-        5 =>  'Execelente',
-        4 =>  'Muito bom',
-        3 =>  'Bom',
-        2 =>  'Regular',
-        1 =>  'Rim'
-       );
-
-       @endphp
+    @php
+    $ratingsDescripitions = array(
+        5 => "Execlente",
+        4 =>  "Muito bom",
+        3 =>  "Bom",
+        2 =>   "Regular",
+        1 =>  "Ruim"
+    );
+@endphp
 
     <div class="container max-auto mt-4 ">
           <h1 class="text-center  font-bold text-sm">Avaliações e Comentários dos Clientes</h1>
         <h4 class="text-center pb-4 font-semibold ">Avaliações</h4>
            <div class="bg-white ">
                     <!-- Exibe as avaliações -->
-                @foreach ($reviews as $review)
-                    <div class="review mb-3 border-l-2 bg-slate-50 rounded m-2 p-2">
-                        <strong>Avaliação: </strong>{{ $ratingsdescriptions[$review->rating] }} {{$review->rating}} /5<br>
+                    @foreach ($reviews as $review)
+                    <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
+                        <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
                         <strong>Comentário: </strong>{{ $review->comment }}<br>
                         <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
+
+                        @if ($review->response)
+                        <div class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mt-4 rounded-lg shadow-md">
+                            <div>
+                                <strong>Respondido por:</strong> {{ $review->response->user->name }}
+                            </div>
+                            <div>
+                                <strong>Resposta:</strong> {{ $review->response->response }}
+                            </div>
+                            <div>
+                                <em>Respondido em: {{ $review->response->created_at->format('d/m/Y H:i') }}</em>
+                            </div>
+                        </div>
+                        
+                        @else
+                            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mt-4 rounded-lg shadow-md">
+                                <em>Sem resposta do administrador ainda.</em>
+                            </div>
+                        @endif
                     </div>
                     <hr>
-                 @endforeach
+                @endforeach
 
            </div>
 

@@ -266,6 +266,20 @@
                 </div>
               </div>
 
+              <div class="py-4">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                  <h2 class="font-extralight text-sm">CONFERIR PONTOS DOS USUARÍOS</h2>
+                  <a href="{{ route('userPoints') }}" class="btn-slate font-bold">PONTOS DOS USUARÍOS</a>
+                </div>
+              </div>
+
+              <div class="py-4">
+                <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+                  <h2 class="font-extralight text-sm">  RESPONDER COMENTAARÍOS DOS USUARÍOS</h2>
+                  <a href="{{ route('view.admin') }}" class="btn-slate font-bold">COMETARÍOS DOS USUARÍOS</a>
+                </div>
+              </div>
+
               <!-- Section 6:  Clientes Brindes-->
 
               <div class="py-4">

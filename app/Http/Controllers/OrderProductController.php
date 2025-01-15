@@ -160,7 +160,7 @@ class OrderProductController extends Controller
         $point = Point::all();
 
         // Pegar as últimas avaliações
-        $reviews = Review::with('user')->orderby('created_at', 'desc')->take(3)->get();
+        $reviews = Review::with('user','response','admin')->orderby('created_at', 'desc')->take(3)->get();
 
         // Retornar a view com os dados necessários
         return view('cart.index', compact(

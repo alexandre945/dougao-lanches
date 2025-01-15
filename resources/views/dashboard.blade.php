@@ -717,19 +717,22 @@
         </div>
     </footer> --}}
        {{-- carrinho --}}
-    <div class="fixed bottom-4 right-4">
-        <a href="{{ route('cart.show')}}">
-            <button class="bg-red-600 text-white p-4 rounded-full shadow-lg hover:bg-red-500 transition duration-300">
-                 <i class="fas fa-shopping-cart text-xl"></i>
-                     @if($productCount)
-                    <span class="absolute top-0 right-0 bg-yellow-400 text-red-600 rounded-full w-6 h-6 flex items-center justify-center text-xs ">{{ $productCount }}</span>
-                    @endif
-                    @if(!$productCount)
-                  <i class="fa-solid fa-sad-tear text-xl"></i>
-               @endif
+       <div class="bottom-4 right-4" style="position: fixed; bottom: 1rem; right: 1rem; margin-bottom: 4px;">
+        <a href="{{ route('cart.show') }}">
+            <button style="background-color: #f63434; color: white; padding: 1rem; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: background-color 0.3s;">
+                <i class="fas fa-shopping-cart" style="font-size: 1.25rem;"></i>
+                @if($productCount)
+                    <span style="position: absolute; top: 0; right: 0; background-color: #facc15; color: #cb0c35; border-radius: 9999px; width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+                        {{ $productCount }}
+                    </span>
+                @endif
+                @if(!$productCount)
+                    <i class="fa-solid fa-sad-tear" style="font-size: 1.25rem;"></i>
+                @endif
             </button>
-        <a>
+        </a>
     </div>
+    
     @vite('resources/js/app.js')
 
 

@@ -34,9 +34,11 @@ use App\Http\Controllers\toggleController;
 use App\Http\Controllers\verificationOrderController;
 use App\Http\Controllers\WaitingTimeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReviewResponseController;
 use App\Http\Controllers\StatusDeniedController;
 use App\Http\Controllers\TermsUseController;
 use App\Http\Controllers\UpdateTotalController;
+use App\Http\Controllers\UserPointsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -263,14 +265,26 @@ Route::get('/data-deletion', [TermsUseController::class, 'deletion'])->name('dat
 Route::get('/product-info', [UpdateTotalController::class, 'show'])->name('product.info.index');
 
    //rota para atualizar modo de pagamento
-   
-Route::post('/update-paymemte', [OrderProductController::class, 'updatepaymente'])->name('update.paymente'); 
+
+Route::post('/update-paymemte', [OrderProductController::class, 'updatepaymente'])->name('update.paymente');
 
     //rota para alterar delivery
-    
+
 Route::post('/update-delivery', [OrderProductController::class, 'updateDelivery'])->name('update.delivery');
 
+    //rota para mostrar usuarios e  pontos
 
+Route::get('/user-points', [UserPointsController::class, 'show'])->name('userPoints');
+
+
+
+  //rota p view do admin responder
+
+Route::get('/review-admin', [ReviewController::class, 'show'])->name('view.admin');
+
+    //rota de resposta do admin paara os comentarios
+
+Route::post('/reviews/{review}/response', [ReviewResponseController::class, 'store'])->name('response.store');
 
 
 

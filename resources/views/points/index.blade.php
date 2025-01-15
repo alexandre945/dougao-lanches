@@ -45,16 +45,18 @@
             <!-- Opção 1: Resgatar na Lanchonete -->
             <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <a href="{{ route('delivery.index') }}" class="block text-center">
-                    <h5 class="text-lg font-bold mb-2">Resgatar na Lanchonete</h5>
-                    <p class="text-left">Clique aqui para resgatar seu brinde retirando na lanchonete.</p>
+                    <p class="text-left mb-2">Clique aqui para resgatar seu brinde retirando na lanchonete.</p>
+                    <h5 class="text-lg font-bold  border-2 p-2 bg-slate-300 rounded">Resgatar na Lanchonete</h5>
+
                 </a>
             </div>
 
             <!-- Opção 2: Resgatar com Pedido -->
             <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
                 <a href="{{ route('delivery.show') }}" class="block text-center">
-                    <h5 class="text-lg font-bold mb-2">Resgatar com Pedido</h5>
-                    <p class="text-left">Clique aqui para resgatar seu brinde junto com um pedido.</p>
+                    <p class="text-left mb-2">Clique aqui para resgatar seu brinde junto com um pedido.</p>
+                    <h5 class="text-lg font-bold  border-2 rounded bg-slate-300 p-2">Resgatar com Pedido</h5>
+
                 </a>
             </div>
 
