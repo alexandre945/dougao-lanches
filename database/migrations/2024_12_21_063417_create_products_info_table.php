@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('products_info', function (Blueprint $table) {
             $table->id();
-            $table->boolean('payment')->default(0); // 0 = cartão, 1 = dinheiro
-            $table->boolean('delivery')->default(0); // 0 = retirar, 1 = entregar
+            $table->boolean('payment')->default(0)->nullable(); // 0 = cartão, 1 = dinheiro
+            $table->boolean('delivery')->default(0)->nullable(); // 0 = retirar, 1 = entregar
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relaciona com usuários
             $table->timestamps();
         });

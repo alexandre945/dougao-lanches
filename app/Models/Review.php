@@ -26,9 +26,15 @@ class Review extends Model
         return $this->hasOne(ReviewResponse::class);
     }
 
-    public function admin()
-{
-    return $this->belongsTo(User::class);
-}
+        public function admin()
+    {
+        return $this->belongsTo(User::class);
+    }
+    protected static function booted()
+    {
+        static::deleting(function ($review) {
+            $review->response()->delete(); // Deleta a resposta associada
+        });
+    }
 
 }

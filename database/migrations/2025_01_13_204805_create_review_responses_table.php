@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('review_responses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('review_id')->constrained('reviews')->onDelete('cascade'); // Chave estrangeira
-            $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('set null'); // Opcional
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null'); // Opcional
             $table->text('response'); // Resposta do admin
             $table->timestamps(); // Campos created_at e updated_at
         });

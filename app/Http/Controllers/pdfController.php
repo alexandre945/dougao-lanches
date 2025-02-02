@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Order;
 use App\Models\Address;
 use App\Models\User;
@@ -18,11 +21,24 @@ class pdfController extends Controller
      */
     public function index(Request $request, $id)
     {
-
+        $order = Order::findOrFail($id);
         $date = now()->format('d/m/y H:i:s');
-        $user      = Auth::user();
-        $users     = $user->id ?? '';
-        $order = Order::all();
+
+        // Gera o PDF
+        $pdf = Pdf::loadView('status.impress', compact('order', 'date'));
+
+        // Converte o PDF para imagem usando Imagick
+        // $imagick = new Imagick();
+        // $imagick->readImageBlob($pdf->output());
+        // $imagick->setImageFormat('png');
+
+        // return response($imagick->getImagesBlob(), 200)
+        //     ->header('Content-Type', 'image/png');
+
+        // $date = now()->format('d/m/y H:i:s');
+        // $user      = Auth::user();
+        // $users     = $user->id ?? '';
+        // $order = Order::all();
 
 
 
@@ -31,9 +47,9 @@ class pdfController extends Controller
         //    }])->where('status', 'aceito')->orderBy('id', 'desc')->get();
 
 
-        $order = Order::orderBy('id', 'desc')->with('orderUser')->where(['status' => ('aceito')])->get();
+        // $order = Order::orderBy('id', 'desc')->with('orderUser')->where(['status' => ('aceito')])->get();
 
-        return view('status.impress', compact('order', 'date', 'users'));
+        // return view('status.impress', compact('order', 'date', 'users'));
     }
     /**
      * Show the form for creating a new resource.
@@ -55,13 +71,10 @@ class pdfController extends Controller
 
         $pdf = PDF::loadView('status.impress', compact('order', 'date', 'userAddresses'));
 
-        return $pdf->setPaper('A4', 'landscape')->stream('imprimi');
+         // Força o navegador a baixar o PDF em vez de exibir o conteúdo
+        return $pdf->stream('pedido.pdf');
 
         // return $pdf->download('nome_do_arquivo.pdf')
-
-
-
-
 
     }
 

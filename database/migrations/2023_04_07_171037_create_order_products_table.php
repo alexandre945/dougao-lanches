@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->double('price');
             $table->integer('quanty')->nullable()->default('1');
+            $table->decimal('total', 10, 2)->default(0.00);
             $table->string('observation')->nullable();
             $table->string('photo')->nullable();
             $table->foreignId('blind_carts_id')->nullable();

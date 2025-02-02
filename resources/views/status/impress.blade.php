@@ -8,170 +8,87 @@
     <script src="https://kit.fontawesome.com/03e947ed86.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>centerCart</title>
-    @vite('resources/css/app.css')
-    <style>
-        .row{
-
-           background-color: black;
-        }
-        .payment{
-            align-items: center;
-            justify-content: space-evenly;
-        }
-
-    </style>
 </head>
+
 <body>
-  <div class="container mx-auto">
-    <div class="text-center">
-        {{-- <h1 class="p-4">LISTAGEM DE PEDIDOS ACEITOS</h1> --}}
-          {{-- <div class="">
-            @include('layouts.statusNavegation')
-          </div> --}}
-
-         @forelse ($order as $item)
-
-        <form action="{{ route('pdf.imprimird',$item->id)}}" method="POST">
-
-            @csrf
-                <div class="pt-2 container overflow-auto">
-                    <div class="border p-2 flex payment">
-                        <h3 class="font-bold troco p-2">forma de pagamento</h3>
-
-                        <p>{{ $item->payment ? 'DINHEIRO' : 'CARTÃO' }} :</p>
-
-                        <p class="troco p-2">{{ $order[0]->observation}}</p>
-                    </div>
+    @vite('resources/css/app.css')
+    <div class="container mx-auto">
+        <div class="text-start">
+            @foreach ($order as $item)
+                <div class="text-center mb-2" style="font-size:24px;">
+                    <h2 class="text-lg">Pedido N- {{ $item->id }}</h2>
                 </div>
 
-            <div class="card p-2">
-                <div class="overflow-auto">
-                    <table class="table-auto w-full">
-                        <thead>
-                            <tr>
-                                <th class="px-4 py-2">Cliente</th>
-                                <th class="px-4 py-2">Número</th>
-                                <th class="px-4 py-2">Data </th>
-                                <th class="px-4 py-2">Total </th>
-                                <th class="px-4 py-2">Entrega</th>
-                                <th class="px-4 py-2">ESTATUS</th>
-                            </tr>
-                            </thead>
-                                  <!-- Loop através dos pedidos -->
-                            <tbody>
-                                <tr>
-                                    <td class="border px-4 py-2 order rounded">{{ $item->orderUser->name }}</td>
-                                    <td class="border px-4 py-2 order rounded">{{ $item->id }}</td>
-                                    <td class="border px-4 py-2 order rounded">{{ $item->created_at->format('d/m/Y H:i')}}</td>
-                                    <td class="border px-4 py-2 order rounded">@money( $item->total)</td>
-                                    <td class="border px-4 py-2 order rounded">{{ $item->delivery ? 'Sim' : 'Não' }}</td>
-                                    <td class="border px-4 py-2 order rounded">{{ $item->status}}</td>
-                                </tr>
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class=" overflow-auto">
-                <table class="w-full border border-gray-100 ">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="py-2 px-4 border-b">Produto</th>
-                            <th class="py-2 px-4 border-b">QUANTIDADE</th>
-                            <th class="py-2 px-4 border-b">PREÇO</th>
-                            <th class="py-2 px-4 border-b">OBSERVAÇÃO</th>
-                            <th class="py-2 px-4 border-b">ADICIONAIS</th>
+                <div class="card p-2" style="font-size:24px;">
+                    <div class="text-star">
+                        <p>Cliente: {{ $item->orderUser->name }}</p>
+                        <p>É para entregar: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
+                        <p>Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
+                        <p>Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
+                        <p>{{ $item->observation }}</p>
+                        <h2 class="font-bold">Total: @money($item->total)</h2>
 
-                        </tr>
-                    </thead>
-                    <tbody class="pb-2">
-
+                        <h4 class="pb-2">PRODUTO</h4>
                         @foreach ($item->orderList as $list)
+                            <p>{{ $list->product->name ?? '' }} ({{ $list->quamtity }})</p>
 
-                                <tr>
-                                    <td class="py-2 px-4 border-b">{{ $list->product->name ?? ''}}</td>
-                                    <td class="py-2 px-4 border-b text-center">{{ $list->quamtity}}</td>
-                                    <td class="py-2 px-4 border-b">{{ number_format($list->value, 2, ',', '.')  }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $list->observation ?? '' }}</td>
-                                    <td class="py-2 px-4 border-b">
+                            @if ($list->product && ($list->product->category_id != 2 && $list->product->category_id != 4))
+                                <p>Observação: {{ $list->observation ?? '//' }}</p>
 
-                                        @if($list->orderAdditional->count()>0)
-                                    {{-- @dd($list->orderAdditional); --}}
-                                    @foreach ($list->orderAdditional as $additional)
-                                        {{ $additional->name ?? '' }},
-                                    @endforeach
+                                @if ($list->orderAdditional->isNotEmpty())
+                                    <p>Adicionais:
+                                        {{ $list->orderAdditional->map(fn($additional) => $additional->name . ' (' . $additional->pivot->quantity . ')')->join(', ') }}
+                                    </p>
                                 @else
-
-                                    <div class="">
-                                        <p>sem adicional</p>
-                                    </div>
-
-
+                                    <p>Adicionais: //</p>
                                 @endif
-
-                                    </td>
-                                </tr>
+                            @endif
+                            @if($list->product && ($list->product->category_id == 2 || $list->product->category_id == 4 ) )
+                                     <p>{{ $list->product->description }}</p>
+                            @endif
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
 
-                    <div class="flex flex-wrap content-start pb-4">
-                        {{-- <div class="p-2 text-start">
-                            <label for="">Cidade:</label>
-
-                            <span class=" p-2 mr-2 font-bold">{{$item->orderUser->address[0]->city  ?? ''}}</span>
-                        </div> --}}
-                        <div class="p-2 text-start">
-                            <label for="">Rua:</label>
-                            <span class="p-2 mr-2 font-bold">{{$item->orderUser->address->last()->street ?? ''}}</span>
-                        </div>
-                        <div class="p-2 text-start">
-                            <label for="">Bairro:</label>
-                            <span class="p-2 mr-2 font-bold">{{$item->orderUser->address->last()->district ?? ''}}</span>
-                        </div>
-                        <div class="p-2 text-start">
-                            <label for="">Numero:</label>
-                            <span class="p-2 mr-2 font-bold">{{$item->orderUser->address->last()->number ?? ''}}</span>
-                        </div>
-                        <div class="p-2 text-start">
-                            <label for="">Fone:</label>
-                            <span class="p-2 mr-2 font-bold">{{$item->orderUser->address->last()->fone ?? ''}}</span>
-                        </div>
-                        <div class="p-2 text-start">
-                            <label for="">Complemento:</label>
-
-                            <span class="p-2 mr-2 font-bold">{{$item->orderUser->address->last()->complement	 ?? ''}}</span>
-                        </div>
+                        {{-- Exibe o brinde, se houver --}}
+                        @foreach ($item->orderList as $list)
+                            @if ($list->blindCart)
+                                <p>Brinde: {{ $list->blindCart->name ?? '' }}</p>
+                                @break
+                            @endif
+                        @endforeach
                     </div>
+                </div>
 
-                    <div class=" flex">
-                           <div class="">
+                {{-- container que mostra endereço --}}
+                <div class="container pb-4">
+                    <div class="" style="font-size: 24px;">
+                        @if( $item->delivery == 1)
+                            <h3 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h3>
+                            @foreach ($item->orderList as $list)
+                                @if ($list->addressUserType && $list->addressUserType->address)
+                                    <div class="mb-4 text-start">
 
-                <button type="submit" class="border rounded p-2 button hover:text-blue-800 mr-2">IMPRIMIR</button>
-        </form>
-                           </div>
-                           <div class="">
-                                <form action="{{route('status.product',$item->id)}}" method="POST">
-                                    @csrf
-                                        <button type="submit" class="border rounded p-2 button hover:text-blue-800">IR PARA PRODUÇÃO</button>
-                                </form>
-                            </div>
+                                            <p class="ml-2">Tipo de Endereço: {{ $list->addressUserType->addressType->name ?? 'N/A' }}</p>
+
+                                        {{-- Dados do endereço --}}
+
+                                            <p class="ml-2">Cidade:{{ $list->addressUserType->address->city }}</p>
+                                            <p class="ml-2">Rua:{{ $list->addressUserType->address->street }} N° {{ $list->addressUserType->address->number }} </p>
+                                            <p class="ml-2">Bairro:{{ $list->addressUserType->address->district }}</p>
+                                            <p class="ml-2">Fone:{{ $list->addressUserType->address->fhone }}</p>
+                                            <p class="ml-2">Complemento:{{ $list->addressUserType->address->complement }}</p>
+                                        </div>
+                                    </div>
+                                    @break
+                                @endif
+                            @endforeach
+                        @else
+
+                        @endif
                     </div>
-                 </div>
-                 <a href="{{ route('panel.admin')}}">
-                    <button class="bg-blue-500 hover:bg-blue-700 border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Voltar
-                    </button>
-                  </a>
-                 <div class="row pb-2">
-                    <hr>
-                 </div>
+                </div>
+            @endforeach
+        </div>
 
-            @empty
-              <p class="pt-4 font-bold text-lg">Sem Pedidos com estatus aceito no momento!</p>
-              <p>Para o dia: @datetime(now())</p>
-           @endforelse
-
-    </div>
+    @vite('resources/js/app.js')
 </body>
 </html>

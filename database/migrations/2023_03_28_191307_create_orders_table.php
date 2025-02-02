@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->onDelete('cascade');
             $table->decimal('total');
             $table->string('rejection_reason')->nullable();
-            $table->enum('status',['processando','aceito','produção','saiu para emtrega'])->dafault('processando');
+            $table->enum('status',['processando','aceito','produção','pronto','recusado','saiu para emtrega','entregue'])->dafault('processando');
             $table->foreignId('additional_id')->nullable();
             $table->double('delivery_fee')->default('6');
             $table->boolean('payment');

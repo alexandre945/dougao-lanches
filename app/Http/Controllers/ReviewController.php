@@ -90,6 +90,9 @@ class ReviewController extends Controller
      */
     public function destroy(review $review)
     {
-        //
+
+        $review->delete(); // Isso já deletará a resposta associada, graças ao `booted` no model
+
+        return redirect()->back()->with('success', 'Comentário e resposta excluídos com sucesso!');
     }
 }

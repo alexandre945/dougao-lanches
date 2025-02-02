@@ -232,7 +232,7 @@
                                             </div>
                                             <div>
                                                 <label class="font-semibold">Fone:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->fone }}</span>
+                                                <span class="ml-2">{{ $list->addressUserType->address->fhone }}</span>
                                             </div>
                                             <div>
                                                 <label class="font-semibold">Complemento:</label>
@@ -322,6 +322,12 @@
             <p>Para o dia: {{ $date }}</p>
         @endforelse
     </div>
+       <!-- Voltar Button -->
+       <a href="{{ route('panel.admin') }}" class="flex-1">
+            <button class="bg-gradient-to-r from-purple-400 to-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:from-purple-500 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                Voltar
+            </button>
+       </a>
 </div>
 
 @vite('resources/js/app.js')

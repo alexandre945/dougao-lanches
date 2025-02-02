@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- ... (códigos anteriores) -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </head>
 <body class="bg-yellow-100">
   <div class="container mx-auto pt-2">
@@ -22,7 +24,7 @@
                         <div class="text-center mb-2">
                             Pedido N- {{ $item->id }}
                         </div>
-                      
+
                         <p>Nome do Cliente: {{ $item->orderUser->name }}</p>
                         <p>Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
                         <p>Total: @money($item->total)</p>
@@ -62,7 +64,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4 border-b pb-2 pr-4">
+                                {{-- <div class="mb-4 border-b pb-2 pr-4">
                                     <div class="flex justify-between items-center mb-2">
                                         <div class="font-bold text-gray-700">
                                             <span>Preço</span>
@@ -71,7 +73,7 @@
                                             @money( $list->value )
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                               @endif
 
                               @if( $list->product && $list->product->category_id !=2 && $list->product->category_id != 4 )
@@ -148,54 +150,72 @@
                             {{-- container que mostra endereço --}}
                     <div class="container pb-4">
                         <div class="bg-white rounded shadow-lg p-4 mt-4">
-                            <h1 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h1>
-                            @foreach ($item->orderList as $list)
-                                @if ($list->addressUserType && $list->addressUserType->address)
-                                    <div class="mb-4 text-start">
-                                        <div class="mb-2">
-                                            <label class="font-semibold">Tipo de Endereço:</label>
-                                            <span class="ml-2">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
+                            @if( $item->delivery == 1)
+                                <h1 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h1>
+                                @foreach ($item->orderList as $list)
+                                    @if ($list->addressUserType && $list->addressUserType->address)
+                                        <div class="mb-4 text-start">
+                                            <div class="mb-2">
+                                                <label class="font-semibold">Tipo de Endereço:</label>
+                                                <span class="ml-2">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
+                                            </div>
+                                            {{-- Dados do endereço --}}
+                                            <div class="grid grid-cols-1 gap-4">
+                                                <div>
+                                                    <label class="font-semibold">Cidade:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->city }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Rua:</label>
+                                                        <span class="ml-2">{{ $list->addressUserType->address->street }} N° {{ $list->addressUserType->address->number }} </span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Bairro:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->district }}</span>
+                                                </div>
+
+                                                <div>
+                                                    <label class="font-semibold">Fone:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->fhone }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Complemento:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->complement }}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        {{-- Dados do endereço --}}
-                                        <div class="grid grid-cols-1 gap-4">
-                                            <div>
-                                                <label class="font-semibold">Cidade:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->city }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Rua:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->street }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Bairro:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->district }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Número:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->number }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Fone:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->fone }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Complemento:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->complement }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @break
-                                @endif
-                            @endforeach
+                                        @break
+                                    @endif
+                                @endforeach
+                            @else
+
+                            @endif
                         </div>
                     </div>
 
                     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <!-- Imprimir Button -->
 
-                            <button type="submit" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600  font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue  hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                        {{-- <button type="submit" id="printTest" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600 font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            IMPRIMIR
+                        </button> --}}
+                        <form id="printForm" action="{{ route('pdf.imprimird', $item->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" id="printButton" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600 font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
                                 IMPRIMIR
                             </button>
+                        </form>
+                        
+                        <p id="loadingText" class="hidden text-blue-500 font-bold mt-2">Por favor, aguarde a impressão...</p>
+
+
+                        {{-- <button type="submit" id="printTest" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600 font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            IMPRIMIR
+                        </button> --}}
+                        <p id="status"></p>
+                        {{-- <a href="intent:#Intent;action=ru.a402d.rawbtprinter.PRINT;scheme=rawbt;end" target="_blank">
+                            <button>Imprimir Pedido</button>
+                        </a> --}}
 
 
                         <!-- Saiu Para Entrega Button -->
@@ -214,7 +234,6 @@
                         </a>
                     </div>
 
-
             </div>
 
         @empty
@@ -228,5 +247,46 @@
             </button>
         </a>
   </div>
+
+  <script>
+       document.querySelector('#printButton').addEventListener('click', function (event) {
+        event.preventDefault(); // Evita o comportamento padrão do botão
+        const form = this.closest('form');
+        const loadingText = document.querySelector('#loadingText');
+
+        loadingText.classList.remove('hidden'); // Exibe o carregamento
+
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            loadingText.classList.add('hidden'); // Esconde o carregamento
+
+            // Cria um elemento de imagem temporário para impressão
+            const imageUrl = URL.createObjectURL(blob);
+            const img = new Image();
+            img.src = imageUrl;
+            img.onload = () => {
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write('<img src="' + imageUrl + '" onload="window.print(); window.close();">');
+            };
+
+            // Após a impressão, redireciona para a view de status aceito
+            setTimeout(() => {
+                window.location.href = "{{ route('status.aceito') }}";
+            }, 3000); // Aguarda 3 segundos para garantir o tempo de impressão
+        })
+        .catch(error => {
+            loadingText.classList.add('hidden'); // Esconde o carregamento
+            alert('Ocorreu um erro durante a impressão!');
+            console.error(error);
+        });
+    });
+
+ </script>
+
+
 </body>
 </html>

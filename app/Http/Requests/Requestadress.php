@@ -26,9 +26,9 @@ class Requestadress extends FormRequest
             'district'      => 'required',
             'street'        => 'required',
             'number'        => 'required',
-            'zipcode'       =>  'required',
+            'zipcode'       =>  'nullable',
             'complement'    =>  'nullable',
-            'fone'          =>  'required'
+            'fhone'          =>  'required'
         ];
     }
     public function messages()
@@ -38,9 +38,9 @@ class Requestadress extends FormRequest
             'district.required'     => 'O Campo bairro é Obrigatorío',
             'street.required'       => 'O Campo Rua é obrigatoío',
             'number.required'       => 'O Campo número é Obrigatorío',
-            'zipcode.required'      => 'O Campo CEP é Obrigatorío',
+            'zipcode.required'      => 'O Campo CEP não é Obrigatorío',
             'complement.required'   => 'O Campo complemento não é O brigatorío',
-            'fone.required'         => 'O Campo celular é obrigatorio'
+            'fhone.required'         => 'O Campo celular é obrigatorio'
 
         ];
     }

@@ -286,6 +286,29 @@ Route::get('/review-admin', [ReviewController::class, 'show'])->name('view.admin
 
 Route::post('/reviews/{review}/response', [ReviewResponseController::class, 'store'])->name('response.store');
 
+      //rota para atualizar respostas nos comentarios
+
+Route::put('/responses/{response}', [ReviewResponseController::class, 'update'])->name('response.update');
+
+       //rota delete comentarios
+
+Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+Route::get('/test-imagick', function () {
+    if (extension_loaded('imagick')) {
+        return 'Imagick está funcionando!';
+    } else {
+        return 'Imagick não está carregado!';
+    }
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -289,13 +289,19 @@
                                                 <input type="hidden" name="address_user_types_id" id="address_user_types_id" value="">
 
                                                         <p class="font-bold">@money($total)</p>
+                                                        @php
+                                                            $total = $total ?? 0;
+                                                            $payment = $productInfo->payment ?? '';
+                                                            $delivery = $productInfo->delivery ?? '';
+                                                        @endphp
 
                                                     <input type="hidden" name="total" value=" @money ($total)">
                                                     <input type="hidden" name="payment" value="{{ $productInfo->payment }}">
                                                     <input type="hidden" name="delivery" value="{{ $productInfo->delivery }}">
+                                                    <input type="hidden" name="observation" id="observation-hidden">
 
                                                 @foreach ($cart as $item)
-                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id }} ">
+                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
 
                                                 @endforeach
                                     </div>
@@ -333,7 +339,6 @@
                                                         @endif
 
                                                     </button>
-
                                             </div>
 
                                             <div class="flex space-x-2 tex-center items-center justify-center">
@@ -370,7 +375,7 @@
                                                      <div class="pb-4 w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
                                                         <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
                                                             <div>
-                                                                <span>Cartão</span>
+                                                                <span>Cartão/Pix na maquina</span>
                                                                 <button type="submit"
                                                                     class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
                                                                     value="0" onclick="togglePaymentFields(0)">
@@ -385,6 +390,7 @@
                                                                 <option  value="visa">Visa</option>
                                                                 <option  value="Master Card">Master Card</option>
                                                                 <option  value="Ouro Card">Ouro Card</option>
+                                                                <option  value="pix na maquina">Pix na maquinha</option>
                                                             </select>
                                                         </div>
 
@@ -416,7 +422,7 @@
                                                                 hover:shadow-xl transition-shadow duration-300"
                                                                 name="observation"
                                                                 id="observation"
-                                                                placeholder="ex: troco para 50 reais"
+                                                                placeholder="Ex: troco para 50 Reais"
                                                                 @if($productInfo->payment == 0) disabled @endif
                                                             >
                                                         </div>
@@ -607,7 +613,7 @@
 
                                                                         <div class="mb-4">
                                                                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                            <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone"  placeholder="digite seu celular" name="fone">
+                                                                            <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
                                                                                 @error('fhone')
                                                                                     <div class="p-2">
                                                                                     <span class="error text-red-500">{{ $message }}</span>
@@ -699,7 +705,7 @@
 
                                                     <div class="mb-4">
                                                         <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
-                                                        <p value=" " id="celular" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fone ?? ''}}</p>
+                                                        <p value=" " id="celular" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fhone ?? ''}}</p>
                                                     </div>
 
                                                     <div class="mb-4 ">
@@ -711,7 +717,6 @@
                                                 </div>
                                             @endif
                                         @endforeach
-
 
                                         @else
                                             <div class="bg-slate-400 ml-8 mr-8 rounded mb-4 font-bold text-xl text-yellow-300 text-center p-2 ">
@@ -736,65 +741,70 @@
                                     data-bs-toggle="modal" data-bs-target="#firstModal1">
                                 Avaliar o estabelecimento
                             </button>
-                    <!-- Modal para avaliação -->
-                    <div class="modal fade bg-yellow-100" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
 
-                                    <h6 class="text-sm">Avalie como foi sua experiencia na plataforma bem como o produto que esta consumindo</h6>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Seu formulário aqui -->
-                                    <form action="/reviews" method="POST" class="space-y-4">
-                                        @csrf
-                                        <input type="hidden" name="order_id" value="{{ $orderId }}">
+                        <!-- Modal para avaliação -->
 
-                                        <!-- Avaliação -->
-                                        <div class="flex flex-col">
-                                            <label for="rating" class="mb-2 font-semibold text-gray-700">Avaliação:</label>
-                                            <select name="rating" id="rating" required class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400">
-                                                <option value="5">5 - Excelente</option>
-                                                <option value="4">4 - Muito bom</option>
-                                                <option value="3">3 - Bom</option>
-                                                <option value="2">2 - Regular</option>
-                                                <option value="1">1 - Ruim</option>
-                                            </select>
+                            <div class="modal fade bg-yellow-100" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content rounded-lg shadow-lg">
+                                        <div class="modal-header relative">
+                                            <!-- Aviso posicionado no topo da modal -->
+                                            <div class="absolute top-0 left-0 w-full mb-4">
+                                                <p class="text-yellow-700 text-sm text-center font-semibold pb-2">
+                                                    Aviso: Não serão aceitos comentários ofensivos nem com palavras de baixo escalão.
+                                                </p>
+                                            </div>
+
+                                            <h6 class="text-sm mt-6 font-medium text-gray-700 text-center">
+                                                Compartilhe sua experiência na plataforma e avalie o produto que você está consumindo.
+                                            </h6>
+                                            <button type="button" class="btn-close absolute top-4 right-4" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
 
-                                        <!-- Comentário -->
-                                        <div class="flex flex-col">
-                                            <label for="comment" class="mb-2 font-semibold text-gray-700">Comentário (opcional):</label>
-                                            <textarea name="comment" id="comment" rows="4" class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400" placeholder="Escreva seu comentário..."></textarea>
-                                        </div>
+                                        <div class="modal-body px-6 py-4">
+                                            <!-- Formulário -->
+                                            <form action="/reviews" method="POST" class="space-y-4">
+                                                @csrf
+                                                <input type="hidden" name="order_id" value="{{ $orderId }}">
 
-                                        <!-- Botão de envio -->
-                                        <div class="text-right">
-                                            <button type="submit" class="border-b-2 border-l-2 border-r-2
-                                            bg-gradient-to-r from-cyan-100 to-emerald-500
-                                            rounded mb-2 mt-2 shadow-lg
-                                            hover:shadow-xl
-                                            transition-all duration-300 ease-in-out
-                                            transform hover:scale-105
-                                            p-2 hover:bg-none hover:bg-emerald-600 hover:text-white">
-                                                Enviar Avaliação
-                                            </button>
+                                                <!-- Avaliação -->
+                                                <div class="flex flex-col">
+                                                    <label for="rating" class="mb-2 font-semibold text-gray-700">Avaliação:</label>
+                                                    <select name="rating" id="rating" required class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400">
+                                                        <option value="5">5 - Excelente</option>
+                                                        <option value="4">4 - Muito bom</option>
+                                                        <option value="3">3 - Bom</option>
+                                                        <option value="2">2 - Regular</option>
+                                                        <option value="1">1 - Ruim</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Comentário -->
+                                                <div class="flex flex-col">
+                                                    <label for="comment" class="mb-2 font-semibold text-gray-700">Comentário (opcional):</label>
+                                                    <textarea name="comment" id="comment" rows="4" class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-indigo-500" placeholder="Escreva seu comentário..."></textarea>
+                                                </div>
+
+                                                <!-- Botões -->
+                                                <div class="flex justify-between items-center mt-4">
+                                                    <!-- Botão Enviar -->
+                                                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-medium rounded-lg px-6 py-2 shadow-md hover:shadow-lg hover:from-cyan-600 hover:to-emerald-600 transition-transform transform hover:scale-105">
+                                                        Enviar Avaliação
+                                                    </button>
+
+                                                    <!-- Botão Fechar -->
+                                                    <button type="button" class="bg-gradient-to-r from-yellow-400 to-red-500 text-white font-medium rounded-lg px-6 py-2 shadow-md hover:shadow-lg hover:from-yellow-500 hover:to-red-600 transition-transform transform hover:scale-105"
+                                                        data-bs-dismiss="modal">
+                                                        Fechar
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="bg-gradient-to-r from-yellow-300
-                                    to-red-500 border-r-2
-                                    hover:bg-none hover:bg-red-400
-                                    transition-all duration-400 ease-in-out
-                                    hover:text-white
-                                    p-2 rounded"
-                                    data-bs-dismiss="modal">Fechar</button>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                        </div>
+
+
                             @php
                                 $ratingsDescripitions = array(
                                     5 => "Execlente",
@@ -807,14 +817,10 @@
 
               <div class="text-start container max-auto pt-2">
 
-             
-
-
-                      {{-- codico gpt --}}
 
                             <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
                                 <h2 class="text-center font-bold text-bluee">Avaliações</h2>
-                                
+
                                 @foreach ($reviews as $review)
                                     <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
                                         <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
@@ -833,7 +839,7 @@
                                                 <em>Respondido em: {{ $review->response->created_at->format('d/m/Y H:i') }}</em>
                                             </div>
                                         </div>
-                                        
+
                                         @else
                                             <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mt-4 rounded-lg shadow-md">
                                                 <em>Sem resposta do administrador ainda.</em>
@@ -849,13 +855,7 @@
 
               </div>
         </div>
-      {{-- <script>
-        function playAlertSound()
-        {
-        var audio = document.getElementById('alert-audio');
-        audio.play();
-        }
-      </script> --}}
+
 
 
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -864,16 +864,26 @@
     <script>
 
 
-document.getElementById('submitButton').addEventListener('click', function (event) {
-    event.preventDefault(); // Impede o envio automático do formulário
+        document.getElementById('submitButton').addEventListener('click', function (event) {
+            event.preventDefault(); // Impede o envio automático do formulário
 
-    // Mostra o spinner
-    document.getElementById('buttonSpinner').style.display = 'inline';
-    document.getElementById('buttonText').style.display = 'none';
+             // Obtém os valores do input e do select
+            const observationInput = document.getElementById('observation').value.trim();
+            const creditCardSelect = document.getElementById('select').value;
 
-    // Submete o formulário manualmente
-    document.getElementById('mainForm').submit();
-});
+            // Determina qual valor usar (se o input estiver vazio, usa o valor do select)
+            const finalValue = observationInput || creditCardSelect;
+
+            // Atualiza o valor no campo hidden
+            document.getElementById('observation-hidden').value = finalValue;
+
+            // Mostra o spinner
+            document.getElementById('buttonSpinner').style.display = 'inline';
+            document.getElementById('buttonText').style.display = 'none';
+
+            // Submete o formulário manualmente
+            document.getElementById('mainForm').submit();
+        });
 
 
   $(document).ready(function() {
@@ -905,63 +915,63 @@ document.getElementById('submitButton').addEventListener('click', function (even
 
 
 
-function atualizarValor() {
-    const opcoes = document.getElementsByName('delivery');
-    var entregaInput = document.getElementById('entrega');
-    var toremove = document.getElementById('toremove');
-    var delivery = document.getElementById('delivery');
-    let total = "<?php echo $total; ?>";
-    const taxa = 6.00;
-    let totalAmount = 0;
+// function atualizarValor() {
+//     const opcoes = document.getElementsByName('delivery');
+//     var entregaInput = document.getElementById('entrega');
+//     var toremove = document.getElementById('toremove');
+//     var delivery = document.getElementById('delivery');
+//     let total = "<?php echo $total; ?>";
+//     const taxa = 6.00;
+//     let totalAmount = 0;
 
 
 
-for (let i = 0; i <opcoes.length; i++) {
-    if (opcoes[i].checked) {
+// for (let i = 0; i <opcoes.length; i++) {
+//     if (opcoes[i].checked) {
 
-        if (opcoes[i].value === '0') {
+//         if (opcoes[i].value === '0') {
 
-            delivery.style.display = 'none';
-            toremove.style.display = 'block';
+//             delivery.style.display = 'none';
+//             toremove.style.display = 'block';
 
-        } else if (opcoes[i].value === '1') {
+//         } else if (opcoes[i].value === '1') {
 
-          toremove.style.display = 'none';
-          delivery.style.display = 'block';
-          totalAmount = parseFloat(total) + parseFloat(taxa);
+//           toremove.style.display = 'none';
+//           delivery.style.display = 'block';
+//           totalAmount = parseFloat(total) + parseFloat(taxa);
 
-        }
-    }
-          totalAmount = totalAmount.toFixed(2);
-          totalAmount = totalAmount.replace(".",",");
-          delivery.innerHTML = 'R$' + "_" + totalAmount;
-}
-}
+//         }
+//     }
+//           totalAmount = totalAmount.toFixed(2);
+//           totalAmount = totalAmount.replace(".",",");
+//           delivery.innerHTML = 'R$' + "_" + totalAmount;
+// }
+// }
 
 
 
 //    Selecionando os elementos relevantes
 
-    const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
-    const observationInput = document.getElementById('observation');
+    // const paymentRadioButtons = document.querySelectorAll('input[name="payment"]');
+    // const observationInput = document.getElementById('observation');
 
     // Função para verificar e atualizar o estado do campo de observação
 
-    function updateObservationField() {
-        // Verificando qual opção de pagamento está selecionada
+    // function updateObservationField() {
+    //     // Verificando qual opção de pagamento está selecionada
 
-        const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+    //     const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
 
-        // Se a opção selecionada for "Cartão", desabilita o campo de observação
+    //     // Se a opção selecionada for "Cartão", desabilita o campo de observação
 
-        if (selectedPayment === '0') {
-            observationInput.disabled = true;
-            observationInput.classList.add('disabled');
-        } else {
-            observationInput.disabled = false;
-            observationInput.classList.remove('disabled');
-        }
-    }
+    //     if (selectedPayment === '0') {
+    //         observationInput.disabled = true;
+    //         observationInput.classList.add('disabled');
+    //     } else {
+    //         observationInput.disabled = false;
+    //         observationInput.classList.remove('disabled');
+    //     }
+    // }
 
     // Adicionando um event listener para cada botão de rádio de pagamento
 
@@ -969,7 +979,7 @@ for (let i = 0; i <opcoes.length; i++) {
 
     // Chamando a função para atualizar o estado do campo de observação quando a página carregar
 
-    updateObservationField();
+        // updateObservationField();
 
 
     document.getElementById('addressType').addEventListener('change', function() {
