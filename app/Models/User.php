@@ -78,4 +78,10 @@ class User extends Authenticatable
             return $this->hasMany(LoyaltyPoint::class);
          }
 
+         public function setAccessLevelAttribute($value)
+        {
+            $this->attributes['access_level'] = trim($value);
+        }
+
+
 }

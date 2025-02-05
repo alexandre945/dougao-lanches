@@ -27,7 +27,7 @@ class Requestadress extends FormRequest
             'street'        => 'required',
             'number'        => 'required',
             'zipcode'       =>  'nullable',
-            'complement'    =>  'nullable',
+            'complement'    =>  'nullable|max:40',
             'fhone'          =>  'required'
         ];
     }
@@ -40,6 +40,7 @@ class Requestadress extends FormRequest
             'number.required'       => 'O Campo número é Obrigatorío',
             'zipcode.required'      => 'O Campo CEP não é Obrigatorío',
             'complement.required'   => 'O Campo complemento não é O brigatorío',
+            'complement.max'        => 'esse campo tem limite maximo de 40 caracteres',
             'fhone.required'         => 'O Campo celular é obrigatorio'
 
         ];

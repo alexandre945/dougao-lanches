@@ -10,10 +10,11 @@ class panelAdminController extends Controller
 {
   public function index()
   {
+  
     $userCount = User::all()->count();
 
     $toggle = Toggle::first();
-    
+
     return view('products.create',compact('userCount','toggle'));
   }
 }

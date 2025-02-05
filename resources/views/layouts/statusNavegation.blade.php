@@ -24,9 +24,9 @@
 
     <div class="bg-gradient-to-r from-gray-800 to-gray-900  py-3 shadow-lg rounded-md ">
         <div class="container mx-auto ">
-            <ul class="flex flex-wrap justify-center space-x-2 sm:space-x-4 lg:space-x-8 >
-                <li class="mb-2">
-                    <a href="{{ route('order.show') }}" class="flex items-center px-2 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base lg:text-lg">
+            <ul class="flex flex-col sm:flex-row sm:items-start sm:space-x-4 lg:space-x-8 items-center">
+                <li class=" mb-2">
+                    <a href="{{ route('order.show') }}"class="flex items-center sm:text-left px-2 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base lg:text-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M9 16h6m2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v9a2 2 0 01-2 2z" />
                         </svg>

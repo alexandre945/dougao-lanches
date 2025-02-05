@@ -166,7 +166,7 @@ Route::put('/additionalUpdate,{id}',[AditionalController::class, 'update'])->nam
 
     //    rota para adicionar administrador no sistema
 
-Route::post('/update-admin',[updateAdminController::class, 'update'])->name('update.admin');
+// Route::post('/update-admin',[updateAdminController::class, 'update'])->name('update.admin');
 
         //  view admin
 

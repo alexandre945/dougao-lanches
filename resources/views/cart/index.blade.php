@@ -47,7 +47,7 @@
 
                          </div>
 
-                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90  rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
+                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
 
                                 <summary class="flex flex-col items-center justify-center">
                                     <i class="fa-solid fa-id-card fa-3x mb-2"></i>
@@ -568,11 +568,11 @@
                                                                             <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
                                                                             @error('city')
                                                                             <div class=" p-2 ">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                             </div>
                                                                             @enderror
                                                                         </div>
-                                                                        <div class="mb-4">
+                                                                        {{-- <div class="mb-4">
                                                                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
                                                                             <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder= "digite seu cep" name="zipcode">
 
@@ -581,14 +581,14 @@
                                                                                     <span class="error text-red-500">{{ $message }}</span>
                                                                                 </div>
                                                                             @enderror
-                                                                        </div>
+                                                                        </div> --}}
 
                                                                         <div class="mb-4">
                                                                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
                                                                             <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
                                                                             @error('district')
                                                                                 <div class=" p-2">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                 </div>
                                                                             @enderror
                                                                         </div>
@@ -597,7 +597,7 @@
                                                                             <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
                                                                             @error('street')
                                                                                 <div class=" p-2">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                 </div>
                                                                             @enderror
                                                                         </div>
@@ -606,17 +606,17 @@
                                                                             <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
                                                                             @error('number')
                                                                                 <div class="p-2">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                 </div>
                                                                             @enderror
                                                                         </div>
 
                                                                         <div class="mb-4">
                                                                             <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                            <input autocomplete="off" type="tel" value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
+                                                                            <input autocomplete="off"  type="tel" pattern="[0-9]*" inputmode="numeric"  value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
                                                                                 @error('fhone')
                                                                                     <div class="p-2">
-                                                                                    <span class="error text-red-500">{{ $message }}</span>
+                                                                                    <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                     </div>
                                                                                 @enderror
                                                                         </div>
@@ -626,14 +626,14 @@
                                                                             <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
                                                                             @error('complement')
                                                                                 <div class="p-2">
-                                                                                <span class="error text-red-500">{{ $message }}</span>
+                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                 </div>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
 
                                                                 <div class="pb-4">
-                                                                    <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-orange-300  font-bold hover:orange-500">CADASTRAR</button>
+                                                                    <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-lime-500  font-bold hover:orange-500">CADASTRAR</button>
                                                                 </div>
                                                             </form>
 
@@ -683,10 +683,10 @@
                                                         <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
                                                         <p class="text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
                                                     </div>
-                                                    <div class="mb-4">
+                                                    {{-- <div class="mb-4">
                                                         <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
                                                         <p value=""  class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 text-left " id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
-                                                    </div>
+                                                    </div> --}}
 
                                                     <div class="mb-4">
                                                         <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
