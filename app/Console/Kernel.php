@@ -13,10 +13,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('OpenLanchonete')
+            ->timezone('America/Sao_Paulo')
             ->dailyAt('19:00')
             ->days([Schedule::TUESDAY, Schedule:: WEDNESDAY, Schedule:: THURSDAY, Schedule:: FRIDAY, Schedule:: SATURDAY, Schedule:: SUNDAY ]);
 
-        $schedule->command('closedLanchonete')->daily();
+        $schedule->command('closedLanchonete')
+            ->timezone('America/Sao_Paulo')
+            ->daily('00:00');
     }
 
     /**

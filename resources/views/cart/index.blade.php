@@ -42,7 +42,7 @@
                         <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90  rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
 
                              <div class="text-center mt-2absolute">
-                                  <p class="text-sm md:text-2xl text-gray-700">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
+                                  <p class="text-sm md:text-2xl text-gray-700 text-white">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
                              </div>
 
                          </div>

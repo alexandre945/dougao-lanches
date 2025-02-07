@@ -331,6 +331,7 @@
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
@@ -443,7 +444,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Você pode adicionar mais seções como "Bebidas", "Sobremesas" etc. da mesma forma -->
+
         </div>
           {{-- container dos combos --}}
 
@@ -469,7 +470,7 @@
                             @endif
                             <div class="p-2">
                                 <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
-                                <p class="text-gray-600 mb-2">{{ $item->description}}</p>
+                                {{-- <p class="text-gray-600 mb-2">{{ $item->description}}</p> --}}
                                 <p class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</p>
 
                                 <div class="">
@@ -656,7 +657,7 @@
                                                                 <strong><h1>PRODUTO</h1></strong>
                                                                 <input type="text" disabled class=" p-2  rounded "  name="product_id" id="product_id" value="{{ $item->name }}"/><br>
                                                             </div>
-                                                       +
+
                                                             <div class=" mt-2 label2 text-center">
                                                             <strong><h1>QUANTIDADE</h1></strong>
                                                                 <input type="number" min="1"  class=" p-2  rounded text-center " name="quanty" value="{{ $item->quanty }}"/><br>

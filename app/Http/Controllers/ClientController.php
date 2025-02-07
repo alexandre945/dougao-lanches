@@ -28,10 +28,10 @@ class ClientController extends Controller
 
             $productCount = Order_product::where('user_id', $users)->with('orderProductProduct')->count();
 
-            $product = Product::where('category_id', 1)->where('status', 0)->simplePaginate(10);
-            $productBeer = Product::where('category_id', 2)->where('status', 0)->simplePaginate(10);
-            $productCombo = Product::where('category_id', 3)->where('status', 0)->simplePaginate(10);
-            $productBomboniere = Product::where('category_id', 4)->where('status', 0)->simplePaginate(10);
+            $product = Product::where('category_id', 1)->where('status', 0)->get();
+            $productBeer = Product::where('category_id', 2)->where('status', 0)->get();
+            $productCombo = Product::where('category_id', 3)->where('status', 0)->get();
+            $productBomboniere = Product::where('category_id', 4)->where('status', 0)->get();
 
 
 
