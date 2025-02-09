@@ -62,7 +62,7 @@
                         No Dougão Lanches, você encontra o melhor lanche da cidade, preparado com ingredientes frescos e de alta qualidade.
                         Faça seu pedido facilmente pelo nosso delivery, sem complicação! Aceitamos diversas formas de pagamento, como dinheiro,
                         cartão,pix na maquininha, que podem ser feitos diretamente ao entregador. Nosso horário de funcionamento é de terça a domingo,
-                        das 19h às 24h. Venha nos visitar pessoalmente na Rua Batista Luzardo, 1005, São Lourenço, MG, e aproveite o melhor da nossa Lanchonete.
+                        das 19h às 24h. Venha nos visitar pessoalmente na Rua Batista Luzardo, 1005, São Lourenço MG, e aproveite o melhor da nossa Lanchonete.
                         Não se esqueça de nos seguir nas redes sociais para ficar por dentro de todas as novidades!
                     </p>
                 </div>

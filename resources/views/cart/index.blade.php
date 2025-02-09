@@ -73,7 +73,7 @@
                             <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded-lg transition-opacity duration-300 p-4">
                                 <p class="text-center text-md font-bold">Olá, {{ Auth::user()->name }}!</p>
                                 <p class="text-center text-sm mt-1">Você possui <strong>{{ Auth::user()->points }}</strong> pontos!</p>
-                                <p class="text-center text-xs mt-2">Clique para verificar detalhes.</p>
+                                <p class="text-center text-sm mt-2">Clique para verificar detalhes.</p>
                             </div>
 
                             <!-- Link para o cartão fidelidade abaixo da div de hover -->
@@ -263,8 +263,7 @@
                                               @endif
                                             </div>
                                         </div>
-                                        @empty
-
+                                    @empty
                                         <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
                                             <p class="text-gray-200">Sua sacola esta vazia</p>
                                         </div>
@@ -291,13 +290,13 @@
                                                         <p class="font-bold">@money($total)</p>
                                                         @php
                                                             $total = $total ?? 0;
-                                                            $payment = $productInfo->payment ?? '';
-                                                            $delivery = $productInfo->delivery ?? '';
+                                                            $payment = optional($productInfo)->payment ?? '';
+                                                            $delivery = optional($productInfo)->delivery ?? '';
                                                         @endphp
 
                                                     <input type="hidden" name="total" value=" @money ($total)">
-                                                    <input type="hidden" name="payment" value="{{ $productInfo->payment }}">
-                                                    <input type="hidden" name="delivery" value="{{ $productInfo->delivery }}">
+                                                    <input type="hidden" name="payment" value="{{ $productInfo->payment ?? ''}}">
+                                                    <input type="hidden" name="delivery" value="{{ $productInfo->delivery ?? ''}}">
                                                     <input type="hidden" name="observation" id="observation-hidden">
 
                                                 @foreach ($cart as $item)
@@ -328,11 +327,11 @@
                                                 <spam >Retirar na Lanchonete </spam>
                                             <form id="delivery-form" action="{{ route('update.delivery') }}" method="post">
                                                     @csrf
-                                                    <input type="hidden" name="delivery" id="delivery-input" value="{{ $productInfo->delivery }}">
+                                                    <input type="hidden" name="delivery" id="delivery-input" value="{{ $productInfo->delivery ?? ''}}">
                                                     <button type="submit"
                                                         class=" w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
                                                         data-value="1">
-                                                        @if($productInfo->delivery == 0)
+                                                        @if($productInfo->delivery ?? '' == 0)
                                                             <i class="fa-solid fa-square-check" style= color:green;></i>
                                                         @else
                                                             <i class="fa-regular fa-circle"></i>
@@ -350,7 +349,7 @@
                                                     class="delivery-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700
                                                   "
                                                     data-value="1">
-                                                    @if($productInfo->delivery == 1)
+                                                    @if($productInfo->delivery ?? '' == 1)
                                                         <i class="fa-solid fa-square-check" style= color:green;></i>
                                                     @else
                                                         <i class="fa-regular fa-circle"></i>
@@ -367,7 +366,7 @@
 
                                              <form id="payment-form" action="{{ route('update.paymente') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="payment" id="payment-input" value="{{ $productInfo->payment }}">
+                                                <input type="hidden" name="payment" id="payment-input" value="{{ $productInfo->payment ?? ''}}">
 
 
                                                 <div class=" relative">
@@ -379,7 +378,7 @@
                                                                 <button type="submit"
                                                                     class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
                                                                     value="0" onclick="togglePaymentFields(0)">
-                                                                    @if($productInfo->payment == 0)
+                                                                    @if($productInfo->payment ?? '' == 0)
                                                                         <i class="fa-solid fa-square-check" style="color: green;"></i>
                                                                     @else
                                                                         <i class="fa-regular fa-circle"></i>
@@ -400,7 +399,7 @@
                                                                 <button type="submit"
                                                                     class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
                                                                     value="1" onclick="togglePaymentFields(1)">
-                                                                    @if($productInfo->payment == 1)
+                                                                    @if($productInfo->payment ?? '' == 1)
                                                                         <i class="fa-solid fa-square-check" style="color: green;"></i>
                                                                     @else
                                                                         <i class="fa-regular fa-circle"></i>
@@ -423,7 +422,7 @@
                                                                 name="observation"
                                                                 id="observation"
                                                                 placeholder="Ex: troco para 50 Reais"
-                                                                @if($productInfo->payment == 0) disabled @endif
+                                                                @if($productInfo->payment ?? '' == 0) disabled @endif
                                                             >
                                                         </div>
                                                      </div>
