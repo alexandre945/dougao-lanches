@@ -77,13 +77,15 @@
                         <p class="text-card">Quantidade de Pedidos na Plataforma: {{ $userOrderCount[$item->user_id] ?? 0 }}</p>
                         <p class="text-card">Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
                         <p class="font-bold">Total: @money($item->total)</p>
-                        <p class="text-card">Entrega: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
+                        <p class="text-card">Entrega: {{ $item->delivery ? 'Não' : 'Sim' }}</p>
                         <p class="text-card">Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
-                            <!-- Se for dinheiro -->
+
                         @if($item->payment)
+                        <!-- Se for dinheiro -->
                         <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
-                            <!-- Se for cartão -->
+
                         @else
+                        <!-- Se for cartão -->
                             <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
                         @endif
 

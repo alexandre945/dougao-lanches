@@ -17,13 +17,12 @@ class AdressController extends Controller
         $cart = Order_product::all();
         $user = auth::user();
         $users = $user->id;
- 
+
         $address = Address::create([
             'city'          => $request->city,
             'district'      => $request->district,
             'street'        => $request->street,
             'number'        => $request->number,
-            'zipcode'       => $request->zipcode,
             'complement'    => $request->complement,
             'user_id'       => $users,
             'fhone'          => $request->fhone,

@@ -27,53 +27,48 @@ class OrderProductController extends Controller
     {
          // Simular um atraso de 3 segundos
         //  sleep(5);
-
         $product = Product::findOrFail($id);
-        $products = $product->id;
         $user = auth::user();
-        $users = $user->id;
-        $price = $product->price;
+        $users = auth::id();
 
-          // Verificar ou criar registro em products_info
-        $productInfo = ProductInfo::firstOrCreate(
-            ['user_id' => $user->id], // Condição para verificar existência
-            ['payment' => 0, 'delivery' => 0] // Valores padrão para criação
-        );
+        $productInfo = ProductInfo::where('user_id', $user->id)->first();
 
-        $selectedAdditionals = $request->input('additional_ids', []); // IDs dos adicionais
-        $additionalQuantities = $request->input('additional_quantities', []); // Quantidades dos adicionais
+        if (!$productInfo) {
+            $productInfo = new ProductInfo(['user_id' => $user->id, 'payment' => 0, 'delivery' => 0]);
+            $productInfo->save();
+        }
 
-          // Calcular o total inicial com base no produto principal
-            $quantity = $request->quanty;
-            $total = $product->price * $quantity;
+        $selectedAdditionals = $request->input('additional_ids', []);
+        $additionalQuantities = $request->input('additional_quantities', []);
 
-              // Adicionar o preço dos adicionais ao total
-            foreach ($selectedAdditionals as $additionalId) {
-                $additional = Additional::find($additionalId); // Obter o adicional pelo ID
-                $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
-                if ($additional) {
-                    $total += $additional->price * $additionalQuantity;
-                }
+        $quantity = $request->quanty;
+        $total = $product->price * $quantity;
+
+        foreach ($selectedAdditionals as $additionalId) {
+            $additional = Additional::find($additionalId);
+            $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
+            if ($additional) {
+                $total += $additional->price * $additionalQuantity;
             }
-              // Adicionar os adicionais à tabela pivot
-                // foreach ($selectedAdditionals as $additionalId) {
-                //     $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
-                //     $cart->orderProductAdditional()->attach($additionalId, ['quantity' => $additionalQuantity]);
-                // }
+        }
+
+        // *** Lógica da taxa de entrega MOVIDA PARA CÁ ***
+        $deliveryFee = 6;
+        if ($productInfo->delivery == 1) { // Verifica o valor *atual* de delivery
+            $total += $deliveryFee;
+        }
 
         $cart = Order_product::create([
             'blind_carts_id' => $blindCartId ?? null,
-            'product_id' => $products,
+            'product_id' => $product->id, // Use $product->id aqui
             'quanty' => $request->quanty,
             'observation' => $request->observation,
-            'user_id' => $users,
-            'price' => $price,
-            'total' => $total
-
+            'user_id' => $user->id, // Use $user->id aqui
+            'price' => $product->price, // Use $product->price aqui
+            'total' => $total, // O total já inclui a taxa, se aplicável
         ]);
 
         // $selectedAdditionals = $request->input('additional', []);
-
 
         foreach ($selectedAdditionals as $additionalId) {
             // Verificar se existe uma quantidade correspondente para o adicional
@@ -189,7 +184,7 @@ class OrderProductController extends Controller
         return redirect()->route('cart.show')->with('delete', 'produto excluido');
     }
 
-    public function updatepaymente(Request $request)
+    public function updatepayment(Request $request)
     {
         // Validar os dados recebidos
         $request->validate([
@@ -223,33 +218,36 @@ class OrderProductController extends Controller
         ]);
 
         $userId = Auth::id();
-
-        // Recuperar as informações do produto do usuário
         $productInfo = ProductInfo::where('user_id', $userId)->first();
 
         if (!$productInfo) {
             return redirect()->back()->withErrors('Informações do produto não encontradas.');
         }
 
-        // Alternar o valor de delivery
-        $newDeliveryValue = $request->delivery == 1 ? 0 : 1;
-        $productInfo->delivery = $newDeliveryValue;
-        $productInfo->save();
+        $newDeliveryValue = $request->delivery; // Valor diretamente do formulário
 
         // Atualizar o total na tabela Order_product
         $orderProduct = Order_product::where('user_id', $userId)->first();
 
         if ($orderProduct) {
-            $deliveryFee = 6; // Valor fixo da taxa de entrega
-            $orderProduct->total = $newDeliveryValue == 1
-                ? $orderProduct->total + $deliveryFee
-                : $orderProduct->total - $deliveryFee;
+            $deliveryFee = 6;
+
+            // Lógica de atualização do total
+            if ($newDeliveryValue == 1 && $productInfo->delivery == 0) {
+                // Adicionar taxa se delivery mudou de 0 para 1
+                $orderProduct->total += $deliveryFee;
+            } elseif ($newDeliveryValue == 0 && $productInfo->delivery == 1) {
+                // Remover taxa se delivery mudou de 1 para 0
+                $orderProduct->total -= $deliveryFee;
+            }
 
             $orderProduct->save();
         }
 
+        $productInfo->delivery = $newDeliveryValue;
+        $productInfo->save();
+
         return redirect()->back()->with('success', 'Forma de entrega atualizada com sucesso!');
     }
-
 
 }

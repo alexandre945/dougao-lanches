@@ -266,7 +266,7 @@ Route::get('/product-info', [UpdateTotalController::class, 'show'])->name('produ
 
    //rota para atualizar modo de pagamento
 
-Route::post('/update-paymemte', [OrderProductController::class, 'updatepaymente'])->name('update.paymente');
+Route::post('/update-paymemt', [OrderProductController::class, 'updatepayment'])->name('update.payment');
 
     //rota para alterar delivery
 
