@@ -299,18 +299,17 @@
                                                     <input type="hidden" name="total" value=" @money ($total)">
                                                     <input type="hidden" name="payment" value="{{ $productInfo->payment ?? '' }}">
                                                     <input type="hidden" name="delivery" value="{{ $productInfo->payment ?? '' }}">
-                                                    <input type="hidden" name="observation" id="observation-hidden">
+                                                    <input type="hidden" name="observation" id="observation_hidden" value="">
+                                                    <input type="hidden" name="credit_card" id="credit_card_hidden" value="">
 
-                                                @foreach ($cart as $item)
-                                                    <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
+                                                    @foreach ($cart as $item)
+                                                        <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
 
-                                                @endforeach
+                                                    @endforeach
                                       </form>
                                     </div>
                                 </div>
                             </div>
-
-
 
 
                                     <div class="container max-auto ">
@@ -376,7 +375,8 @@
                                                                             @csrf
                                                                             <input type="hidden" name="payment" value="1">
                                                                             <button type="submit"
-                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700">
+                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                                                onclick="setPaymentMethod(1)">
                                                                                 @if(($productInfo->payment ?? null) === 0)
                                                                                     <i class="fa-solid fa-square-check" style="color: green;"></i>
                                                                                 @else
@@ -388,12 +388,12 @@
                                                                     @if($productInfo->payment == 1 )
 
                                                                     @else
-                                                                    <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
-                                                                        <option value="visa">Visa</option>
-                                                                        <option value="Master Card">Master Card</option>
-                                                                        <option value="Ouro Card">Ouro Card</option>
-                                                                        <option value="pix na maquina">Pix na máquina</option>
-                                                                    </select>
+                                                                        <select name="credit_card" id="credit_card_select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
+                                                                            <option value="visa">Visa</option>
+                                                                            <option value="Master Card">Master Card</option>
+                                                                            <option value="Ouro Card">Ouro Card</option>
+                                                                            <option value="pix na maquina">Pix na máquina</option>
+                                                                        </select>
                                                                     @endif
                                                                 </div>
 
@@ -405,7 +405,8 @@
                                                                             @csrf
                                                                             <input type="hidden" name="payment" value="0">
                                                                             <button type="submit"
-                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700">
+                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                                                onclick="setPaymentMethod(0)">
                                                                                 @if(($productInfo->payment ?? null) === 1)
                                                                                     <i class="fa-solid fa-square-check" style="color: green;"></i>
                                                                                 @else
@@ -424,14 +425,13 @@
                                                                 <div class=" justify-center flex">
                                                                     <div class="pl-4">
                                                                         <label for="observation" class="pb-2 text-gray-700 text-sm">
-                                                                            <p>Informe o valor do troco</p></p>
+                                                                            <p>Informe o valor do troco</p>
                                                                         </label><br>
-                                                                        <input
-                                                                            type="text"
-                                                                            class="text-sm p-2 border-2-black rounded mb-2  shadow-md hover:shadow-xl transition-shadow duration-300"
-                                                                            name="observation"
+                                                                        <input type="text"
+                                                                            class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300"
                                                                             id="observation"
                                                                             placeholder="Ex: troco para 50 Reais"
+                                                                            
                                                                         >
                                                                     </div>
                                                                 </div>
@@ -547,107 +547,107 @@
                                                 {{-- Modall para Cadastrar endereço --}}
 
                                                 <div class="modal fade" id="firstModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header,btn btn-warning">
-                                                            {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                                            <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
-                                                                X
-                                                            </button>
-                                                        </div>
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header,btn btn-warning">
+                                                                {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
+                                                                <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
+                                                                    X
+                                                                </button>
+                                                            </div>
 
-                                                        <div class="modal-body">
-                                                            <form action="{{ route('adress.create')}}" method="POST">
-                                                            @csrf
-                                                                    <div class="container">
-                                                                        <div class="mb-4 sachadow-black">
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('adress.create')}}" method="POST">
+                                                                @csrf
+                                                                        <div class="container">
+                                                                            <div class="mb-4 sachadow-black">
 
-                                                                            <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
-                                                                                Meu trabalho, casa da minha Tia Divina
-                                                                            </p>
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
-                                                                            <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
-                                                                        </div>
-
-                                                                        <div class="mb-4 sachadow-black">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
-                                                                            <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
-                                                                            @error('city')
-                                                                            <div class=" p-2 ">
-                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
+                                                                                <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
+                                                                                    Meu trabalho, casa da minha Tia Divina
+                                                                                </p>
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
+                                                                                <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
                                                                             </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                        {{-- <div class="mb-4">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
-                                                                            <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder= "digite seu cep" name="zipcode">
 
-                                                                            @error('zipcode')
-                                                                                <div class=" p-2">
-                                                                                    <span class="error text-red-500">{{ $message }}</span>
+                                                                            <div class="mb-4 sachadow-black">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
+                                                                                <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
+                                                                                @error('city')
+                                                                                <div class=" p-2 ">
+                                                                                    <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                 </div>
-                                                                            @enderror
-                                                                        </div> --}}
+                                                                                @enderror
+                                                                            </div>
+                                                                            {{-- <div class="mb-4">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
+                                                                                <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder= "digite seu cep" name="zipcode">
 
-                                                                        <div class="mb-4">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
-                                                                            <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
-                                                                            @error('district')
-                                                                                <div class=" p-2">
-                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div class="mb-4">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Rua</label>
-                                                                            <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
-                                                                            @error('street')
-                                                                                <div class=" p-2">
-                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div class="mb-4">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Número</label>
-                                                                            <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
-                                                                            @error('number')
-                                                                                <div class="p-2">
-                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
+                                                                                @error('zipcode')
+                                                                                    <div class=" p-2">
+                                                                                        <span class="error text-red-500">{{ $message }}</span>
+                                                                                    </div>
+                                                                                @enderror
+                                                                            </div> --}}
 
-                                                                        <div class="mb-4">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                            <input autocomplete="off"  type="tel" pattern="[0-9]*" inputmode="numeric"  value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
-                                                                                @error('fhone')
+                                                                            <div class="mb-4">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
+                                                                                <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
+                                                                                @error('district')
+                                                                                    <div class=" p-2">
+                                                                                    <span class="error text-red-500 text-sm">{{ $message }}</span>
+                                                                                    </div>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="mb-4">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Rua</label>
+                                                                                <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
+                                                                                @error('street')
+                                                                                    <div class=" p-2">
+                                                                                    <span class="error text-red-500 text-sm">{{ $message }}</span>
+                                                                                    </div>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="mb-4">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Número</label>
+                                                                                <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
+                                                                                @error('number')
                                                                                     <div class="p-2">
                                                                                     <span class="error text-red-500 text-sm">{{ $message }}</span>
                                                                                     </div>
                                                                                 @enderror
+                                                                            </div>
+
+                                                                            <div class="mb-4">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
+                                                                                <input autocomplete="off"  type="tel" pattern="[0-9]*" inputmode="numeric"  value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
+                                                                                    @error('fhone')
+                                                                                        <div class="p-2">
+                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
+                                                                                        </div>
+                                                                                    @enderror
+                                                                            </div>
+
+                                                                            <div class="mb-4 ">
+                                                                                <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Complemento</label>
+                                                                                <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
+                                                                                @error('complement')
+                                                                                    <div class="p-2">
+                                                                                    <span class="error text-red-500 text-sm">{{ $message }}</span>
+                                                                                    </div>
+                                                                                @enderror
+                                                                            </div>
                                                                         </div>
 
-                                                                        <div class="mb-4 ">
-                                                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Complemento</label>
-                                                                            <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
-                                                                            @error('complement')
-                                                                                <div class="p-2">
-                                                                                <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
+                                                                    <div class="pb-4">
+                                                                        <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-lime-500  font-bold hover:orange-500">CADASTRAR</button>
                                                                     </div>
+                                                                </form>
 
-                                                                <div class="pb-4">
-                                                                    <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-lime-500  font-bold hover:orange-500">CADASTRAR</button>
-                                                                </div>
-                                                            </form>
+                                                            </div>
 
                                                         </div>
-
                                                     </div>
-                                                </div>
                                                 </div>
 
                                     </div>
@@ -870,45 +870,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script>
 
- document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('submitButton').addEventListener('click', function (event) {
-        event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+        const selectCard = document.getElementById("credit_card_select");
+        const inputHiddenCard = document.getElementById("credit_card_hidden");
+        const inputObservation = document.getElementById("observation");
+        const inputHiddenObservation = document.getElementById("observation_hidden");
 
-        let finalValue = ''; // Valor padrão: vazio
-
-        const observationInput = document.getElementById('observation');
-        if (observationInput) {
-            finalValue = observationInput.value.trim();
+        // Atualiza o input hidden quando o usuário seleciona um cartão
+        if (selectCard) {
+            selectCard.addEventListener("change", function () {
+                inputHiddenCard.value = selectCard.value;
+            });
         }
 
-        const selectElement = document.getElementById('select');
-        const selectedPayment = document.querySelector('input[name="payment"]:checked');
-
-        if (selectElement && selectedPayment && selectedPayment.value === '1') {
-            finalValue = selectElement.value;
+        // Atualiza o input hidden quando o usuário digita o troco
+        if (inputObservation) {
+            inputObservation.addEventListener("input", function () {
+                inputHiddenObservation.value = inputObservation.value;
+            });
         }
-
-        document.getElementById('observation-hidden').value = finalValue;
-
-        document.getElementById('buttonSpinner').style.display = 'inline';
-        document.getElementById('buttonText').style.display = 'none';
-
-        document.getElementById('mainForm').submit();
     });
 
-    // Lógica para mostrar/esconder o select de cartão de crédito
-    const paymentRadios = document.querySelectorAll('input[name="payment"]');
-    paymentRadios.forEach(radio => {
-        radio.addEventListener('change', function () {
-            if (this.value === '0') {
-                document.getElementById('select').style.display = 'block';
-            } else {
-                document.getElementById('select').style.display = 'none';
-            }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const submitButton = document.getElementById("submitButton");
+        const buttonText = document.getElementById("buttonText");
+        const buttonSpinner = document.getElementById("buttonSpinner");
+        const mainForm = document.getElementById("mainForm");
+
+        submitButton.addEventListener("click", function () {
+            // Desabilita o botão para evitar envios duplos
+            submitButton.disabled = true;
+
+            // Esconde o texto e mostra o spinner
+            buttonText.style.display = "none";
+            buttonSpinner.style.display = "inline-block";
+
+            // Envia o formulário
+            mainForm.submit();
         });
     });
-});
-
 
 
   $(document).ready(function() {
