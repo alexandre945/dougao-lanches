@@ -370,7 +370,7 @@
                                                             <div class=" w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
                                                                 <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
                                                                     <div>
-                                                                        <span>Cartão/Pix na máquina</span>
+                                                                        <span>Cartão</span>
                                                                         <form action="{{ route('update.payment') }}" method="post">
                                                                             @csrf
                                                                             <input type="hidden" name="payment" value="1">
@@ -405,7 +405,7 @@
                                                                             @csrf
                                                                             <input type="hidden" name="payment" value="0">
                                                                             <button type="submit"
-                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700"
+                                                                                class="payment-btn w-10 h-10 flex items-center justify-center border rounded-full text-gray-700 mb-2"
                                                                                 onclick="setPaymentMethod(0)">
                                                                                 @if(($productInfo->payment ?? null) === 1)
                                                                                     <i class="fa-solid fa-square-check" style="color: green;"></i>
@@ -425,13 +425,13 @@
                                                                 <div class=" justify-center flex">
                                                                     <div class="pl-4">
                                                                         <label for="observation" class="pb-2 text-gray-700 text-sm">
-                                                                            <p>Informe o valor do troco</p>
+                                                                            <p class="text-sm" >IFOME O VALO DO TROCO</p>
                                                                         </label><br>
                                                                         <input type="text"
-                                                                            class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300"
+                                                                            class="text-sm p-2 border-2-black rounded mb-2  hover:shadow-xl transition-shadow duration-300"
                                                                             id="observation"
                                                                             placeholder="Ex: troco para 50 Reais"
-                                                                            
+
                                                                         >
                                                                     </div>
                                                                 </div>

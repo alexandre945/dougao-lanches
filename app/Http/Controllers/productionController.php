@@ -74,7 +74,7 @@ class productionController extends Controller
 
         // Atualize o status do pedido
 
-        $order->update(['status' => 'saiu para entrega']);
+        $order->update(['status' => 'saiu para emtrega']);
 
 
 

@@ -65,7 +65,7 @@
                 @endphp
 
                 @php
-                    $userCount = $orders->where('user_id', $user )->count();
+                    $userCount = $orders->whe(vifre('user_id', $user )->count();
                 @endphp --}}
 
                 <div class="card-body ">
@@ -205,47 +205,49 @@
 
                        {{-- container que mostra endereço --}}
                     <div class="container pb-4">
-                        <div class="bg-white rounded shadow-lg p-4 mt-4">
-                            <h1 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h1>
-                            @foreach ($item->orderList as $list)
-                                @if ($list->addressUserType && $list->addressUserType->address)
-                                    <div class="mb-4 text-start">
-                                        <div class="mb-2">
-                                            <label class="font-semibold">Tipo de Endereço:</label>
-                                            <span class="ml-2">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
+                        @if($item->delivery == 1)
+                            <div class="bg-white rounded shadow-lg p-4 mt-4">
+                                <h1 class="font-bold text-lg mb-4">ENDEREÇO PARA ENTREGA</h1>
+                                @foreach ($item->orderList as $list)
+                                    @if ($list->addressUserType && $list->addressUserType->address)
+                                        <div class="mb-4 text-start">
+                                            <div class="mb-2">
+                                                <label class="font-semibold">Tipo de Endereço:</label>
+                                                <span class="ml-2">{{ $list->addressUserType->addressType->name ?? 'N/A' }}</span>
+                                            </div>
+                                            {{-- Dados do endereço --}}
+                                            <div class="grid grid-cols-1 gap-4">
+                                                <div>
+                                                    <label class="font-semibold">Cidade:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->city }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Rua:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->street }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Bairro:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->district }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Número:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->number }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Fone:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->fhone }}</span>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Complemento:</label>
+                                                    <span class="ml-2">{{ $list->addressUserType->address->complement }}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        {{-- Dados do endereço --}}
-                                        <div class="grid grid-cols-1 gap-4">
-                                            <div>
-                                                <label class="font-semibold">Cidade:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->city }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Rua:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->street }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Bairro:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->district }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Número:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->number }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Fone:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->fhone }}</span>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Complemento:</label>
-                                                <span class="ml-2">{{ $list->addressUserType->address->complement }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @break
-                                @endif
-                            @endforeach
-                        </div>
+                                        @break
+                                    @endif
+                                @endforeach
+                            </div>
+                         @endif 
                     </div>
 
 

@@ -65,7 +65,7 @@
                 <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
                 <span class="relative">DOUGÃO LANCHES</span>
             </h1>
-            <img src="{{ asset('image/logo-2.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded-full border">
+            <img src="{{ asset('image/deliverylogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded-full border">
         </div>
 
 
