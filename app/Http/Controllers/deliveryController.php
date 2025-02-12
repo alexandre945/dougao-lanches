@@ -20,7 +20,7 @@ class deliveryController extends Controller
         $users     = $user->id ?? '';
 
 
-        $orders = Order::orderBY('id', 'desc')->with('orderUser')->where('status', 'saiu para entrega ')->get();
+        $orders = Order::orderBY('id', 'desc')->with('orderUser')->where('status', 'saiu para emtrega ')->get();
 
         return view('status.delivery', compact('orders', 'date', 'users'));
     }
