@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\OrderList;
 
 use Illuminate\Http\Request;
@@ -21,11 +22,26 @@ class pdfController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
-        $date = now()->format('d/m/y H:i:s');
 
-        // Gera o PDF
+        $order = Order::with('orderUser') // Inclui a relação com o usuário do pedido
+        ->where('status', 'aceito')  // Filtra pelo status "aceito"
+        ->orderBy('id', 'desc')      // Ordena pela mais recente
+        ->first();                   // Busca apenas o primeiro resultado
+
+        if (!$order) {
+            return response()->json(['error' => 'Nenhum pedido encontrado com o status "aceito".'], 404);
+        }
+        $date = now()->format( 'd/m/y H:i:s'); // Data e hora
+      
+        $order->update(['status' => 'produção']);
+
+        // Gera o PDF usando a view 'status.impress'
         $pdf = Pdf::loadView('status.impress', compact('order', 'date'));
+
+        // Retorna o PDF com os cabeçalhos apropriados
+        return response($pdf->output(), 200)
+       ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'inline; filename="pedido.pdf"'); // Exibe diretamente no navegador
 
         // Converte o PDF para imagem usando Imagick
         // $imagick = new Imagick();
@@ -54,44 +70,39 @@ class pdfController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request, $id)
+    public function impresso(Request $request)
     {
+        $order = Order::with('orderUser') // Inclui a relação com o usuário do pedido
+        ->where('status', 'produção')  // Filtra pelo status "aceito"
+        ->orderBy('id', 'desc')      // Ordena pela mais recente
+        ->get();                   // Busca apenas o primeiro resultado
 
-
-        $date = now()->format('d/m/y H:i:s');
-        $user      = Auth::user();
-        $users     = $user->id ?? '';
-        $order = Order::all();
-
-
-        $userAddresses = Address::where('user_id', $users)->with('userAdress')->get();
-
-        $order = Order::orderBy('id', 'desc')->where(['status' => ('aceito')])->get();
-
-
-        $pdf = PDF::loadView('status.impress', compact('order', 'date', 'userAddresses'));
-
-         // Força o navegador a baixar o PDF em vez de exibir o conteúdo
-        return $pdf->stream('pedido.pdf');
-
-        // return $pdf->download('nome_do_arquivo.pdf')
-
+       return view('status.statusImpresso', compact('order'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+ 
+    public function readyUpdate(Request $request, $id)
     {
-        //
+        
+       $order = Order::findOrFail($id);
+       $order->update(['status' => 'pronto']);
+       return redirect()->back()->with('message','sstatus do pedio alterado para pronto');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function ready(Request $request)
     {
-        //
+        $date = now()->format( 'd/m/y H:i:s');
+        $order = Order::with('orderUser') // Inclui a relação com o usuário do pedido
+        ->where('status', 'pronto')  // Filtra pelo status "aceito"
+        ->orderBy('id', 'desc')      // Ordena pela mais recente
+        ->get(); 
+        return view('status.ready',compact('order','date'));
     }
 
     /**

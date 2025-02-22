@@ -8,15 +8,19 @@
 <body class="bg-yellow-100">
   <div class="container mx-auto pt-2">
     <div class="text-center mb-2">
-        <h1 class="p-2 pt-2 font-bold">LISTAGEM DE PEDIDOS ACEITOS</h1>
+        <h1 class="p-2 pt-2 font-bold">LISTAGEM DE PEDIDOS IMPRESSOS</h1>
 
         <div class="overflow-auto">
             @include('layouts.statusNavegation')
         </div>
 
+        @if(session('menssage'))
+            
+            <p class="bg-green-600">{{ session('message')}}</p>
 
+        @endif
             <div class="card p-2 pt-2 ">
-            @forelse ($orders as $item)
+            @forelse ($order as $item)
 
 
                 <div class="">
@@ -195,20 +199,24 @@
 
                     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
 
-                        <a href="{{ route('pdf.index', $item->id) }}"
-                            class="">
-                            <button type="submit" class="border-l-4 border-bluee bg-gradient-to-r from-blue to-blue-600 font-bold py-2 px-4 rounded-lg hover:from-blue hover:to-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
-                                IMPRIMIR
-                            </button>
-                        </a>
-
+                        @if( $item->delivery == 1)
                         <!-- Saiu Para Entrega Button -->
-                        <form action="{{ route('status.delivery', $item->id) }}" method="POST" class="flex-1">
-                            @csrf
-                            <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-whitek focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
-                                SAIU PARA ENTREGA
-                            </button>
-                        </form>
+                                <form action="{{ route('status.delivery', $item->id) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-whitek focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                                        SAIU PARA ENTREGA
+                                    </button>
+                                </form>
+                        @else
+       
+                            <form action="{{ route('ready.update', $item->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="border-l-4 border-green-500 bg-gradient-to-r from-green to-green-600  font-bold py-2 px-4 rounded-lg hover:from-green- hover:to-green hover:text-whitek focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                                    PRONTO
+                                </button>
+                            </form>
+                        @endif
+
 
                         <!-- Voltar Button -->
                         <a href="{{ route('panel.admin') }}" class="flex-1">

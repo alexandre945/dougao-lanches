@@ -18,7 +18,7 @@
              {{-- select --}}
     <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
 
-    <link rel="preload" as="image" href="{{ asset('image/logo-2.png') }}">
+    <link rel="preload" as="image" href="{{ asset('image/deliverylogo.png') }}">
 
 
     <style>
@@ -52,6 +52,7 @@
             opacity: 0;
         }
         }
+      
 
     </style>
 </head>
@@ -65,7 +66,7 @@
                 <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
                 <span class="relative">DOUGÃO LANCHES</span>
             </h1>
-            <img src="{{ asset('image/deliverylogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded-full border">
+            <img src="{{ asset('image/deliverylogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded md:w-10 opacity-90 ">
         </div>
 
 
@@ -112,7 +113,7 @@
 
     </header>
 
-    <div class="container max-w-4xl mx-auto p-4 md:p-8">
+    <div class="container max-w-4xl mx-auto p-4 md:p-8 bg-[url('/image/deliverylogo.png')] ">
         <div class="bg-white rounded-lg shadow-lg p-2">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}

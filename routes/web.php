@@ -124,10 +124,20 @@ Route::get('/delivereds',[deliveredController::class, 'index'])->name('status.de
 
         //   controller que vai gerar pdf para impressão
 
-Route::get('/pdfpreper,{id}',[pdfController::class, 'index'])->name('pdf.index');
+Route::get('/pdfpreper/{id}',[pdfController::class, 'index'])->name('pdf.index');
+          //rota de  status impresso
+Route::get('statusImpresso', [pdfController::class, 'impresso'])->name('status.impresso');
 
+        //rota da view status pronto
+Route::get('/statusPronto', [pdfController::class, 'ready'])->name('status.ready'); 
+
+       //rota de update de impressso para proto
+
+Route::post('/updateReady/{id}', [pdfController::class, 'readyUpdate'])->name('ready.update');       
+       
+ 
         // rota que imprimir de fato
-Route::post('/pdfimprimird,{id}',[pdfController::class, 'create'])->name('pdf.imprimird');
+Route::post('/pdfimprimird/{id}',[pdfController::class, 'create'])->name('pdf.imprimird');
 
        //rota para mudar o status do produto para ativo e vice versa
 

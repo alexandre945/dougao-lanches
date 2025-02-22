@@ -15,9 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <style>
             .logo {
-                border-radius: 120px;
+                border-radius: 20px;
 
                 width: 250px;
+                opacity: 0.8;
             }
         </style>
     </head>

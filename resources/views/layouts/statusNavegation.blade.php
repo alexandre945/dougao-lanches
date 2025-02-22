@@ -57,14 +57,24 @@
                         Entregue
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('status.denied') }}" class="flex items-center px-4 py-3 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base">
+                  <li>
+                    <a href="{{ route('status.impresso') }}" class="flex items-center px-4 py-3 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h3M21 10h-3m-4-4l-4 4-4-4" />
                         </svg>
-                        Recusado
+                        Impresso
                     </a>
-                </li>
+                </li
+              
+              <li>
+                <a href="{{ route('status.ready') }}" class="flex items-center px-4 py-3 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h3M21 10h-3m-4-4l-4 4-4-4" />
+                    </svg>
+                    Pronto
+                </a>
+            </li>
+            
             </ul>
         </div>
     </div>
