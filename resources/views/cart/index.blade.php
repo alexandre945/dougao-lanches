@@ -941,6 +941,34 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+//peggar atualização delivery
+function updateObservationField() {
+        // Pegando o campo de observação
+        const observationInput = document.getElementById('observation_hidden');
+
+        // Pegando a opção de entrega selecionada
+        const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
+
+        // Verificando se a opção foi encontrada antes de tentar acessar o valor
+        if (selectedDelivery) {
+            if (selectedDelivery.value === '0') { 
+                observationInput.disabled = true;
+                observationInput.classList.add('disabled');
+            } else {
+                observationInput.disabled = false;
+                observationInput.classList.remove('disabled');
+            }
+        }
+    }
+
+    // Adicionando evento para capturar a mudança na opção de entrega
+    document.querySelectorAll('input[name="delivery"]').forEach(input => {
+        input.addEventListener('change', updateObservationField);
+    });
+
+    // Executa a função no carregamento da página para definir o estado inicial
+    document.addEventListener('DOMContentLoaded', updateObservationField);
+
 
 // function atualizarValor() {
 //     const opcoes = document.getElementsByName('delivery');

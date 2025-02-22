@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Address;
+use App\Models\ProductInfo;
 use App\Models\AddressUserType;
 use App\Models\OrderList;
 use App\Models\Order_product;
@@ -42,7 +43,6 @@ class adminController extends Controller
             $payment  = $request->payment;
             $selectedCreditCard = $request->input('credit_card');
             $observation = $request->observation;
-            $delivery  = $request->delivery;
             $total     = $request->total;
             $user      = Auth::user();
             $userName  = Auth::user()->name;
@@ -54,6 +54,10 @@ class adminController extends Controller
             $selectedAddressTypeId = $request->input('addressType');
             $addressId = $request->input('address_id');
             $addressUserTypesId = $request->input('address_user_types_id');
+            $productInfo = ProductInfo::where('user_id', $users)->first();
+            $request->merge(['delivery' => $productInfo->delivery ?? 0]);
+            $delivery = $productInfo->delivery;
+ 
 
             if ( $total < 20.00)
                 {
