@@ -72,12 +72,13 @@ class pdfController extends Controller
      */
     public function impresso(Request $request)
     {
+        $date = now()->format( 'd/m/y H:i:s');
         $order = Order::with('orderUser') // Inclui a relação com o usuário do pedido
         ->where('status', 'produção')  // Filtra pelo status "aceito"
         ->orderBy('id', 'desc')      // Ordena pela mais recente
         ->get();                   // Busca apenas o primeiro resultado
 
-       return view('status.statusImpresso', compact('order'));
+       return view('status.statusImpresso', compact('order','date'));
     }
 
     /**
