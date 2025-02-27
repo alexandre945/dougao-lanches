@@ -129,13 +129,13 @@ Route::get('/pdfpreper/{id}',[pdfController::class, 'index'])->name('pdf.index')
 Route::get('statusImpresso', [pdfController::class, 'impresso'])->name('status.impresso');
 
         //rota da view status pronto
-Route::get('/statusPronto', [pdfController::class, 'ready'])->name('status.ready'); 
+Route::get('/statusPronto', [pdfController::class, 'ready'])->name('status.ready');
 
        //rota de update de impressso para proto
 
-Route::post('/updateReady/{id}', [pdfController::class, 'readyUpdate'])->name('ready.update');       
-       
- 
+Route::post('/updateReady/{id}', [pdfController::class, 'readyUpdate'])->name('ready.update');
+
+
         // rota que imprimir de fato
 Route::post('/pdfimprimird/{id}',[pdfController::class, 'create'])->name('pdf.imprimird');
 
@@ -304,13 +304,7 @@ Route::put('/responses/{response}', [ReviewResponseController::class, 'update'])
 
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
-Route::get('/test-imagick', function () {
-    if (extension_loaded('imagick')) {
-        return 'Imagick está funcionando!';
-    } else {
-        return 'Imagick não está carregado!';
-    }
-});
+
 
 
 

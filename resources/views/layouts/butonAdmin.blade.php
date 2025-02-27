@@ -15,35 +15,20 @@
         <link  rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 
-        <style>
-              /* .baner {
-          background-color: orangered;
-
-          text-align: center;
-          font-family: 'Chela One', cursive;
-          color: yellow;
-          width: 100%;
-        } */
-        .dog {
-          font-size: 35px;
-        }
-        .lanch {
-          font-size: 28px;
-        }
-
-        </style>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-
-      <div class="baner bg-orange-500 pt-2 pb-4">
-         <div class="lanch ">
-          <h1 class="dog">DOUGÃO</h1>
-          <H2 class="lanch ">LANCHES</H2>
-         </div>
+    {{-- rota do admin --}}
+    <div class="absolute top-0 right-0 md:pt-4">
+        @can('access')
+            <button  class="text-SM pt-2 pb-2  font-bold bg-yellow-200 rounded border-2 m-2">
+                <a class="p-8" href="{{ route('panel.admin')}}">ADIMINISTRATIVO</a>
+            </button>
+        @endcan
       </div>
+
     </body>
     </html>
 

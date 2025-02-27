@@ -21,8 +21,6 @@
                 <div class="text-center">
                     <h1 class="font-bold pt-2">Resumo das vendas no mês de {{$dateMonth}}</h1>
                 </div>
-
-
             </div>
 
      </div>

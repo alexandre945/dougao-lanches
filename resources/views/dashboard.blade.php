@@ -52,7 +52,7 @@
             opacity: 0;
         }
         }
-      
+
 
     </style>
 </head>
@@ -66,7 +66,7 @@
                 <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
                 <span class="relative">DOUGÃO LANCHES</span>
             </h1>
-            <img src="{{ asset('image/deliverylogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded md:w-10 opacity-90 ">
+            <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded md:w-10 opacity-90 ">
         </div>
 
 
@@ -102,14 +102,7 @@
                 </x-slot>
             </x-dropdown>
         </div>
-              {{-- rota do admin --}}
-          <div class="absolute top-0 right-0 md:pt-4">
-            @can('access')
-                <button  class="text-SM pt-2 pb-2  font-bold bg-yellow-200 rounded border-2 m-2">
-                    <a class="p-8" href="{{ route('panel.admin')}}">ADIMINISTRATIVO</a>
-                </button>
-            @endcan
-          </div>
+          @include('layouts.butonAdmin')
 
     </header>
 

@@ -44,6 +44,12 @@ class OrderProductController extends Controller
         $quantity = $request->quanty;
         $total = $product->price * $quantity;
 
+          // Verifica se já há produtos no carrinho do usuário
+        $cartItemCount = Order_product::where('user_id', $user->id)->count();
+
+        $deliveryFee = 7;
+         $applyDeliveryFee = ($cartItemCount == 0 && $productInfo->delivery == 1); // Só aplica a taxa no primeiro item
+
         foreach ($selectedAdditionals as $additionalId) {
             $additional = Additional::find($additionalId);
             $additionalQuantity = $additionalQuantities[$additionalId] ?? 1;
@@ -53,10 +59,12 @@ class OrderProductController extends Controller
         }
 
         // *** Lógica da taxa de entrega MOVIDA PARA CÁ ***
-        $deliveryFee = 6;
-        if ($productInfo->delivery == 1) { // Verifica o valor *atual* de delivery
+        $deliveryFee = 7;
+
+        if ($applyDeliveryFee) {
             $total += $deliveryFee;
         }
+
 
         $cart = Order_product::create([
             'blind_carts_id' => $blindCartId ?? null,
@@ -230,7 +238,7 @@ class OrderProductController extends Controller
         $orderProduct = Order_product::where('user_id', $userId)->first();
 
         if ($orderProduct) {
-            $deliveryFee = 6;
+            $deliveryFee = 7;
 
             // Lógica de atualização do total
             if ($newDeliveryValue == 1 && $productInfo->delivery == 0) {

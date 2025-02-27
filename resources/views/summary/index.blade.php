@@ -18,60 +18,66 @@
 
 </head>
 <body>
-  <div class="container mx-auto pt-2 ">
-     <div class="text-center">
-               @if ($errors->any())
-                 @foreach ($errors->any() as $error)
-                      <div class="">
-                         <p>
-                            {{$error}}
-                         </p>
-                      </div>
-                 @endforeach
-
-               @endif
-
-                @if(session('nfound'))
-                   <div class="yellow p-2 rounded">
-                    {{session('nfound')}}
-                   </div>
-                @endif
-
-            <div class="container mx-auto pt-2">
-                <div class="text-center">
-                    <h1 class="font-bold pt-2">RESUMO DE TODOS OS PEDIDOS</h1>
+    <div class="container mx-auto pt-6 flex flex-col items-center">
+        <!-- Exibição de erros -->
+        @if ($errors->any())
+            @foreach ($errors->any() as $error)
+                <div class="w-full max-w-lg bg-red-100 text-red-800 p-4 rounded mb-4">
+                    <p>{{ $error }}</p>
                 </div>
+            @endforeach
+        @endif
 
-                <form action="{{ route('summary.filter') }}" method="post">
-                    @csrf
-                    <div class="my-4">
-                        <label for="start_date">Data de início:</label>
-                        <input type="date" class="rounded" name="start_date" id="start_date">
-                    </div>
-                    <div class="my-4">
-                        <label for="end_date">Data de término:</label>
-                        <input type="date" class="rounded" name="end_date" id="end_date">
-                    </div>
-                    <button type="submit" class="border  p-2 bg-emerald-400 text-white hover:bg-blue-700 mb-2 rounded">Filtrar</button>
-                </form>
-                <a href="{{ route('panel.admin')}}">
-                    <button class="bg-emerald-400  hover:bg-blue-700 text-white border font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Voltar
-                    </button>
-                </a>
+        <!-- Mensagem de sessão -->
+        @if(session('nfound'))
+            <div class="w-full max-w-lg bg-yellow-100 text-yellow-800 p-4 rounded mb-4">
+                {{ session('nfound') }}
             </div>
-               <a href="{{route('summary.sales')}}" class=" p-2 mt-2">
-                <button type="submit" class="mt-4 border bg-emerald-400 text-white p-2 rounded">GRAFICO DE VENDAS DO MÊS</button>
-               </a>
+        @endif
 
-               <a href="{{route('summary.product')}}" class=" p-2 mt-2">
-                <button type="submit" class="mt-4 border bg-emerald-400 text-white p-2 rounded">GRAFICO DE LANCHE MAIS VENDIDO</button>
-               </a>
+        <!-- Título -->
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">RESUMO DE TODOS OS PEDIDOS</h1>
 
+        <!-- Formulário -->
+        <form action="{{ route('summary.filter') }}" method="post" class="w-full max-w-lg bg-white p-6 shadow-lg rounded-lg mb-6">
+            @csrf
+            <div class="my-4">
+                <label for="start_date" class="block text-lg font-medium">Data de início:</label>
+                <input type="date" class="rounded w-full border-gray-300 p-2 mt-1" name="start_date" id="start_date">
+            </div>
+            <div class="my-4">
+                <label for="end_date" class="block text-lg font-medium">Data de término:</label>
+                <input type="date" class="rounded w-full border-gray-300 p-2 mt-1" name="end_date" id="end_date">
+            </div>
+            <button type="submit" class="w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all">Filtrar</button>
+        </form>
 
-     </div>
+        <!-- Botões para voltar e gráficos -->
+        <div class="w-full max-w-lg flex flex-col items-center">
+            <a href="{{ route('panel.admin')}}" class="w-full mb-4">
+                <button class="w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all">
+                    ← Voltar
+                </button>
+            </a>
 
-     <canvas id="salesChart" width="800" height="400"></canvas>
+            <a href="{{ route('summary.sales') }}" class="w-full mb-4">
+                <button class="w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all">
+                    Gráfico de Vendas do Mês
+                </button>
+            </a>
+
+            <a href="{{ route('summary.product') }}" class="w-full">
+                <button class="w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all">
+                    Gráfico de Lanche Mais Vendido
+                </button>
+            </a>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="w-full max-w-lg mt-8">
+            <canvas id="salesChart" width="800" height="400"></canvas>
+        </div>
+    </div>
 
 
 

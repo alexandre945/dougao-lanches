@@ -10,33 +10,27 @@
     <title>centerCart</title>
     @vite('resources/css/app.css')
 
-
-
 </head>
 <body>
-  <div class="container mx-auto pt-2 ">
-     <div class="text-center">
+    <div class="container mx-auto pt-4 flex flex-col items-center">
+        <!-- Título -->
+        <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
+            GRÁFICO DE LANCHES MAIS VENDIDOS
+        </h1>
 
+        <!-- Gráfico -->
+        <div class="w-full max-w-3xl h-[400px] md:h-[500px] lg:h-[600px] bg-white shadow-lg rounded-lg p-4">
+            <canvas id="salesChart"></canvas>
+        </div>
 
-            <div class="container mx-auto pt-2">
-                <div class="text-center">
-                    <h1 class="font-bold pt-2">GRÁFICO DE LANCHES MAIS VENDIDOS</h1>
-                </div>
-
-
-            </div>
-
-     </div>
-
-     <div style="width: 80%; margin: auto;">
-        <canvas id="salesChart"></canvas>
+        <!-- Botão Voltar -->
+        <a href="{{ route('panel.admin')}}" class="mt-6">
+            <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 tex font-semibold py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+                ← Voltar
+            </button>
+        </a>
     </div>
 
-     <a href="{{ route('panel.admin')}}">
-        <button class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Voltar
-        </button>
-    </a>
 
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -54,6 +48,9 @@
         });
         //   doughnut
         // Crie um gráfico de pizza
+        // doughnut
+        // bar
+        // line
         var ctx = document.getElementById('salesChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',
@@ -62,18 +59,36 @@
                 datasets: [{
                     data: quantities,
                     backgroundColor: [
-                        'rgba(0,0,128)',
-                        'rgba(107,142,35)',
-                        'rgba(79,79,79)',
-                        'rgba(255,0,0)',
-                        'rgba(255,255,0)',
-                        'rgba(0,250,154)',
-                        'rgba(255,222,173)',
-                        'rgba(222,184,135)',
-                        'rgba(123,104,238)',
-                        'rgba(138,43,226)',
-                        'rgba(139,0,139)',
-                        'rgba(199,21,133)',
+                        'rgba(0,0,128)',       // Navy
+                        'rgba(107,142,35)',    // OliveDrab
+                        'rgba(79,79,79)',      // DarkGray
+                        'rgba(255,0,0)',       // Red
+                        'rgba(255,255,0)',     // Yellow
+                        'rgba(0,250,154)',     // MediumSpringGreen
+                        'rgba(255,222,173)',   // NavajoWhite
+                        'rgba(222,184,135)',   // BurlyWood
+                        'rgba(123,104,238)',   // MediumSlateBlue
+                        'rgba(138,43,226)',    // BlueViolet
+                        'rgba(139,0,139)',     // DarkMagenta
+                        'rgba(199,21,133)',    // MediumVioletRed
+                        'rgba(255,165,0)',     // Orange
+                        'rgba(34,139,34)',     // ForestGreen
+                        'rgba(0,191,255)',     // DeepSkyBlue
+                        'rgba(75,0,130)',      // Indigo
+                        'rgba(240,128,128)',   // LightCoral
+                        'rgba(46,139,87)',     // SeaGreen
+                        'rgba(210,105,30)',    // Chocolate
+                        'rgba(255,20,147)',    // DeepPink
+                        'rgba(0,128,128)',     // Teal
+                        'rgba(255,69,0)',      // OrangeRed
+                        'rgba(218,112,214)',   // Orchid
+                        'rgba(154,205,50)',    // YellowGreen
+                        'rgba(70,130,180)',    // SteelBlue
+                        'rgba(205,92,92)',     // IndianRed
+                        'rgba(176,196,222)',   // LightSteelBlue
+                        'rgba(255,140,0)',     // DarkOrange
+                        'rgba(0,255,127)',     // SpringGreen
+                        'rgba(147,112,219)'    // MediumPurple
                     ],
                 }],
             },
