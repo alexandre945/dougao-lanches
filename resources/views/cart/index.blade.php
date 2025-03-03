@@ -326,6 +326,7 @@
                                                         <div class="sm:flex-col space-x-4 justify-center text-center bg-white rounded-lg shadow-lg p-2 mb-2">
                                                             <h2 class="text-gray-700 pb-2 font-bold">Forma de entrega</h2>
 
+
                                                             <!-- Opção: Retirar na Lanchonete -->
                                                             <div class="flex space-x-2 text-center items-center justify-center">
                                                                 <span>Retirar na Lanchonete</span>
@@ -384,7 +385,7 @@
                                                                             </button>
                                                                         </form>
                                                                     </div>
-                                                                    @if($productInfo->payment == 1 )
+                                                                    @if(($productInfo->payment ?? null) == 1 )
 
                                                                     @else
                                                                         <select name="credit_card" id="credit_card_select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300">
@@ -418,18 +419,18 @@
                                                             </div>
 
                                                             <!-- Campo para observação do troco -->
-                                                            @if($productInfo->payment == 0)
+                                                            @if(($productInfo->payment ?? null) == 0)
 
                                                             @else
                                                                 <div class=" justify-center flex">
                                                                     <div class="pl-4">
                                                                         <label for="observation" class="pb-2 text-gray-700 text-sm">
-                                                                            <p class="text-sm" >INFOME O VALOR DO TROCO</p>
+                                                                            <p class="text-sm" >INFORME O VALOR DO TROCO</p>
                                                                         </label><br>
                                                                         <input type="text"
                                                                             class="text-sm p-2 border-2-black rounded mb-2  hover:shadow-xl transition-shadow duration-300"
                                                                             id="observation"
-                                                                            placeholder="Ex: troco para 50 Reais"
+                                                                            placeholder="Ex: Troco para 50 Reais"
                                                                         >
                                                                     </div>
                                                                 </div>

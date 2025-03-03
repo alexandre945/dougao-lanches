@@ -68,6 +68,67 @@
             </h1>
             <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded md:w-10 opacity-90 ">
         </div>
+                <!-- Botão para abrir o modal -->
+            <div class="mt-4">
+                <button onclick="toggleModal()" class="bg-yellow-400 text-red-700 font-bold text-lg px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300">
+                    🎉 Veja nossas Promoções! <span class="text-green-400">😋</span> 
+                </button>
+            </div>
+
+            <!-- Modal (começa oculto) -->
+            <div id="promoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative max-h-[90vh] overflow-y-auto">
+                    <h2 class="text-xl font-bold text-red-600 mb-4 text-center">Promoções Especiais! 🍔</h2>
+
+                    <!-- Lista de Lanches -->
+                    <div class="space-y-4 bg-white">
+                        @foreach($productPromo as $item)
+                            @if($item->photo)
+                                <div class="w-full img flex justify-center mt-2">
+                                    <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                        class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
+                                </div>
+                            @endif
+
+                            <form id="mainForm" action="{{ route('store.cart', $item->id) }}" method="post">
+                                @csrf
+                                <div class="p-4 border rounded-lg shadow">
+                                    <h3 class="text-lg font-semibold">{{ $item->name }}</h3>
+                                    <input type="hidden" name="name" value="{{ $item->name }}">
+
+                                    <h3>Quantidade: 
+                                        <input type="number" name="quanty" class="rounded border p-1 w-16" min="1" value="1">
+                                    </h3>
+
+                                    <p class="text-gray-600">Descrição: {{ $item->description }}</p>
+                                    <input type="hidden" name="description" value="{{ $item->description }}">
+
+                                    <span class="text-red-500 font-bold">R$ @money($item->price)</span>
+                                    <input type="hidden" name="price" value="{{ $item->price }}">
+                                </div> 
+                                @if ($toggle->is_open ?? '' )
+
+                                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                                    🛒 Adicionar ao Carrinho
+                                </button>
+
+                                @else
+
+                                @endif
+
+                             
+                            
+                            </form>
+                        @endforeach
+                    </div>
+
+                    <!-- Botão para fechar -->
+                    <button onclick="toggleModal(false)" class="mt-4 w-full bg-red-600 text-white font-bold py-2 rounded-lg hover:bg-red-700 transition">
+                        Fechar ❌
+                    </button>
+                </div>
+            </div>
 
 
         <div class=" logout absolute top-0 left-0   px-4 mb-4 md:py-2 rounded-full hover:bg-amber-400 transition duration-300">
@@ -161,7 +222,7 @@
                     <span class="text-blue font-semibold text-sm md:text-1xl whitespace-nowrap">
                         <i class="fas fa-motorcycle mr-2"></i>Tempo aproximado de entrega
                     </span>
-                    <p class="text-sm text-gray-600">{{ $time->waitingtime ?? '' }} minutos</p>
+                    <p class="text-sm text-gray-600">{{ $time->waitingtime ?? '' }} Minutos</p>
 
                     @if($order && $order->created_at->isToday())
                         <p class="text-sm text-gray-600 mt-4">Pedido de número: <strong>{{ $order->id ?? '' }}</strong></p>
@@ -184,7 +245,7 @@
                         @endif
                     @endif
                 </div>
-            </div>
+        </div>
 
             <div class="mt-4">
                 <p class="text-sm text-gray-600 text-center">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
@@ -225,9 +286,10 @@
                                     <div class="">
                                         @if ($toggle->is_open ?? '' )
 
-                                            <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                            <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                            hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                                 data-bs-target="#firstModal{{$item->id}}">
-                                                add ao carrinho
+                                                🛒 Adicionar ao Carrinho
                                             </button>
 
                                         @else
@@ -361,9 +423,10 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
-                                          add ao carrinho
+                                        🛒 Adicionar ao Carrinho
                                     </button>
 
                                    @else
@@ -470,9 +533,10 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
-                                          add ao carrinho
+                                        🛒 Adicionar ao Carrinho
                                     </button>
 
                                    @else
@@ -614,9 +678,10 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="btn btn-success ml-10 " data-bs-toggle="modal"
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
-                                          add ao carrinho
+                                        🛒 Adicionar ao Carrinho
                                     </button>
 
                                    @else
@@ -736,6 +801,12 @@
 
 
     <script>
+
+    function toggleModal() {
+            document.getElementById('promoModal').classList.toggle('hidden');
+        }
+ 
+
         document.addEventListener('DOMContentLoaded', function() {
     // Seleciona o formulário pelo ID 'mainForm'
     var form = document.getElementById('mainForm');

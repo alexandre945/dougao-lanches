@@ -47,22 +47,14 @@
                                             <div class="font-bold text-gray-700">
                                                 <span>produto</span>
                                             </div>
-                                            <div class="text-gray-700">
-                                                {{ $list->product->name ?? ''}}
-                                            </div>
+                              
+                                            <div class="text-gray-700 flex flex-row gap-2">
+                                                <p class="pt-2">{{ $list->product->name ?? ''}}</p>  <p class="text-red-400 text-3xl">({{ $list->quamtity}})</p>
+                                             </div>
                                         </div>
                                 </div>
 
-                                <div class="mb-4 border-b pb-2 pr-4">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <div class="font-bold text-gray-700">
-                                            <span>Quantidade</span>
-                                        </div>
-                                        <div class="text-gray-700">
-                                            {{ $list->quamtity}}
-                                        </div>
-                                    </div>
-                                </div>
+                               
 
                                 {{-- <div class="mb-4 border-b pb-2 pr-4">
                                     <div class="flex justify-between items-center mb-2">

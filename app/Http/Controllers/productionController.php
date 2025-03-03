@@ -17,7 +17,7 @@ class productionController extends Controller
      */
     public function index()
     {
-        $date = now()->format('d/m/y H:i:s');
+        $date = now()->format( 'd/m/y H:i:s' );
         $user      = Auth::user();
         $users     = $user->id ?? '';
         $order = Order::all();

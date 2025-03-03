@@ -31,7 +31,9 @@
 
                         <h4 class="pb-2">PRODUTO</h4>
                         @foreach ($order->orderList as $list)
-                            <p>{{ $list->product->name ?? '' }} ({{ $list->quamtity }})</p>
+                            <div class="text-gray-700 flex flex-row gap-2">
+                                <p class="pt-2">{{ $list->product->name ?? ''}}</p>  <p class="text-red-400 text-3xl">({{ $list->quamtity}})</p>
+                            </div>
 
                             @if ($list->product && ($list->product->category_id != 2 && $list->product->category_id != 4))
                                 <p>Observação: {{ $list->observation ?? '//' }}</p>

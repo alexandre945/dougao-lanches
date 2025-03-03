@@ -32,6 +32,7 @@ class ClientController extends Controller
             $productBeer = Product::where('category_id', 2)->where('status', 0)->get();
             $productCombo = Product::where('category_id', 3)->where('status', 0)->get();
             $productBomboniere = Product::where('category_id', 4)->where('status', 0)->get();
+            $productPromo = Product::where('category_id', 5)->where('status', 0)->get();
 
 
 
@@ -44,7 +45,8 @@ class ClientController extends Controller
              'time',
              'productBeer',
              'productCombo',
-             'productBomboniere'
+             'productBomboniere',
+             'productPromo'
               ));
       }
       public function toggle(Request $resquest)

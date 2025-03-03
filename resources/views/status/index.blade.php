@@ -29,14 +29,15 @@
                         <p>Data: {{ $item->created_at->format('d/m/Y H:i') }}</p>
                         <p>Total: @money($item->total)</p>
                         <p>Entrega: {{ $item->delivery ? 'Sim' : 'Não' }}</p>
-                        <p>Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
-                             <!-- Se for dinheiro -->
-                             @if($item->payment)
-                             <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
-                                 <!-- Se for cartão -->
-                             @else
-                                 <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
-                             @endif
+                        <p class="text-card">Forma de pagamento: {{ $item->payment ? 'Dinheiro' : 'Cartão' }}</p>
+                        @if($item->payment)
+                        <!-- Se for dinheiro -->
+                        <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
+
+                        @else
+                        <!-- Se for cartão -->
+                            <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
+                        @endif
                     </div>
                     <div class="overflow-auto">
                       <div class="bg-white rounded-lg shadow-lg p-2 mt-2">
@@ -47,22 +48,12 @@
                                             <div class="font-bold text-gray-700">
                                                 <span>produto</span>
                                             </div>
-                                            <div class="text-gray-700">
-                                                {{ $list->product->name ?? ''}}
-                                            </div>
+                                            <div class="text-gray-700 flex flex-row gap-2">
+                                                <p class="pt-2">{{ $list->product->name ?? ''}}</p>  <p class="text-red-400 text-3xl">({{ $list->quamtity}})</p>
+                                             </div>
                                         </div>
                                 </div>
 
-                                <div class="mb-4 border-b pb-2 pr-4">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <div class="font-bold text-gray-700">
-                                            <span>Quantidade</span>
-                                        </div>
-                                        <div class="text-gray-700">
-                                            {{ $list->quamtity}}
-                                        </div>
-                                    </div>
-                                </div>
 
                                 {{-- <div class="mb-4 border-b pb-2 pr-4">
                                     <div class="flex justify-between items-center mb-2">

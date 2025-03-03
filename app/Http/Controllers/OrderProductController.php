@@ -30,13 +30,10 @@ class OrderProductController extends Controller
         $product = Product::findOrFail($id);
         $user = auth::user();
         $users = auth::id();
-
-        $productInfo = ProductInfo::where('user_id', $user->id)->first();
-
-        if (!$productInfo) {
-            $productInfo = new ProductInfo(['user_id' => $user->id, 'payment' => 0, 'delivery' => 0]);
-            $productInfo->save();
-        }
+        $productInfo = ProductInfo::firstOrCreate(
+            ['user_id' => $users],  // Condição para encontrar um existente
+            ['payment' => 0, 'delivery' => 0]  // Valores para criar se não existir
+        );
 
         $selectedAdditionals = $request->input('additional_ids', []);
         $additionalQuantities = $request->input('additional_quantities', []);
