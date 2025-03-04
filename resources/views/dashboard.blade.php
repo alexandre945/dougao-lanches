@@ -71,7 +71,7 @@
                 <!-- Botão para abrir o modal -->
             <div class="mt-4">
                 <button onclick="toggleModal()" class="bg-yellow-400 text-red-700 font-bold text-lg px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300">
-                    🎉 Veja nossas Promoções! <span class="text-green-400">😋</span> 
+                    🎉 Veja nossas Promoções! <span class="text-green-400">😋</span>
                 </button>
             </div>
 
@@ -96,7 +96,7 @@
                                     <h3 class="text-lg font-semibold">{{ $item->name }}</h3>
                                     <input type="hidden" name="name" value="{{ $item->name }}">
 
-                                    <h3>Quantidade: 
+                                    <h3>Quantidade:
                                         <input type="number" name="quanty" class="rounded border p-1 w-16" min="1" value="1">
                                     </h3>
 
@@ -105,10 +105,10 @@
 
                                     <span class="text-red-500 font-bold">R$ @money($item->price)</span>
                                     <input type="hidden" name="price" value="{{ $item->price }}">
-                                </div> 
+                                </div>
                                 @if ($toggle->is_open ?? '' )
 
-                                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
                                     hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2">
                                     🛒 Adicionar ao Carrinho
                                 </button>
@@ -117,8 +117,8 @@
 
                                 @endif
 
-                             
-                            
+
+
                             </form>
                         @endforeach
                     </div>
@@ -167,7 +167,7 @@
 
     </header>
 
-    <div class="container max-w-4xl mx-auto p-4 md:p-8 bg-[url('/image/deliverylogo.png')] ">
+    <div class="container max-w-4xl mx-auto p-4 md:p-8">
         <div class="bg-white rounded-lg shadow-lg p-2">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 {{-- Lógica para mostrar se a lanchonete está fechada ou aberta --}}
@@ -286,7 +286,7 @@
                                     <div class="">
                                         @if ($toggle->is_open ?? '' )
 
-                                            <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                            <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
                                             hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                                 data-bs-target="#firstModal{{$item->id}}">
                                                 🛒 Adicionar ao Carrinho
@@ -423,7 +423,7 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
                                     hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
                                         🛒 Adicionar ao Carrinho
@@ -533,7 +533,7 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
                                     hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
                                         🛒 Adicionar ao Carrinho
@@ -678,7 +678,7 @@
                                 <div class="">
                                     @if ($toggle->is_open ?? '' )
 
-                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg 
+                                    <button class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
                                     hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2 " data-bs-toggle="modal"
                                         data-bs-target="#firstModal{{$item->id}}">
                                         🛒 Adicionar ao Carrinho
@@ -805,7 +805,7 @@
     function toggleModal() {
             document.getElementById('promoModal').classList.toggle('hidden');
         }
- 
+
 
         document.addEventListener('DOMContentLoaded', function() {
     // Seleciona o formulário pelo ID 'mainForm'
