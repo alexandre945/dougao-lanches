@@ -44,11 +44,22 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <!-- Opção 1: Resgatar na Lanchonete -->
             <div class="bg-yellow-100 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+                @if ($toggle->is_open ?? '' )
+
                 <a href="{{ route('delivery.index') }}" class="block text-center">
                     <p class="text-left mb-2">Clique aqui para resgatar seu brinde retirando na lanchonete.</p>
                     <h5 class="text-lg font-bold  border-2 p-2 bg-slate-300 rounded">Resgatar na Lanchonete</h5>
 
                 </a>
+
+               @else
+
+               <p class="text-left mb-2">
+                Quando a Lanchonete estiver aberta você podera solicitar seu blinde.
+                </p>
+
+               @endif
+   
             </div>
 
             <!-- Opção 2: Resgatar com Pedido -->

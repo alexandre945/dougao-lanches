@@ -28,6 +28,7 @@ use App\Http\Controllers\ListModelController;
 use App\Http\Controllers\updateAdminController;
 use App\Http\Controllers\panelAdminController;
 use App\Http\Controllers\pointsController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PoliticaPrivacidadeController;
 use App\Http\Controllers\summaryController;
 use App\Http\Controllers\toggleController;
@@ -303,7 +304,13 @@ Route::put('/responses/{response}', [ReviewResponseController::class, 'update'])
        //rota delete comentarios
 
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+   // rotas relacionadas as promoções
 
+Route::get('/promotion', [PromotionController::class, 'show'])->name('promotion.show');   
+
+Route::put('/update.promotion/{id}', [PromotionController::class, 'update'])->name('promotion.update');
+
+Route::delete('/delete.promotion/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Requests\BlindeRequest;
 use Illuminate\Http\Request;
 use App\Models\LoyaltyPoint;
 use App\Models\Point;
+use App\Models\Toggle;
 use Illuminate\Support\Facades\Auth;
 class pointsController extends Controller
 {
@@ -17,8 +18,9 @@ class pointsController extends Controller
         $user      = Auth::user()->id;
         $points = LoyaltyPoint::where('user_id', $user)->get();
         $point = Point::all();
+        $toggle = Toggle::first();
 
-        return view('points.index', compact('points', 'point'));
+        return view('points.index', compact('points', 'point', 'toggle'));
     }
 
     /**

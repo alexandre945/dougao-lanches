@@ -439,96 +439,21 @@
 
                                             </div>
                                     </div>
-                                                        {{-- antigo --}}
-                                            {{-- <div class=" bg-white rounded-lg shadow-lg p-2 mb-2">
-                                                <h2 class="text-gray-700 pb-2 mt-4 font-bold">Forma de pagamento</h2>
-                                                <div class="text-center">
-                                                    <p class="text-gray-700 pb-2 text-sm">o pagamento será realizado na entrega</p>
-                                                </div>
-
-                                                <div class="p-4 relative">
-                                                    <div class=" w-full flex flex-col md:flex-row md:justify-center md:text-center">
-                                                        <div class=" mb-4 md:mb-0 flex items-center space-x-2">
-                                                            <input class="toremove  " type="radio" checked value="0" id="" name="delivery" onchange="atualizarValor()" >
-                                                            <label for="toRemove"  class="text-gray-700  pr-4" >Retirar na lanchonete</label>
-                                                        </div>
-
-                                                        <div class="md:mr-4 mb-2 md:mb-0 flex space-x-2">
-                                                            <input  class=" custom-border " type="radio" value="1" id="entrega" name="delivery" onchange="atualizarValor()">
-                                                            <label for="entrega" class="text-gray-700" > Entregar em domicílio</label>
-                                                            <i class="fa-solid fa-motorcycle fa-xl text-cyan-600"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class=" relative">
-                                                    <h2 class="text-gray-700 pb-2">forma de pagamento</h2>
-                                                    <div class="pb-4 w-full flex flex-col md:flex-row md:justify-center md:text-center ml-6">
-                                                        <div class="md:mr-4 mb-4 md:mb-0 flex items-center space-x-2">
-                                                            <input class="payment_card custom-border " type="radio" checked value="0" id="" name="payment" >
-                                                            <label for=""  class="text-gray-700 font-bold pr-4" >Cartão</label>
-                                                            <select name="credit_card" id="select" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" >
-                                                                <option  value="visa">Visa</option>
-                                                                <option  value="Master Card">Master Card</option>
-                                                                <option  value="Ouro Card">Ouro Card</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="md:mr-4 mb-2 md:mb-0 flex items-center space-x-2">
-                                                            <input  class=" custom-border p-2" type="radio" value="1"  name="payment">
-                                                        <label for="" class="text-gray-700 font-bold " >Dinheiro</label>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="pl-4 ">
-                                                    <label for="" class="pb-2 text-gray-700 text-sm">Se seu pagamento for em diheiro preencha este campo aqui em baixo</label><br>
-                                                    <input type="text" class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-md hover:shadow-xl transition-shadow duration-300" name="observation" id="observation" placeholder="ex: troco para 50 reais">
-                                                </div>
-
-                                            </div> --}}
+                                        
 
                             {{-- botões de enviar continuar e cadastrar --}}
                             <div class="container max-auto">
                                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                                    <div class="text-center  overflow-auto">
-
-
-                                            <button type="submit" id="submitButton" class="text-sm p-2
-                                                    border-b-2 border-l-2 border-r-2
-                                                    bg-gradient-to-r from-cyan-100 to-emerald-500
-                                                    rounded mb-2 mt-2 shadow-lg
-                                                    hover:shadow-xl transition-shadow
-                                                    duration-300">
-                                                    <span id="buttonText">ENVIAR PEDIDO</span>
-                                                    <span id="buttonSpinner" style="display: none;">
-                                                        <div class="spinner"></div>
-                                                    </span>
-                                                </button>
-                                            {{-- fim ddo forme de envio de pedidos aqui --}}
-
-
-
-                                    </div>
 
                                         <div class="p-2 text-center">
                                             <a href="{{ route('client.show')}}">
-                                                <button class="text-sm p-2 border-b-2 border-r-2
-                                                border-l-2 rounded mb-2 mt-2 shadow-lg
-                                                bg-gradient-to-r from-cyan-100 to-emerald-500
-                                                hover:shadow-xl transition-shadow
-                                                duration-300">
+                                                <button class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2">
                                                     <SPAN>CONTINUAR COMPRANDO</SPAN>
                                                 </button>
                                             </a>
                                         </div>
 
-                                        <button class="text-sm p-2 border-b-4
-                                        border-l-2 border-r-2
-                                        bg-gradient-to-r from-cyan-100 to-emerald-500
-                                        rounded mb-2 mt-2 shadow-lg
-                                        hover:shadow-xl
-                                        transition-shadow duration-300 "
+                                        <button class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2 "
                                         data-bs-toggle="modal"
                                             data-bs-target="#firstModal">
                                             <span>CADASTRAR UM NOVO ENDEREÇO</span>
@@ -731,19 +656,20 @@
                                                     </p>
                                                 </div>
                                             @endif
+
+                                            <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2">
+                                                <span id="buttonText">ENVIAR PEDIDO</span>
+                                                <span id="buttonSpinner" style="display: none;">
+                                                    <div class="spinner"></div>
+                                                </span>
+                                            </button>
                                     </div>
                                 </div>
 
                                 {{-- modal para avaliação --}}
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="border-b-2 border-l-2 border-r-2
-                                    bg-gradient-to-r from-cyan-100 to-emerald-500
-                                    rounded mb-2 mt-2 shadow-lg
-                                    hover:shadow-xl
-                                    transition-all duration-300 ease-in-out
-                                    transform hover:scale-105
-                                    p-2 hover:bg-none hover:bg-emerald-600 hover:text-white"
+                                <button type="button" class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2"
                                         data-bs-toggle="modal" data-bs-target="#firstModal1">
                                     Avaliar o estabelecimento
                                 </button>

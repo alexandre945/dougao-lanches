@@ -18,7 +18,7 @@
              {{-- select --}}
     <link rel="stylesheet" href="../css/bootstrap-multselect.css" type="text/css"/>
 
-    <link rel="preload" as="image" href="{{ asset('image/deliverylogo.png') }}">
+    <link rel="preload" as="image" href="{{ asset('image/dellestlogo.png') }}">
 
 
     <style>
@@ -66,7 +66,7 @@
                 <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
                 <span class="relative">DOUGÃO LANCHES</span>
             </h1>
-            <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-16 w-auto rounded md:w-10 opacity-90 ">
+            <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-20 w-auto rounded md:w-10 opacity-90 ">
         </div>
                 <!-- Botão para abrir o modal -->
             <div class="mt-4">

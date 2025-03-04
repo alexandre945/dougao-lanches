@@ -24,6 +24,7 @@
             <a href="{{ route('showcombo') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Combos</a>
             <a href="{{ route('create.product') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Lanches</a>
             <a href="{{ route('user.bomboniere') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Bomboniére</a>
+            <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
         </div>
 
         <div class="  w-full overflow-auto ">

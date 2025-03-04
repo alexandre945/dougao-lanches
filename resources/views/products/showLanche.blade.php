@@ -59,6 +59,7 @@
              <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
              <a href="{{ route('user.bomboniere')}}">  <div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2">BOMBONIÉRE</div></a>
              <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">COMBOS</div></a>
+             <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
          </div>
            <div class=" w-full  pr-4 overflow-auto">
 
