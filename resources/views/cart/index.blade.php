@@ -439,7 +439,7 @@
 
                                             </div>
                                     </div>
-                                        
+
 
                             {{-- botões de enviar continuar e cadastrar --}}
                             <div class="container max-auto">
@@ -657,13 +657,15 @@
                                                 </div>
                                             @endif
 
-                                            <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2">
-                                                <span id="buttonText">ENVIAR PEDIDO</span>
-                                                <span id="buttonSpinner" style="display: none;">
-                                                    <div class="spinner"></div>
-                                                </span>
-                                            </button>
                                     </div>
+
+                                    <button type="submit" id="submitButton" class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 mb-2 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2">
+                                        <span id="buttonText">ENVIAR PEDIDO</span>
+                                        <span id="buttonSpinner" style="display: none;">
+                                            <div class="spinner"></div>
+                                        </span>
+                                    </button>
+
                                 </div>
 
                                 {{-- modal para avaliação --}}

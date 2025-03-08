@@ -68,7 +68,7 @@
                 </div>
 
                 <!-- Rodapé -->
-                <footer class="bg-orange-400 py-6">
+                {{-- <footer class="bg-orange-400 py-6">
                     <div class="container mx-auto flex justify-center">
                         <nav class="text-center">
                             <ul class="flex space-x-6">
@@ -90,7 +90,7 @@
                             </ul>
                         </nav>
                     </div>
-                </footer>
+                </footer> --}}
             </section>
         </div>
 

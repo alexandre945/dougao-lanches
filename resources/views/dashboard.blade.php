@@ -66,7 +66,7 @@
                 <span class="absolute inset-0 text-red-400 blur-sm transform translate-x-1 translate-y-1">DOUGÃO LANCHES</span>
                 <span class="relative">DOUGÃO LANCHES</span>
             </h1>
-            <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-20 w-auto rounded md:w-10 opacity-90 ">
+            <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-20 w-auto rounded md:w-10 opacity-90 m-4">
         </div>
                 <!-- Botão para abrir o modal -->
             <div class="mt-4">
@@ -77,7 +77,7 @@
 
             <!-- Modal (começa oculto) -->
             <div id="promoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-                <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative max-h-[90vh] overflow-y-auto">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative max-h-[90vh] ">
                     <h2 class="text-xl font-bold text-red-600 mb-4 text-center">Promoções Especiais! 🍔</h2>
 
                     <!-- Lista de Lanches -->

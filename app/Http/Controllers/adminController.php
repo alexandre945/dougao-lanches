@@ -57,7 +57,7 @@ class adminController extends Controller
             $productInfo = ProductInfo::where('user_id', $users)->first();
             $request->merge(['delivery' => $productInfo->delivery ?? 0]);
             $delivery = $productInfo->delivery;
- 
+
 
             if ( $total < 20.00)
                 {
@@ -153,7 +153,7 @@ class adminController extends Controller
                 //         )
                 //     );
                 // Verifique se o número está presente
-                
+
                 // $admin = User::where('access_level', 'admin')
                 // ->with(['address' => function ($query) {
                 //     $query->whereNotNull('fone');
@@ -167,7 +167,7 @@ class adminController extends Controller
 
 
             return redirect()->back()->with('new_order', true)
-                                     ->with('successmessage', 'Pedido enviado com sucesso, tempo de espera para acitação em média 12 minutos!.');
+                                     ->with('successmessage', 'Pedido enviado com sucesso, aconpanhe o estatus do seu pedido na área de vendas, clicando no botão continuar comprando');
 
 
 
