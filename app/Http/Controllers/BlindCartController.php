@@ -59,7 +59,7 @@ class BlindCartController extends Controller
 
             ]);
 
-                return redirect()->back()->with('remuve', 'resgate de blinde solicitado com sucesso confira no seu carrinho!');
+                return redirect()->back()->with('remuve', 'Seu Blinde foi solicitado com sucesso confira no seu carrinho!');
     }
 
 

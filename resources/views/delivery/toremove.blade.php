@@ -101,9 +101,23 @@
                         <img src="{{ asset('storage/'.$item->image) }}" class="product img" alt="Imagem do Doce">
                         <div class="card-body">
                             <p class="card-text">{{$item->name }}</p>
-                            <p class="card-text">Resgate por {{$item->points}}  pontos</p>
-                            <button class="text-sm bg-blue-500 p-2 rounded border "  data-bs-toggle="modal"
-                            data-bs-target="#firstModal{{$item->id}}">RESGATAR</button>
+                            <p class="card-text">Resgate por {{$item->points}}
+                                 pontos</p>
+                             <button class="text-sm bg-blue-500 p-2 rounded border"
+                             style="background: linear-gradient(to right, #3b82f6, #1e40af);
+                             color: white;
+                             padding: 10px 20px;
+                             font-size: 14px;
+                             font-weight: bold;
+                             border: none;
+                             border-radius: 8px;
+                             cursor: pointer;
+                             box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+                             transition: all 0.3s ease-in-out;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#firstModal{{$item->id}}">
+                                RESGATAR
+                             </button>
                         </div>
                     </div>
                     <div class="modal fade" id="firstModal{{$item->id}}" tabindex="-1"
@@ -132,9 +146,24 @@
                                                     <input type="hidden" name="points" value="{{$item->points}}">
 
                                                 </div>
-                                                    <div class="">
-                                                        <button class='text-sm bg-blue-500 p-2 rounded border' type="submit">RESGATAR</button>
-                                                    </div>
+                                                <div style="text-align: center;">
+                                                    <button
+                                                        style="background: linear-gradient(to right, #3b82f6, #1e40af);
+                                                               color: white;
+                                                               padding: 10px 20px;
+                                                               font-size: 14px;
+                                                               font-weight: bold;
+                                                               border: none;
+                                                               border-radius: 8px;
+                                                               cursor: pointer;
+                                                               box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+                                                               transition: all 0.3s ease-in-out;"
+                                                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='4px 6px 8px rgba(0, 0, 0, 0.3)';"
+                                                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='2px 4px 6px rgba(0, 0, 0, 0.2)';">
+                                                        RESGATAR
+                                                    </button>
+                                                </div>
+
                                             </div>
 
 

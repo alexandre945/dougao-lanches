@@ -144,12 +144,12 @@
                               @endif
                                  {{-- verifica se usuario tem pedido para avaliar --}}
                               @if( session('notOrder'))
-                              <div class=" bg-yellow-200 p-2 rounded">
-                                   <p>
-                                       {{ session('notOrder')}}
-                                   </p>
-                              </div>
-                           @endif
+                                <div class=" bg-yellow-200 p-2 rounded">
+                                    <p>
+                                        {{ session('notOrder')}}
+                                    </p>
+                                </div>
+                              @endif
                                 {{-- lop dos produtos --}}
                                     <div class="container max-auto">
                                         <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
@@ -187,18 +187,19 @@
                                                             </div>
                                                             </div>
                                                         </div>
+
                                                     @else
-                                                    @if(!empty($item->blindCart))
-                                                            <div class="mb-4 border-b pb-2">
-                                                                <div class="flex justify-between items-center mb-2">
-                                                                    <div class="font-bold text-gray-700">
-                                                                        <span>Blinde</span>
-                                                                    </div>
-                                                                    <div class="text-gray-700">
-                                                                        <span>{{ $item->blindCart->name ?? 'Brinde sem nome' }}</span>
+                                                        @if(!empty($item->blindCart))
+                                                                <div class="mb-4 border-b pb-2">
+                                                                    <div class="flex justify-between items-center mb-2">
+                                                                        <div class="font-bold text-gray-700">
+                                                                            <span>Blinde</span>
+                                                                        </div>
+                                                                        <div class="text-gray-700">
+                                                                            <span>{{ $item->blindCart->name ?? 'Brinde sem nome' }}</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         @endif
                                                     @endif
 
@@ -235,6 +236,7 @@
                                                             </div>
                                                         </div>
                                                     @else
+
                                                     @if( !$item->blindCart)
                                                             <div class="mb-4 border-b pb-2">
                                                                 <div class="flex justify-between items-center mb-2">
@@ -254,7 +256,7 @@
                                                     <div class="mb-4 border-b pb-2">
                                                         <div class=" items-center mb-2">
 
-                                                        @if( !$item->blindCart)
+
 
                                                         <div class="text-gray-700 text-center">
                                                             <form action="{{ route('cart.delete', $item->id) }}" method="POST">
@@ -263,7 +265,7 @@
                                                             </form>
                                                         </div>
 
-                                                        @endif
+
                                                         </div>
                                                     </div>
                                                 @empty
@@ -304,7 +306,7 @@
                                                             <input type="hidden" name="credit_card" id="credit_card_hidden" value="">
 
                                                             @foreach ($cart as $item)
-                                                                <input type="hidden" name="blindCartId" value="{{ $item->blindCart->id ?? ''}} ">
+                                                                <input type="hidden" name="blindCartId[]" value="{{ $item->blindCart->id ?? '' }} ">
 
                                                             @endforeach
                                             </form>
@@ -798,17 +800,19 @@
     <script>
 
 document.addEventListener("DOMContentLoaded", function () {
-        const selectCard = document.getElementById("credit_card_select");
-        const inputHiddenCard = document.getElementById("credit_card_hidden");
-        const inputObservation = document.getElementById("observation");
-        const inputHiddenObservation = document.getElementById("observation_hidden");
+    const selectCard = document.getElementById("credit_card_select");
+    const inputHiddenCard = document.getElementById("credit_card_hidden");
+    const inputObservation = document.getElementById("observation");
+    const inputHiddenObservation = document.getElementById("observation_hidden");
 
-        // Atualiza o input hidden quando o usuário seleciona um cartão
-        if (selectCard) {
-            selectCard.addEventListener("change", function () {
-                inputHiddenCard.value = selectCard.value;
-            });
-        }
+    // Se o select existir, definir o valor inicial do input hidden
+    if (selectCard) {
+        inputHiddenCard.value = selectCard.value; // Define o valor inicial
+
+        selectCard.addEventListener("change", function () {
+            inputHiddenCard.value = selectCard.value;
+        });
+    }
 
         // Atualiza o input hidden quando o usuário digita o troco
         if (inputObservation) {

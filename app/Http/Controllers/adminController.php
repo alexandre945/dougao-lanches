@@ -50,7 +50,7 @@ class adminController extends Controller
             $total      = str_replace(",", ".", $total);
             $product    = Order_product::where('user_id', $users)->get();
             $quantity   = $product[0]->quanty;
-            $blindCartIds = $request->input('blindCartId');
+            $blindCartIds = $request->input('blindCartId',[]);
             $selectedAddressTypeId = $request->input('addressType');
             $addressId = $request->input('address_id');
             $addressUserTypesId = $request->input('address_user_types_id');
@@ -85,11 +85,11 @@ class adminController extends Controller
             $orderId = $order->id;
 
             // criando itens do pedido
-
-            foreach ($product as $item) {
+            // dd($blindCartIds);
+            foreach ($product as $index => $item) {
 
                 $orderlist = OrderList::create([
-                'blind_carts_id'=> $blindCartIds  ?? null,
+                'blind_carts_id' => $blindCartIds[$index] ?? null, // Pega o valor correto do array
                 'order_id'      => $orderId,
                 'product_id'    => $item->product_id ?? '',
                 'observation'   => $item->observation,
@@ -223,50 +223,62 @@ class adminController extends Controller
                     }
                 }
 
-
-
-
             return view('cart.order', compact('date', 'userId', 'orders', 'newOrder', 'items', 'userOrderCount'));
         }
 
+        public function update(Request $request, $id)
+        {
+            $order = Order::findOrFail($id);
+            $order->update(['status' => 'aceito']);
 
-  public function update(Request $request, $id)
+            // ID do usuário
+            $userId = $order->user_id;
 
-      {
-        $order = Order::findOrFail($id);
-
-        $order->update(['status' => ('aceito')]);
-
-         // ID do usuário
-        $userId = $order->user_id;
-
-         // buscar todos os pedidos "aceitos" ou já "entrergus " do usuário
-
-         $orderPoints = Order::where('user_id', $userId)
-         ->whereNotIn('status', ['recusado', 'processando'])
-         ->get();
+            // ID do pedido
+            $orderId = $order->id;
 
 
-    // Calcular o total gasto em pedidos válidos
-    $totalOrderAmount = $orderPoints->sum('total');
+            // Buscar todos os pedidos apenas com status "aceito"
+            $orderPoints = Order::where('user_id', $userId)
+                ->where('status', 'aceito')
+                ->where('id', $orderId)
+                ->get();
 
-    // Converter total gasto em pontos
-    $totalPointsEarned = floor($totalOrderAmount / 5);
+            // Calcular o total gasto em pedidos aceitos
+            $totalOrderAmount = $orderPoints->sum('total');
 
-    // Buscar e somar pontos resgatados
-    $totalBlindPointsCart = BlindCart::where('user_id', $userId)->sum('points');
-    $totalBlindPointsDirect = Blind::where('user_id', $userId)->sum('points');
-    $totalBlindPoints = $totalBlindPointsCart + $totalBlindPointsDirect;
+            // Converter total gasto em pontos (1 ponto para cada R$5)
+            $totalPointsEarned = floor($totalOrderAmount / 5); // arredondando para baixo
 
-    // Subtrair pontos resgatados do total de pontos, garantindo que não seja negativo
-    $totalPointsEarned = max(0, $totalPointsEarned - $totalBlindPoints);
+            // Buscar os pontos atuais do usuário
+            $loyalty = LoyaltyPoint::where('user_id', $userId)->first();
+            $currentPoints = $loyalty ? $loyalty->points_earned : 0;
 
-    // Atualizar ou criar o registro de pontos de fidelidade
-    LoyaltyPoint::updateOrCreate(
-        ['user_id' => $userId],
-        ['points_earned' => $totalPointsEarned]
-    );
+            // Buscar os pontos de blind resgatados nesse pedido específico na tabela correta
+            $blindPointsUsed = OrderList::where('order_id', $order->id)
+                ->whereNotNull('blind_carts_id')
+                ->join('blind_carts', 'order_lists.blind_carts_id', '=', 'blind_carts.id')
+                ->sum('blind_carts.points');
 
-        return redirect()->back()->with('acept','você aceitou este pedido, pode encontralo nos pedidos aceitos no memu acima!');
-      }
+            // Calcular o saldo final corretamente
+            $finalPoints = max(0, $currentPoints + $totalPointsEarned - $blindPointsUsed);
+
+            // Atualizar ou criar o registro de pontos de fidelidade
+            LoyaltyPoint::updateOrCreate(
+                ['user_id' => $userId],
+                ['points_earned' => $finalPoints]
+            );
+
+            // Buscar o BlindCart associado ao pedido e atualizar o status para "entregue"
+            $blindCartUpDate = BlindCart::whereIn('id', function ($query) use ($orderId) {
+                $query->select('blind_carts_id')
+                    ->from('order_lists')
+                    ->where('order_id', $orderId)
+                    ->whereNotNull('blind_carts_id');
+            })->update(['status' => 'entregue']);
+
+            return redirect()->back()->with('acept', 'Você aceitou este pedido, pode encontrá-lo nos pedidos aceitos no menu acima!');
+        }
+
+
 }

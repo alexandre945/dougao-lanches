@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                         <div class="mb-4 border-b pb-2 pr-4">
                                             <div class="flex justify-between items-center mb-2">
                                                 <div class="font-bold text-gray-700">
@@ -119,6 +119,25 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    @else
+
+                          @if( $list->blindCart ?? '')
+                                         <div class="mb-4 border-b pb-2 pr-4">
+                                             <div class="flex justify-between items-center mb-2">
+                                                 <div class="font-bold text-gray-700">
+                                                     <span>Brinde</span>
+                                                 </div>
+
+                                                 <div class="text-gray-700">
+                                                     {{ $list->blindCart->name ?? 'sem nome' }}
+
+                                                 </div>
+
+                                             </div>
+                                         </div>
+                                     @endif
+
+
                                     @endif
 
                                     @if( $list->product && $list->product->category_id !=2 && $list->product->category_id != 4 )
@@ -174,23 +193,7 @@
 
                                     @endforeach
 
-                                    @foreach( $item->orderList as $list)
-                                        @if( $list->blindCart )
-                                            <div class="mb-4 border-b pb-2 pr-4">
-                                                <div class="flex justify-between items-center mb-2">
-                                                    <div class="font-bold text-gray-700">
-                                                        <span>Brinde</span>
-                                                    </div>
 
-                                                    <div class="text-gray-700">
-                                                        {{ $list->blindCart->name ?? 'sem nome' }}
-                                                        @break
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                    @endif
-                                   @endforeach
                         </div>
                     </div>
 
@@ -238,7 +241,7 @@
                                     @endif
                                 @endforeach
                             </div>
-                         @endif 
+                         @endif
                     </div>
 
 
