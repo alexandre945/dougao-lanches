@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class PoliticaPrivacidadeController extends Controller
 {
     public function index(){
-        return view('privacidade.politica');
+        $user = Auth::user();
+        return view('privacidade.politica',compact('user'));
     }
 }

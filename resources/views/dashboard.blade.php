@@ -778,6 +778,7 @@
     </footer> --}}
        {{-- carrinho --}}
        <div class="bottom-4 right-4" style="position: fixed; bottom: 1rem; right: 1rem; margin-bottom: 4px;">
+
         <a href="{{ route('cart.show') }}">
             <button style="background-color: #f63434; color: white; padding: 1rem; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: background-color 0.3s;">
                 <i class="fas fa-shopping-cart" style="font-size: 1.25rem;"></i>
@@ -793,8 +794,25 @@
         </a>
     </div>
 
+    <a href="https://wa.me/5535999810371?text=Se%20tiver%20alguma%20d%C3%BAvida%2C%20entre%20em%20contato."
+        target="_blank"
+        style="position: fixed; bottom: 1rem; left: 1rem; padding: 0.75rem 1rem; background-color: #25D366; color: white; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; align-items: center; gap: 0.5rem; z-index: 50; text-decoration: none; transition: background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#1ebe5d'"
+        onmouseout="this.style.backgroundColor='#25D366'">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" style="width: 1.25rem; height: 1.25rem;">
+        Fale conosco
+    </a>
+    <div class="flex justify-center items-center gap-4 mt-6 mb-6 text-sm text-center">
+        <a href="{{ route('terms.index') }}" class="text-gray-600 hover:underline">
+            TERMOS DE USO
+        </a>
+        <a href="{{ route('privacidade.index') }}" class="text-gray-600 hover:underline">
+            TERMOS DE PRIVACIDADE
+        </a>
+    </div>
+    
+      
     @vite('resources/js/app.js')
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
@@ -805,7 +823,6 @@
     function toggleModal() {
             document.getElementById('promoModal').classList.toggle('hidden');
         }
-
 
         document.addEventListener('DOMContentLoaded', function() {
     // Seleciona o formulário pelo ID 'mainForm'

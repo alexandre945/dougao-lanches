@@ -20,6 +20,7 @@ use App\Http\Controllers\pdfController;
 use App\Http\Controllers\productionController;
 use App\Http\Controllers\ProductStatusController;
 use App\Http\Controllers\statusController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\statusRefusedController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckNewOrderController;
@@ -65,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/usuario/deletar', [UserController::class, 'destroy'])->name('user.delete');
+
 });
 //    crud
 // Route::get('/produts',ProjectCreate::class);
@@ -204,7 +207,6 @@ Route::post('upload/points', [pointsController::class,'store'])->name('upload.po
 Route::post('destroy/points,{id}', [pointsController::class,'destroy'])->name('delete.points');
 
 
-
     //rota para cadastrar o regate dos blinedes
 
 Route::post('/create-blind,{id}', [BlindController::class, 'create'])->name('blind.create');
@@ -306,7 +308,7 @@ Route::put('/responses/{response}', [ReviewResponseController::class, 'update'])
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
    // rotas relacionadas as promoções
 
-Route::get('/promotion', [PromotionController::class, 'show'])->name('promotion.show');   
+Route::get('/promotion', [PromotionController::class, 'show'])->name('promotion.show');
 
 Route::put('/update.promotion/{id}', [PromotionController::class, 'update'])->name('promotion.update');
 

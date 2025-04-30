@@ -32,6 +32,11 @@
 
     </head>
     <body class="antialiased bg-yellow-100">
+         @if(session('success'))
+           <p class="text-green p-2">
+            {{ session('success')}}
+           </p>
+          @endif
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
