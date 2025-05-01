@@ -56,7 +56,7 @@
 
     </style>
 </head>
-<body class="bg-yellow-100 font-sans">
+<body class="bg-yellow-100 font-sans mb-28 md:mb-0">
 
     @vite('resources/css/app.css')
 
@@ -810,8 +810,8 @@
             TERMOS DE PRIVACIDADE
         </a>
     </div>
-    
-      
+
+
     @vite('resources/js/app.js')
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
