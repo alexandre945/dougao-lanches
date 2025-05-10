@@ -35,12 +35,12 @@ class Requestadress extends FormRequest
     {
         return [
             'city.required'          => 'O Campo cidade é Obrigatorío',
-            'district.required'     => 'O Campo bairro é Obrigatorío',
-            'street.required'       => 'O Campo Rua é obrigatoío',
-            'number.required'       => 'O Campo número é Obrigatorío',
-            'zipcode.required'      => 'O Campo CEP não é Obrigatorío',
-            'complement.required'   => 'O Campo complemento não é O brigatorío',
-            'complement.max'        => 'esse campo tem limite maximo de 40 caracteres',
+            'district.required'      => 'O Campo bairro é Obrigatorío',
+            'street.required'        => 'O Campo Rua é obrigatoío',
+            'number.required'        => 'O Campo número é Obrigatorío',
+            'zipcode.required'       => 'O Campo CEP não é Obrigatorío',
+            'complement.required'    => 'O Campo complemento não é O brigatorío',
+            'complement.max'         => 'esse campo tem limite maximo de 40 caracteres',
             'fhone.required'         => 'O Campo celular é obrigatorio'
 
         ];

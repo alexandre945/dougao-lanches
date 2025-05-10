@@ -64,6 +64,13 @@ class adminController extends Controller
                 return redirect()->back()->with('total', 'o valor de sua compra precisa ser maior que 20,00 reais');
                 }
 
+                $request->validate([
+                    'payment' => 'required',
+                    'observation' => $request->payment == 1 ? 'required' : 'nullable',
+                ], [
+                    'observation.required' => 'Você selecionou a opção de dinheiro, por favor informe valor do troco!',
+                ]);
+
             // verificando se usuario tem endereço e depois criando pedido
 
 

@@ -82,12 +82,19 @@
 
                         @if($item->payment)
                         <!-- Se for dinheiro -->
-                        <p class="text-card">Troco: {{ $item->observation ?? 'Sem troco informado' }}</p>
+                        @php
+                            $obs = $item->observation;
+                        @endphp
 
+                        @if(is_numeric($obs))
+                            <p class="text-card">Troco para {{ $obs }} reais</p>
                         @else
-                        <!-- Se for cartão -->
-                            <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
+                            <p class="text-card">{{ $obs }}</p>
                         @endif
+                    @else
+                        <!-- Se for cartão -->
+                        <p class="text-card">Tipo de cartão: {{ $item->observation ?? 'Sem informações do cartão' }}</p>
+                    @endif
 
                     </div>
 

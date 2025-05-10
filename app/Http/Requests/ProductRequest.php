@@ -26,10 +26,10 @@ class ProductRequest extends FormRequest
             'name' =>['required'],
             'description' => ['required'],
             'price' => ['required'],
-            'category_id' => []
+            'category_id' => ['required']
          ];
 
-   
+
     }
     public function messages()
     {
@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
             'description.required'=> 'O campo Descrição é obrigatorio',
             'price.required' => 'O campo preço é obrigatorio',
             'category_id.required' => 'Escolha uma categoria'
-    
+
            ];
     }
 

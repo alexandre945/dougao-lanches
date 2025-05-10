@@ -419,6 +419,11 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @error('observation')
+                                                                <div class="mt-1 text-sm text-red-600 bg-red-100 p-2 rounded">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
 
                                                             <!-- Campo para observação do troco -->
                                                             @if(($productInfo->payment ?? null) == 0)
