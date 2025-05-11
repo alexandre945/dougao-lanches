@@ -77,13 +77,13 @@
                     <div class="container mx-auto flex justify-center">
                         <nav class="text-center">
                             <ul class="flex space-x-6">
-                                <li>
+                                {{-- <li>
                                     <a href="https://www.facebook.com/douglasodin199/?locale=pt_BR" target="_blank" class="md:text-white hover:text-gray-200 text-blue">
                                         <i class="fa-brands fa-square-facebook fa-2xl"></i>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a href="https://www.instagram.com/dougaolanchessl?igsh=azk0b3N1OG4zcjFy" class="md:text-white hover:text-gray-200 text-blue">
+                                    <a href="https://www.instagram.com/dougaolanchessl?igsh=azk0b3N1OG4zcjFy" target="_blank" rel="noopener noreferrer" class="md:text-white hover:text-gray-200 text-blue">
                                         <i class="fa-brands fa-instagram fa-2xl"></i>
                                     </a>
                                 </li>
