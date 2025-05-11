@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Rodapé -->
-                {{-- <footer class="bg-orange-400 py-6">
+                <footer class="bg-orange-400 py-6">
                     <div class="container mx-auto flex justify-center">
                         <nav class="text-center">
                             <ul class="flex space-x-6">
@@ -83,7 +83,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="md:text-white hover:text-gray-200 text-blue">
+                                    <a href="https://www.instagram.com/dougaolanchessl?igsh=azk0b3N1OG4zcjFy" class="md:text-white hover:text-gray-200 text-blue">
                                         <i class="fa-brands fa-instagram fa-2xl"></i>
                                     </a>
                                 </li>
@@ -95,7 +95,7 @@
                             </ul>
                         </nav>
                     </div>
-                </footer> --}}
+                </footer>
             </section>
         </div>
 
