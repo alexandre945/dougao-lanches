@@ -800,7 +800,7 @@
         onmouseover="this.style.backgroundColor='#1ebe5d'"
         onmouseout="this.style.backgroundColor='#25D366'">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" style="width: 1.25rem; height: 1.25rem;">
-        Fale conosco'
+        Fale conosco
     </a>
     <div class="flex justify-center items-center gap-4 mt-6 mb-6 text-sm text-center">
         <a href="{{ route('terms.index') }}" class="text-gray-600 hover:underline">

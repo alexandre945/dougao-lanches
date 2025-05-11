@@ -12,13 +12,13 @@
         color:red;
       }
       .create {
-        background-color: rgb(187, 236, 112);
-        color: white;
+        background-color: rgb(179, 242, 86);
+
       }
       .destroy {
 
-        background-color: rgb(187, 236, 112);
-        color: white;
+        background-color: rgb(172, 245, 62);
+
       }
    </style>
 </head>
@@ -77,7 +77,7 @@
        <button class="bg-emerald-400  hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
          cadastrar
        </button>
-
+    </form>
        {{-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
          Forgot Password?
        </a> --}}
@@ -118,7 +118,7 @@
         </table>
       </div>
 
-   </form>
+
 
 
  </div>
