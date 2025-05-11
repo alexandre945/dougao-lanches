@@ -26,7 +26,8 @@ class ProductRequest extends FormRequest
             'name' =>['required'],
             'description' => ['required'],
             'price' => ['required'],
-            'category_id' => ['required']
+            'category_id' => ['required'],
+            'photo' => ['required']
          ];
 
 
@@ -38,7 +39,8 @@ class ProductRequest extends FormRequest
             'name.required' => 'O campo produto é obrigatorio',
             'description.required'=> 'O campo Descrição é obrigatorio',
             'price.required' => 'O campo preço é obrigatorio',
-            'category_id.required' => 'Escolha uma categoria'
+            'category_id.required' => 'Escolha uma categoria',
+            'photo.required' => 'o campo imagem é obrigatorio'
 
            ];
     }

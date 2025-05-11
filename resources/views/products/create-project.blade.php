@@ -21,7 +21,7 @@
   <div class="container pt-4">
 
     <h1 class="pt-2 font-bold text-center">CASDASTRAR NOVO PRODUTO</h1>
-    <form action="{{route('store.product')}}" class=" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="post" enctype="multipart/form-data">
+    <form action="{{ route('store.product') }}" class=" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="post" enctype="multipart/form-data">
       @csrf
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">PRODUTO</label>
@@ -50,8 +50,8 @@
 
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="price">IMAGEM</label>
-        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="price" type="file"  name="image">
-            @error('image')
+        <input autocomplete="off" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="price" type="file"  name="photo">
+            @error('photo')
                 <span class="error text-red-600">{{ $message }}</span>
             @enderror
       </div>
@@ -59,9 +59,9 @@
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="price">CATEGORIA</label>
 
-        <select name="category" id="category"class="rounded ">
+        <select name="category_id" id="category"class="rounded ">
           @foreach ($category as $item)
-              <option name="category" value="{{$item->id}}">{{$item->name}}</option>
+              <option name="category_id" value="{{$item->id}}">{{$item->name}}</option>
           @endforeach
         </select>
       </div>

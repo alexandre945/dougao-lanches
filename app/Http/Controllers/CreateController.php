@@ -23,8 +23,7 @@ class CreateController extends Controller
 
         {
 
-
-            $imagePath = $request->file('image')->store('upload', 'public');
+            $imagePath = $request->file('photo')->store('upload', 'public');
             $category = Category::all();
             $price = str_replace(',', '.', $request->price);
 
@@ -33,7 +32,7 @@ class CreateController extends Controller
                 'name'          => $request->name,
                 'description'   => $request->description,
                 'price'         => $price,
-                'category_id'   => $request->category,
+                'category_id'   => $request->category_id,
 
             ]);
 
