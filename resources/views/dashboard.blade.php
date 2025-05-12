@@ -95,7 +95,7 @@
 
                             <form id="mainForm" action="{{ route('store.cart', $item->id) }}" method="post">
                                 @csrf
-                                <div class="p-4 border rounded-lg shadow">
+                                <div class="p-4 border rounded-lg shadow overflow-auto">
                                     <h3 class="text-lg font-semibold">{{ $item->name }}</h3>
                                     <input type="hidden" name="name" value="{{ $item->name }}">
 

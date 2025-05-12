@@ -123,6 +123,7 @@
                                             <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
                                         </fieldset>
                                     </form>
+
                                  </div>
                                      <div class="modal-footer mt-10">
                                      <button type="button" class="btn btn-warning"
