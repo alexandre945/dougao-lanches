@@ -26,14 +26,14 @@
                 {{ session('success')}}
             </p>
           </div>
-        @endif 
+        @endif
         @if(session('delete'))
           <div class="bg-slate-300 p-2 rounded text-center" style="width: 300px">
             <p>
                 {{ session('delete')}}
             </p>
-          </div> 
-        @endif  
+          </div>
+        @endif
 
         <div class="flex justify-center space-x-4">
             <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
@@ -56,7 +56,7 @@
               <tbody class="">
                 @foreach ($product as $products)
                 <tr>
-                 
+
                   <td class="p-4 sm:w-60">{{$products->name}} </td>
                   <td class="">
 
@@ -78,29 +78,37 @@
                                      </button>
                                  </div>
                                  <div class="modal-body">
-                                     <Form action="{{ route('promotion.update',$products->id)}}" method="post">
-                                         @method('PUT')
-                                         @csrf
-                                         <div class="text">
-                                           <form class="grup-control">
-                                               <fieldset>
-                                                   <div class="label text-center ">
-                                                     <h1>PRODUTO</h1>
-                                                     <input type="text" class="bg-info rounded" name="name" value="{{ $products->name }}"/><br>
-                                                   </div>
-                                                   <div class="label2 text-center m-2">
-                                                     <h1>DESCRIÇÃO</h1>
-                                                     <input type="text" class="bg-info rounded" name="description" value="{{ $products->description }}"/><br>
-                                                   </div>
-                                                   <div class="label3 text-center m-2">
-                                                     <h1>PREÇO</h1>
-                                                     <input type="" class="bg-info  rounded" name="price" value="{{number_format($products->price, 2, ',', '.') }}"/><br>
-                                                   </div>
-                                                 <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
-                                               </fieldset>
-                                           </form>
-                                         </div>
-                                     </Form>
+                                    <form action="{{ route('update.product', $products->id) }}" method="post" enctype="multipart/form-data">
+                                        @method('PUT')
+                                        @csrf
+
+                                        <fieldset class="grup-control">
+                                            <div class="label">
+                                                <h1>PRODUTO</h1>
+                                                <input type="text" class="m-2 rounded" name="name" value="{{ $products->name }}"/><br>
+                                            </div>
+
+                                            <div class="label2">
+                                                <h1>DESCRIÇÃO</h1>
+                                                <input type="text" class="m-2 rounded" name="description" value="{{ $products->description }}"/><br>
+                                            </div>
+
+                                            <div class="label3">
+                                                <h1>PREÇO</h1>
+                                                <input type="text" class="rounded m-2" name="price" value="{{ number_format($products->price,2, ',', '.') }}"/><br>
+                                            </div>
+
+                                            <div class="label3">
+                                                <h1>IMAGEM ATUAL</h1>
+                                                <img src="{{ asset('storage/' . $products->photo) }}" alt="Imagem atual" class="w-32 h-32 object-cover rounded m-2"><br>
+
+                                                <h1>ALTERAR IMAGEM</h1>
+                                                <input type="file" class="rounded m-2" name="photo"/><br>
+                                            </div>
+
+                                            <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
+                                        </fieldset>
+                                    </form>
                                  </div>
                                      <div class="modal-footer mt-10">
                                      <button type="button" class="btn btn-warning"
