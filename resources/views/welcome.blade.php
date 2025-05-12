@@ -63,7 +63,8 @@
 
                 <div class="container mx-auto md:flex-row items-center px-6 py-8">
                     <h1 class="text-3xl text-red-600 text-center font-bold mb-4">Bem-vindo(a) ao Dougão Lanches</h1>
-                    <p class="mb-6 text-gray-700 text-lg leading-relaxed text-justify">
+                    <p class="mb-6 text-gray-700 text-base sm:text-lg md:text-md leading-normal sm:leading-relaxed text-left sm:text-justify">
+
                         No Dougão Lanches, você encontra o melhor lanche da cidade, preparado com ingredientes frescos e de alta qualidade.
                         Faça seu pedido facilmente pelo nosso delivery, sem complicação! Aceitamos diversas formas de pagamento, como dinheiro,
                         cartão,pix na maquininha, que podem ser feitos diretamente ao entregador. Nosso horário de funcionamento é de terça a domingo,
@@ -73,22 +74,25 @@
                 </div>
 
                 <!-- Rodapé -->
-                <footer class="bg-orange-400 py-6">
+                <footer style="background-color: #334163;" class="py-6 shadow-inner rounded">
+                  
                     <div class="container mx-auto flex justify-center">
                         <nav class="text-center">
-                            <ul class="flex space-x-6">
+                            <ul class="flex space-x-8">
+                                
+                                {{-- Facebook (em breve) --}}
                                 {{-- <li>
-                                    <a href="https://www.facebook.com/douglasodin199/?locale=pt_BR" target="_blank" class="md:text-white hover:text-gray-200 text-blue">
+                                    <a href="#" target="_blank" class="text-white hover:text-blue-500 transition">
                                         <i class="fa-brands fa-square-facebook fa-2xl"></i>
                                     </a>
                                 </li> --}}
                                 <li>
-                                    <a href="https://www.instagram.com/dougaolanchessl?igsh=azk0b3N1OG4zcjFy" target="_blank" rel="noopener noreferrer" class="md:text-white hover:text-gray-200 text-blue">
+                                    <a href="https://www.instagram.com/dougaolanchessl?igsh=azk0b3N1OG4zcjFy" target="_blank" rel="noopener noreferrer" class="text-white hover:text-pink-400 transition">
                                         <i class="fa-brands fa-instagram fa-2xl"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://api.whatsapp.com/send?phone=553599810371" target="_blank" class="md:text-white hover:text-gray-200 text-blue">
+                                    <a href="https://api.whatsapp.com/send?phone=553599810371" target="_blank" class="text-white hover:text-green-400 transition">
                                         <i class="fa-brands fa-whatsapp fa-2xl"></i>
                                     </a>
                                 </li>
@@ -96,6 +100,7 @@
                         </nav>
                     </div>
                 </footer>
+                
             </section>
         </div>
 

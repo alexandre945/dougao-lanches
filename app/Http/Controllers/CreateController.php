@@ -49,12 +49,25 @@ class CreateController extends Controller
 
         public function update(Request $request, $id)
         {
-                $product = Product::findOrFail($id);
+            $product = Product::findOrFail($id);
+            
+            // Formatar o preço vindo do formulário
+            $formattedPrice = str_replace(',', '.', $request->price);
 
-                $formatadPrice  = str_replace(',', '.', $request->price);
+            // Monta os dados para atualizar
+            $data = $request->except(['price', 'photo']);
+            $data['price'] = $formattedPrice;
 
-                $product->update(['price' => $formatadPrice] + $request->except('price') + $request->all());
+            // Se uma nova imagem foi enviada
+            if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+                $imagePath = $request->file('photo')->store('upload', 'public'); // pasta: storage/app/public/upload
+                $data['photo'] = $imagePath;
+            }
 
-                return redirect()->route('create.product')->with('update', 'produto atualizado com sucesso');
+            // Atualiza o produto
+            $product->update($data);
+
+            return redirect()->route('create.product')->with('update', 'Produto atualizado com sucesso');
         }
+
 }

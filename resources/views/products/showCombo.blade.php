@@ -90,31 +90,37 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <Form action="{{ route('update.product',$products->id)}}" method="post">
+                                        <form action="{{ route('update.product', $products->id) }}" method="post" enctype="multipart/form-data">
                                             @method('PUT')
                                             @csrf
-                                            <div class="text">
-                                              <form class="grup-control">
-                                                  <fieldset>
-                                                      <div class="label text-center">
 
-                                                        <h1>PRODUTO</h1>
+                                            <fieldset class="grup-control">
+                                                <div class="label">
+                                                    <h1>PRODUTO</h1>
+                                                    <input type="text" class="m-2 rounded" name="name" value="{{ $products->name }}"/><br>
+                                                </div>
 
-                                                        <input type="text" class="bg-info rounded" name="name" value="{{ $products->name }}"/><br>
-                                                      </div>
-                                                      <div class="label2 text-center">
-                                                        <h1>DESCRIÇÃO</h1>
-                                                        <input type="text" class="bg-info rounded" name="description" value="{{$products->description }}"/><br>
-                                                      </div>
-                                                      <div class="label3 text-center">
-                                                        <h1>PREÇO</h1>
-                                                        <input type="" class="bg-info rounded" name="price" value="{{ number_format($products->price, 2, ',', '.' )}}"/><br>
-                                                      </div>
-                                                    <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
-                                                  </fieldset>
-                                              </form>
-                                            </div>
-                                        </Form>
+                                                <div class="label2">
+                                                    <h1>DESCRIÇÃO</h1>
+                                                    <input type="text" class="m-2 rounded" name="description" value="{{ $products->description }}"/><br>
+                                                </div>
+
+                                                <div class="label3">
+                                                    <h1>PREÇO</h1>
+                                                    <input type="text" class="rounded m-2" name="price" value="{{ number_format($products->price,2, ',', '.') }}"/><br>
+                                                </div>
+
+                                                <div class="label3">
+                                                    <h1>IMAGEM ATUAL</h1>
+                                                    <img src="{{ asset('storage/' . $products->photo) }}" alt="Imagem atual" class="w-32 h-32 object-cover rounded m-2"><br>
+
+                                                    <h1>ALTERAR IMAGEM</h1>
+                                                    <input type="file" class="rounded m-2" name="photo"/><br>
+                                                </div>
+
+                                                <button class="btn btn-primary text-with bg-primary mt-2" type="submit">Atualizar</button>
+                                            </fieldset>
+                                        </form>
                                     </div>
                                         <div class="modal-footer mt-10">
                                         <button type="button" class="btn btn-warning"

@@ -69,12 +69,15 @@
             <img src="{{ asset('/image/dellestlogo.png') }}" alt="Logo Dougão Lanches" class="h-20 w-auto rounded md:w-10 opacity-90 m-4">
         </div>
                 <!-- Botão para abrir o modal -->
-            <div class="mt-4">
-                <button onclick="toggleModal()" class="bg-yellow-400 text-red-700 font-bold text-lg px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300">
-                    🎉 Veja nossas Promoções! <span class="text-green-400">😋</span>
-                </button>
-            </div>
-
+                @if ($productPromo->isNotEmpty() && $productPromo->contains('status', 0))
+                    <div class="mt-4">
+                        <button onclick="toggleModal()" class="bg-yellow-400 text-red-700 font-bold text-lg px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition duration-300">
+                            🎉 Veja nossas Promoções! <span class="text-green-400">😋</span>
+                        </button>
+                    </div>
+                @endif
+            
+            
             <!-- Modal (começa oculto) -->
             <div id="promoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
                 <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative max-h-[90vh] ">
@@ -246,7 +249,6 @@
                     @endif
                 </div>
         </div>
-
             <div class="mt-4">
                 <p class="text-sm text-gray-600 text-center">Horário de funcionamento de terça a domingo: 19:00h às 24:00h</p>
             </div>
@@ -255,7 +257,6 @@
 
     <main class="container mx-auto p-4">
            {{-- container dos lanches --}}
-
         <div class="container mx-auto p-4">
             <div class="border-b-2 border-gray-300 mb-4">
                 <!-- Cabeçalho da seção com um botão de toggle -->
@@ -266,20 +267,19 @@
                 </div>
                 <!-- Conteúdo que será ocultado/mostrado -->
                 <div id="lanches-section" class="mt-4 hidden">
-                    {{-- Conteúdo dos lanches aqui --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($product as $item)
-                            <div class="bg-white rounded-lg shadow-lg overflow-auto">
+                            <div class="bg-white rounded-lg shadow-lg">
                                 @if($item->photo)
                                     <div class="w-full img flex justify-center mt-2">
-                                        <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
+                                        <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do lanche"
                                             class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                                     </div>
                                 @endif
                                 <div class="p-2 ">
-                                    <h3 class="text-lg font-semibold mb-2">{{ $item->name}}</h3>
+                                    <h3 class="text-lg font-semibold mb-2">{{ $item->name }}</h3>
 
-                                        <p class="text-gray-600 mb-1 mr-2">{{ $item->description}}</p>
+                                        <p class="text-gray-600 mb-1 mr-2 break-words line-clamp-3 max-h-20 overflow-hidden">{{ $item->description }}</p>
 
                                      <h2 class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</h2>
                                     <!-- Botão de adicionar ao carrinho ou outra ação -->
