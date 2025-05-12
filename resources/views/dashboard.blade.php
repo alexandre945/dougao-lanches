@@ -85,14 +85,16 @@
 
                     <!-- Lista de Lanches -->
                     <div class="space-y-4 bg-white">
+                        
                         @foreach($productPromo as $item)
+                        
                             @if($item->photo)
                                 <div class="w-full img flex justify-center mt-2">
                                     <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                                 </div>
                             @endif
-
+                            
                             <form id="mainForm" action="{{ route('store.cart', $item->id) }}" method="post">
                                 @csrf
                                 <div class="p-4 border rounded-lg shadow overflow-auto">
@@ -270,6 +272,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($product as $item)
                             <div class="bg-white rounded-lg shadow-lg">
+
+                            {{-- Número incremental do produto --}}
+                            <div class="text-sm text-gray-500 ml-2 mt-4">
+                                Produto Nº {{ $loop->iteration }}
+                            </div>
                                 @if($item->photo)
                                     <div class="w-full img flex justify-center mt-2">
                                         <img src="{{ asset('storage/' .$item->photo ?? '') }}" alt="foto do lanche"
