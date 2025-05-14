@@ -76,8 +76,8 @@
                         </button>
                     </div>
                 @endif
-            
-            
+
+
             <!-- Modal (começa oculto) -->
             <div id="promoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
                 <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative max-h-[90vh] ">
@@ -85,16 +85,16 @@
 
                     <!-- Lista de Lanches -->
                     <div class="space-y-4 bg-white">
-                        
+
                         @foreach($productPromo as $item)
-                        
+
                             @if($item->photo)
                                 <div class="w-full img flex justify-center mt-2">
                                     <img src="{{ asset('storage/' .$item->photo) }}" alt="foto do lanche"
                                         class="w-28 h-28 rounded-md hover:scale-110 hover:-rotate-2 duration-300">
                                 </div>
                             @endif
-                            
+
                             <form id="mainForm" action="{{ route('store.cart', $item->id) }}" method="post">
                                 @csrf
                                 <div class="p-4 border rounded-lg shadow overflow-auto">
@@ -105,7 +105,7 @@
                                         <input type="number" name="quanty" class="rounded border p-1 w-16" min="1" value="1">
                                     </h3>
 
-                                    <p class="text-gray-600">Descrição: {{ $item->description }}</p>
+                                    <p class="text-gray-600 text-sm">Descrição: {{ $item->description }}</p>
                                     <input type="hidden" name="description" value="{{ $item->description }}">
 
                                     <span class="text-red-500 font-bold">R$ @money($item->price)</span>
@@ -271,7 +271,7 @@
                 <div id="lanches-section" class="mt-4 hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($product as $item)
-                            <div class="bg-white rounded-lg shadow-lg">
+                            <div class="bg-white rounded-lg shadow-lg overflow-auto">
 
                             {{-- Número incremental do produto --}}
                             <div class="text-sm text-gray-500 ml-2 mt-4">
@@ -286,7 +286,7 @@
                                 <div class="p-2 ">
                                     <h3 class="text-lg font-semibold mb-2">{{ $item->name }}</h3>
 
-                                        <p class="text-gray-600 mb-1 mr-2 break-words line-clamp-3 max-h-20 overflow-hidden">{{ $item->description }}</p>
+                                        <p class="text-gray-600 mb-1 mr-2 text-sm md:text-md line-clamp-3 max-h-20 overflow-hidden">{{ $item->description }}</p>
 
                                      <h2 class="font-semibold mb-2 text-red-500 md:text-2xl">R$ @money( $item->price )</h2>
                                     <!-- Botão de adicionar ao carrinho ou outra ação -->
@@ -415,6 +415,11 @@
                     {{-- Conteúdo dos lanches aqui --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($productBeer as $item)
+
+                           {{-- Número incremental do produto --}}
+                           <div class="text-sm text-gray-500 ml-2 mt-4">
+                             Produto Nº {{ $loop->iteration }}
+                           </div>
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
                             <div class="w-full img flex justify-center mt-4">
@@ -525,6 +530,10 @@
                     {{-- Conteúdo dos lanches aqui --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($productCombo as $item)
+                        {{-- Número incremental do produto --}}
+                           <div class="text-sm text-gray-500 ml-2 mt-4">
+                             Produto Nº {{ $loop->iteration }}
+                           </div>
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
                             <div class="w-full img flex justify-center mt-4">
@@ -670,6 +679,10 @@
                     {{-- Conteúdo dos lanches aqui --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($productBomboniere as $item)
+                               {{-- Número incremental do produto --}}
+                            <div class="text-sm text-gray-500 ml-2 mt-4">
+                              Produto Nº {{ $loop->iteration }}
+                            </div>
                         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                             @if($item->photo)
                             <div class="w-full img flex justify-center mt-4">

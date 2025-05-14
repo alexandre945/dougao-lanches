@@ -76,9 +76,10 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <img src="{{ asset('storage/' .$item->image) }}" class="product img" alt="Imagem do Doce">
+                    <img src="{{ asset('storage/' .$item->image) }}" class="product img w-32 h-32 object-cover mx-auto" alt="Imagem do Doce">
+                    <p class="text-center">{{$item->name }}</p>
                     <div class="card-body">
-                        <p class="card-text">{{$item->name }}</p>
+
                         <p class="card-text">Resgate por {{$item->points}}  pontos</p>
                         <button class="text-sm bg-blue-500 p-2 rounded border"  data-bs-toggle="modal"
                         data-bs-target="#firstModal{{$item->id}}">RESGATAR</button>
