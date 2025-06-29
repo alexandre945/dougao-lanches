@@ -297,7 +297,17 @@
               </div>
 
         </div>
-
+        <div class="pt-2 font-bold">
+            <h2>
+              Pedidos do Admin
+            </h2>
+          </div>
+          <div class="py-4">
+            <div class="bg-yellow-200 rounded-lg p-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
+              <h2 class=" text-sm font-extralight">Fazer pedidos</h2>
+              <a href="{{ route('admin.manual-order.create') }}" class="btn-slate font-bold">Fazer Pedidos</a>
+            </div>
+          </div>
 
       </div>
       <p class="text-center text-gray-500 text-xs mt-4 transform hover:scale-105 transition duration-300 hover:bg-gray-200">
