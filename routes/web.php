@@ -320,10 +320,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/manual-order', [ManualOrderController::class, 'create'])->name('admin.manual-order.create');
     Route::post('/manual-order', [ManualOrderController::class, 'store'])->name('admin.manual-order.store');
 });
- //rota para apai da vercel
-Route::get('products-api-vercel', function () {
-    return response()->json(Product::all());
-});
 
 
 
