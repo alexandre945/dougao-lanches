@@ -19,7 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://menu-oline-dougao.vercel.app'],
+    'allowed_origins' => [
+    'http://localhost:3002',
+    'https://menu-oline-dougao.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
