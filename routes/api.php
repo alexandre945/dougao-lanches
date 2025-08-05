@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
  //rota para apai da vercel
- Route::get('products-api-vercel', function () {
+Route::get('/products-api-vercel', function () {
     return Product::all();
 });
 
