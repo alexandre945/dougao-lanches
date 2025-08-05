@@ -42,6 +42,7 @@ use App\Http\Controllers\TermsUseController;
 use App\Http\Controllers\UpdateTotalController;
 use App\Http\Controllers\UserPointsController;
 use App\Http\Controllers\Admin\ManualOrderController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -319,6 +320,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/manual-order', [ManualOrderController::class, 'create'])->name('admin.manual-order.create');
     Route::post('/manual-order', [ManualOrderController::class, 'store'])->name('admin.manual-order.store');
 });
+ //rota para apai da vercel
+Route::get('products-api-vercel', function () {
+    return response()->json(Product::all());
+});
+
 
 
 
