@@ -61,6 +61,8 @@ class OrderProductController extends Controller
         if ($applyDeliveryFee) {
             $total += $deliveryFee;
         }
+         
+         
 
 
         $cart = Order_product::create([
@@ -128,8 +130,11 @@ class OrderProductController extends Controller
         $addressUserTypes = AddressUserType::where('user_id', $users)->with('addressType')->get();
 
         // Recuperar os itens do carrinho do usuário
-        $cart = Order_product::where('user_id', $users)
-            ->with([
+            $cart = Order_product::where('user_id', $users)
+                ->whereHas('user', function ($query) {
+                    $query->where('access_level', '<>', 'admin'); // ou use o valor correspondente para admins, como 1
+                })
+                ->with([
                 'orderProductAdditional' => function ($query) {
                     $query->withPivot('quantity');
                 },

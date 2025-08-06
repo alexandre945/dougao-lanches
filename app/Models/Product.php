@@ -19,5 +19,14 @@ class Product extends Model
     public function category_product(){
         return $this->hasOne(Category::class, 'category_id', 'id');
     }
+        public function additionals()
+    {
+        return $this->belongsToMany(Additional::class, 'manual_product_additionals', 'product_id', 'additional_id')
+                    ->withPivot('quantity');
+    }
+    public function cart()
+    {  
+    return $this->belongsTo(ManualAdminCart::class);
+    }
 
 }

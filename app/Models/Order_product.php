@@ -37,4 +37,7 @@ class Order_product extends Model
        {
         return $this->belongsTo(blind::class, 'user_id', 'id');
        }
+       public function user() {
+    return $this->belongsTo(User::class, 'user_id'); // Certifique-se de que o campo 'user_id' é correto
+}
 }

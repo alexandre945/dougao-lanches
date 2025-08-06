@@ -179,10 +179,10 @@
             </table>
          </div>
          <a href="{{ route('panel.admin')}}">
-          <button class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded " type="submit">
-              Voltar
-          </button>
-      </a>
+            <button class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded " type="submit">
+                Voltar
+            </button>
+         </a>
     </div>
 
 

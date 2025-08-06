@@ -19,8 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
- //rota para apai da vercel
-Route::get('/products-api-vercel', function () {
-    return Product::all();
-});
+
 

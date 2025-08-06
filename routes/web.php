@@ -42,6 +42,7 @@ use App\Http\Controllers\TermsUseController;
 use App\Http\Controllers\UpdateTotalController;
 use App\Http\Controllers\UserPointsController;
 use App\Http\Controllers\Admin\ManualOrderController;
+use App\Http\Controllers\ApiController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -315,10 +316,18 @@ Route::get('/promotion', [PromotionController::class, 'show'])->name('promotion.
 Route::put('/update.promotion/{id}', [PromotionController::class, 'update'])->name('promotion.update');
 
 Route::delete('/delete.promotion/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
-        //rotas para o admin cadastrar pedidos
+
+ //rota para apai da vercel
+Route::get('/products-api-vercel', [ApiController::class, 'index']);
+
+        //rotas para o admin cadastrar pedidos                   
 Route::prefix('admin')->group(function () {
     Route::get('/manual-order', [ManualOrderController::class, 'create'])->name('admin.manual-order.create');
     Route::post('/manual-order', [ManualOrderController::class, 'store'])->name('admin.manual-order.store');
+    Route::get('/manual-index', [ManualOrderController::class,'index'])->name('admin.manual.index');
+    Route::post('/manual-admin-delete/{id}', [ManualOrderController::class, 'destroy'])->name('admin.manual.destroy');
+    Route::post('/admin-update-payment', [ManualOrderController::class,'updatePayment'])->name('admin.update.payment');
+    Route::post('/admin-update-delivery', [ManualOrderController::class, 'updateDelivery'])->name('admin.update.delivery');
 });
 
 

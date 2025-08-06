@@ -111,15 +111,13 @@
                                     <span class="text-red-500 font-bold">R$ @money($item->price)</span>
                                     <input type="hidden" name="price" value="{{ $item->price }}">
                                 </div>
+
                                 @if ($toggle->is_open ?? '' )
-
-                                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
-                                    hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2">
-                                    🛒 Adicionar ao Carrinho
-                                </button>
-
+                                    <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg shadow-lg
+                                        hover:bg-indigo-400 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                                        🛒 Adicionar ao Carrinho
+                                    </button>
                                 @else
-
                                 @endif
 
 
@@ -802,16 +800,16 @@
         <a href="{{ route('cart.show') }}">
             <button style="background-color: #f63434; color: white; padding: 1rem; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: background-color 0.3s;">
                 <i class="fas fa-shopping-cart" style="font-size: 1.25rem;"></i>
-                @if($productCount)
+                @if($productCount > 0) <!-- Verifica se a contagem é maior que zero -->
                     <span style="position: absolute; top: 0; right: 0; background-color: #facc15; color: #cb0c35; border-radius: 9999px; width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
                         {{ $productCount }}
                     </span>
-                @endif
-                @if(!$productCount)
-                    <i class="fa-solid fa-sad-tear" style="font-size: 1.25rem;"></i>
+                @else
+                    <i class="fa-solid fa-sad-tear" style="font-size: 1.25rem;"></i> <!-- Exibe o ícone de tristeza se não houver produtos -->
                 @endif
             </button>
         </a>
+
     </div>
 
     <a href="https://wa.me/5535999810371?text=Olá"

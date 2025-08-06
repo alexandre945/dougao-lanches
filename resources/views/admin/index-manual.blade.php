@@ -38,53 +38,7 @@
 </head>
 <body>
         <div class="  text-center md: p-2 relative bg-yellow-100">
-                    <div class="container max-auto relative md:flex pt-4">
-                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90  rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
-
-                             <div class="text-center mt-2absolute">
-                                  <p class="text-sm md:text-2xl text-gray-700 text-white">Bem vindo a sua Sacola de Compras   {{ auth()->user()->name }}</p>
-                             </div>
-
-                         </div>
-
-                         <details class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-opacity-90 text-white rounded-lg shadow-lg shadow-yellow-200 p-6 mb-8 pb-2 relative group max-w-sm mx-auto border-4 border-yellow-100">
-
-                                <summary class="flex flex-col items-center justify-center">
-                                    <i class="fa-solid fa-id-card fa-3x mb-2"></i>
-                                    <h3 class="text-lg font-semibold mb-1">CARTÃO FIDELIDADE</h3>
-                                    <p class="text-sm opacity-90">Com Dougão Lanches, seus pedidos viram pontos!<br>Click aqui para conferir os blindes</p>
-                                </summary>
-
-                                @if($points[0]->points_earned ?? '' > 0)
-                                    <p class="text-sm  mt-2">
-                                        Você tem {{ $points[0]->points_earned ?? ''}} pts
-                                    </p>
-                                @else
-                                    <p class="text-sm  mt-4">
-                                        Você ainda não possui pontos, mas não fique triste! Suas compras acumulam pontos. Continue comprando.
-
-                                    </p>
-                                    <p class="text-center text-sm mt-2">Clique para verificar detalhes.</p>
-                                @endif
-
-                            <!-- Nome do usuário no centro do cartão -->
-                            <div class="mt-4 flex items-center justify-center bg-white rounded-full px-4 py-2 text-indigo-700 font-bold text-md shadow">
-                                {{-- {{ Auth::user()->name ?? ''}} --}}
-                                <p>CLICK AQUI PARA VER OS BLINDES.</p>
-                            </div>
-                             <!-- Conteúdo adicional ao passar o mouse -->
-                            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded-lg transition-opacity duration-300 p-4">
-                                <p class="text-center text-md font-bold">Olá, {{ Auth::user()->name }}!</p>
-                                <p class="text-center text-sm mt-1">Você possui <strong>{{ Auth::user()->points }}</strong> pontos!</p>
-                                <p class="text-center text-sm mt-2">Clique para verificar detalhes.</p>
-                            </div>
-
-                            <!-- Link para o cartão fidelidade abaixo da div de hover -->
-                            <a href="{{ route('index.point') }}" class="absolute inset-0 z-0"></a>
-
-                         </details>
-
-                    </div>
+                 
 
                         {{-- <audio controls autoplay>
                             <source src="{{asset('sounds/new_order.mp3')}}" type="audio/mp3">
@@ -151,6 +105,9 @@
                                 </div>
                               @endif
                                 {{-- lop dos produtos --}}
+                                     <div class="">
+                                        <p class="text-2xl font-bold">CARRINHO ADIMINISTRATIVO</p>
+                                     </div>
                                     <div class="container max-auto">
                                         <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
                                             <div class=" ">
@@ -255,17 +212,13 @@
                                                     @endif
                                                     <div class="mb-4 border-b pb-2">
                                                         <div class=" items-center mb-2">
-
-
-
-                                                        <div class="text-gray-700 text-center">
-                                                            <form action="{{ route('cart.delete', $item->id) }}" method="POST">
+                                                            <form action="{{ route('admin.manual.destroy',$item->id)}}" method="POST">
                                                                 @csrf
+                                                              
                                                                 <button type="submit" class="text-white bg-red-500 hover:bg-red-600 rounded px-4 py-2 text-sm font-semibold">Excluir</button>
                                                             </form>
                                                         </div>
-
-
+ 
                                                         </div>
                                                     </div>
                                                 @empty
@@ -274,16 +227,14 @@
                                                     </div>
                                                 @endforelse
 
-
                                             </div>
                                         </div>
-
                                     </div>
                                     {{-- Div total --}}
                                     <div class=" container max-auto ">
 
                                         <div class=" rounded-lg shadow-lg p-6 mb-4">
-                                            <div class="ml-4 mr-4  container">
+                                            <div class="ml-4 mr-4  container bg-white p-2">
                                                 <h1 class="font-bold text-gray-700 pt-2 pb-2">TOTAL</h1>
 
                                             <form id="mainForm" action="{{ route('admin.create') }}" method="post">
@@ -453,216 +404,49 @@
                                 <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
 
                                         <div class="p-2 text-center">
-                                            <a href="{{ route('client.show')}}">
+                                            <a href="{{ route('admin.manual-order.create')}}">
                                                 <button class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2">
                                                     <SPAN>CONTINUAR COMPRANDO</SPAN>
                                                 </button>
                                             </a>
                                         </div>
 
-                                        <button class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2 "
-                                        data-bs-toggle="modal"
-                                            data-bs-target="#firstModal">
-                                            <span>CADASTRAR UM NOVO ENDEREÇO</span>
-                                        </button>
+                                   
                                     </div>
                                 </div>
 
 
                                 <div class="container max-auto">
                                     <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-
-                                        {{-- modal para cadastrar o endereço --}}
-                                        <div class="text-center text-3xl">
-
-                                                    {{-- Modall para Cadastrar endereço --}}
-
-                                                    <div class="modal fade" id="firstModal" tabindex="-1"
-                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header,btn btn-warning">
-                                                                    {{-- <h2 class="modal-title pt-4 ml-40" id="exampleModalLabel text-center">Adiciona este produto em seu carrinho</h2> --}}
-                                                                    <button type="button" class="btn-close " data-bs-dismiss="modal"   aria-label="Close">
-                                                                        X
-                                                                    </button>
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    <form action="{{ route('adress.create')}}" method="POST">
-                                                                    @csrf
-                                                                            <div class="container">
-                                                                                <div class="mb-4 sachadow-black">
-
-                                                                                    <p class="text-sm text-start mb-2">adicione aqui um nome para este endereço,por exemplo Minha casa,
-                                                                                        Meu trabalho, casa da minha Tia Divina
-                                                                                    </p>
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Tipo</label>
-                                                                                    <input class="mb-2 shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Ex: casa, casa da tia Lia, trabalho" name="address_type">
-                                                                                </div>
-
-                                                                                <div class="mb-4 sachadow-black">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Cidade</label>
-                                                                                    <input autocomplete="off" value="" class="  shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  " id="city" type="text" placeholder="digite a cidade" name="city">
-                                                                                    @error('city')
-                                                                                    <div class=" p-2 ">
-                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                    </div>
-                                                                                    @enderror
-                                                                                </div>
-                                                                                {{-- <div class="mb-4">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">CEP</label>
-                                                                                    <input autocomplete="off" value=""  class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep"  onblur="pesquisacep(this.value); placeholder="digite seu cep" name="zipcode">
-
-                                                                                    @error('zipcode')
-                                                                                        <div class=" p-2">
-                                                                                            <span class="error text-red-500">{{ $message }}</span>
-                                                                                        </div>
-                                                                                    @enderror
-                                                                                </div> --}}
-
-                                                                                <div class="mb-4">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Bairro</label>
-                                                                                    <input autocomplete="off" value="" id="bairro" class="shadow appearance-none border rounded  sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="digite o Bairro" name="district">
-                                                                                    @error('district')
-                                                                                        <div class=" p-2">
-                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                        </div>
-                                                                                    @enderror
-                                                                                </div>
-                                                                                <div class="mb-4">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Rua</label>
-                                                                                    <input autocomplete="off" value="" id="rua" class="shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" type="text" placeholder="digite sua Rua" name="street">
-                                                                                    @error('street')
-                                                                                        <div class=" p-2">
-                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                        </div>
-                                                                                    @enderror
-                                                                                </div>
-                                                                                <div class="mb-4">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Número</label>
-                                                                                    <input autocomplete="off" value="" id="numero" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number"  placeholder="digite seu numero" name="number">
-                                                                                    @error('number')
-                                                                                        <div class="p-2">
-                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                        </div>
-                                                                                    @enderror
-                                                                                </div>
-
-                                                                                <div class="mb-4">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Celular</label>
-                                                                                    <input autocomplete="off"  type="tel" pattern="[0-9]*" inputmode="numeric"  value="" id="fone" class="shadow text-sm appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fone" placeholder="digite seu celular" name="fhone">
-                                                                                        @error('fhone')
-                                                                                            <div class="p-2">
-                                                                                            <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                            </div>
-                                                                                        @enderror
-                                                                                </div>
-
-                                                                                <div class="mb-4 ">
-                                                                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="Produto">Complemento</label>
-                                                                                    <input autocomplete="off" value="" id="complemento" class="shadow  appearance-none border rounded sm:w-full py-3 px-3 pb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complement" type="text" placeholder="digite um complemento" name="complement">
-                                                                                    @error('complement')
-                                                                                        <div class="p-2">
-                                                                                        <span class="error text-red-500 text-sm">{{ $message }}</span>
-                                                                                        </div>
-                                                                                    @enderror
-                                                                                </div>
-                                                                            </div>
-
-                                                                        <div class="pb-4">
-                                                                            <button type="submit" class="border text-sm p-2 rounded text-gray-700 bg-lime-500  font-bold hover:orange-500">CADASTRAR</button>
-                                                                        </div>
-                                                                    </form>
-
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                        </div>
-
-                                        @if( $address)
-
-
-                                                <fieldset>
-                                                <legend class="text-base text-center">Tipo de endereço</legend>
-                                                    <select  name="addressTypeSelect" id="addressType" class="shadow  appearance-none border rounded w-full py-2 pb-2 mb-2 mt-2 text-gray-700 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                                                @php
-                                                                $hasAddressType = false;
-                                                                @endphp
-                                                            @foreach($addressUserTypes as $addressUserType)
-                                                                @if ($addressUserType->addressType)
-
-                                                                    @php
-                                                                        $hasAddressType = true;
-                                                                    @endphp
-
-                                                                        <option
-                                                                            class="text-center text-gray-700"
-                                                                            value="{{ $addressUserType->addressType->id }}"
-                                                                            data-address-user-type-id="{{ $addressUserType->id }}">
-                                                                            {{ $addressUserType->addressType->name }}
-                                                                        </option>
-                                                                @endif
-                                                            @endforeach
-
-                                                                @if (!$hasAddressType)
-                                                                    <option value="">Tipo de endereço não definido</option>
-                                                                @endif
-                                                    </select>
-                                                </fieldset>
-                                            @foreach($addressUserTypes as $addressUserType)
-                                                @if ($addressUserType->addressType)
-                                                    {{-- mostra endereço --}}
-                                                    <div id="containers_{{ $addressUserType->addressType->id ?? ''}}" class="containers" style="display: none;">
-                                                        <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Cidade</label>
-                                                            <p class="text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="city_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite a cidade" name="city">{{ $addressUserType->address->city ?? '' }}</p>
-                                                        </div>
-                                                        {{-- <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >CEP</label>
-                                                            <p value=""  class="text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 text-left " id="zipcode_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder= "digite seu cep" name="zipcode">{{ $addressUserType->address->zipcode ?? '' }}</p>
-                                                        </div> --}}
-
-                                                        <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4">Bairro</label>
-                                                            <p value="" id="bairro" class="text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="bairro_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite o bairro" name="district"> {{ $addressUserType->address->district ?? ''}}</p>
-                                                        </div>
-
-                                                        <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Rua</label>
-                                                            <p value=" " id="rua" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300 " id="street_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite sua rua" name="street">{{ $addressUserType->address->street ?? ''}}</p>
-                                                        </div>
-
-                                                        <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Número</label>
-                                                            <p value=" " id="numero" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="number_{{ $addressUserType->addressType->id ?? ''}}" type="number"  placeholder="digite seu numero" name="number">{{ $addressUserType->address->number ?? ''}}</p>
-                                                        </div>
-
-                                                        <div class="mb-4">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Celular</label>
-                                                            <p value=" " id="celular" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="celular_{{ $addressUserType->addressType->id ?? ''}}" type="text"  placeholder="digite seu whatsap" name="number">{{ $addressUserType->address->fhone ?? ''}}</p>
-                                                        </div>
-
-                                                        <div class="mb-4 ">
-                                                            <label class="block text-left text-gray-700 text-sm font-bold mb-2 pl-4" >Complemento</label>
-                                                            <p value=" " id="complemento" class=" text-left text-sm p-2 border border-gray-300 rounded mb-2 mt-2 shadow-lg hover:shadow-xl transition-shadow duration-300" id="complement_{{ $addressUserType->addressType->id ?? ''}}" type="text" placeholder="digite um complemento" name="complement">{{ $addressUserType->address->complement ?? ''}}</p>
-                                                        </div>
-
-                                                        <!-- Outros campos do endereço aqui -->
-                                                    </div>
-                                                @endif
-                                            @endforeach
-
-                                            @else
-                                                <div class="bg-slate-400 ml-8 mr-8 rounded mb-4 font-bold text-xl text-yellow-300 text-center p-2 ">
-                                                    <p class="bg mb-4">
-                                                        Você ainda não tem um endereço cadastrado click no botão acima para fazer o cadastro!
-                                                    </p>
+                                       <h1>DADOS DO CLIENTE</h1>
+                                           <form action="/seu-endpoint-aqui" method="POST">
+                                                @csrf 
+                                                <div class="mb-3 text-center">
+                                                    <label for="nome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" placeholder="Nome do cliente" id="nome" name="nome" required>
                                                 </div>
-                                            @endif
+                                                <div class="mb-3 text-center">
+                                                    <label for="zap" class="form-label">Zap</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" id="zap" name="zap" required>
+                                                </div>
+                                                <div class="mb-3 text-center">
+                                                    <label for="rua" class="form-label">Rua</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" id="rua" name="rua" required>
+                                                </div>
+                                                <div class="mb-3 text-center">
+                                                    <label for="bairro" class="form-label">Bairro</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" id="bairro" name="bairro" required>
+                                                </div>
+                                                <div class="mb-3 text-center">
+                                                    <label for="numero" class="form-label">Número</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" id="numero" name="numero" required>
+                                                </div>
+                                                <div class="mb-3 text-center">
+                                                    <label for="referencia" class="form-label">Referência</label>
+                                                    <input type="text" class="form-control rounded w-75 mx-auto" id="referencia" name="referencia" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                            </form>
 
                                     </div>
 
@@ -675,126 +459,7 @@
 
                                 </div>
 
-                                {{-- modal para avaliação --}}
-
-                                <!-- Button trigger modal -->
-                                <button type="button" class="bg-gradient-to-r from-green to-lime-300  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border-l-4 border-blue border-t-2"
-                                        data-bs-toggle="modal" data-bs-target="#firstModal1">
-                                    Avaliar o estabelecimento
-                                </button>
-
-                            <!-- Modal para avaliação -->
-
-                                <div class="modal fade bg-yellow-100" id="firstModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content rounded-lg shadow-lg">
-                                            <div class="modal-header relative">
-                                                <!-- Aviso posicionado no topo da modal -->
-                                                <div class="absolute top-0 left-0 w-full mb-4">
-                                                    <p class="text-yellow-700 text-sm text-center font-semibold pb-2">
-                                                        Aviso: Não serão aceitos comentários ofensivos nem com palavras de baixo escalão.
-                                                    </p>
-                                                </div>
-
-                                                <h6 class="text-sm mt-6 font-medium text-gray-700 text-center">
-                                                    Compartilhe sua experiência na plataforma e avalie o produto que você está consumindo.
-                                                </h6>
-                                                <button type="button" class="btn-close absolute top-4 right-4" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-
-                                            <div class="modal-body px-6 py-4">
-                                                <!-- Formulário -->
-                                                <form action="/reviews" method="POST" class="space-y-4">
-                                                    @csrf
-                                                    <input type="hidden" name="order_id" value="{{ $orderId }}">
-
-                                                    <!-- Avaliação -->
-                                                    <div class="flex flex-col">
-                                                        <label for="rating" class="mb-2 font-semibold text-gray-700">Avaliação:</label>
-                                                        <select name="rating" id="rating" required class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-yellow-400">
-                                                            <option value="5">5 - Excelente</option>
-                                                            <option value="4">4 - Muito bom</option>
-                                                            <option value="3">3 - Bom</option>
-                                                            <option value="2">2 - Regular</option>
-                                                            <option value="1">1 - Ruim</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- Comentário -->
-                                                    <div class="flex flex-col">
-                                                        <label for="comment" class="mb-2 font-semibold text-gray-700">Comentário (opcional):</label>
-                                                        <textarea name="comment" id="comment" rows="4" class="p-2 border rounded-lg bg-gray-100 focus:ring focus:ring-indigo-500" placeholder="Escreva seu comentário..."></textarea>
-                                                    </div>
-
-                                                    <!-- Botões -->
-                                                    <div class="flex justify-between items-center mt-4">
-                                                        <!-- Botão Enviar -->
-                                                        <button type="submit" class="bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-medium rounded-lg px-6 py-2 shadow-md hover:shadow-lg hover:from-cyan-600 hover:to-emerald-600 transition-transform transform hover:scale-105">
-                                                            Enviar Avaliação
-                                                        </button>
-
-                                                        <!-- Botão Fechar -->
-                                                        <button type="button" class="bg-gradient-to-r from-yellow-400 to-red-500 text-white font-medium rounded-lg px-6 py-2 shadow-md hover:shadow-lg hover:from-yellow-500 hover:to-red-600 transition-transform transform hover:scale-105"
-                                                            data-bs-dismiss="modal">
-                                                            Fechar
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-
-
-                            @php
-                                $ratingsDescripitions = array(
-                                    5 => "Execlente",
-                                    4 =>  "Muito bom",
-                                    3 =>  "Bom",
-                                    2 =>   "Regular",
-                                    1 =>  "Ruim"
-                                );
-                            @endphp
-
-                            <div class="text-start container max-auto pt-2">
-
-
-                                            <div class="bg-white rounded-lg shadow-lg p-2 mb-2">
-                                                <h2 class="text-center font-bold text-bluee">Avaliações</h2>
-
-                                                @foreach ($reviews as $review)
-                                                    <div class="bg-blue-50 border-l-4 border-blue-500 text-bluee p-4 mt-4 rounded-lg shadow-md">
-                                                        <strong>Avaliação: </strong>{{ $ratingsDescripitions[$review->rating] }} {{$review->rating}} /5<br>
-                                                        <strong>Comentário: </strong>{{ $review->comment }}<br>
-                                                        <em>Enviado por: {{ $review->user->name }} em {{ $review->created_at->format('d/m/Y') }}</em>
-
-                                                        @if ($review->response)
-                                                        <div class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mt-4 rounded-lg shadow-md">
-                                                            <div>
-                                                                <strong>Respondido por:</strong> {{ $review->response->user->name }}
-                                                            </div>
-                                                            <div>
-                                                                <strong>Resposta:</strong> {{ $review->response->response }}
-                                                            </div>
-                                                            <div>
-                                                                <em>Respondido em: {{ $review->response->created_at->format('d/m/Y H:i') }}</em>
-                                                            </div>
-                                                        </div>
-
-                                                        @else
-                                                            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mt-4 rounded-lg shadow-md">
-                                                                <em>Sem resposta do administrador ainda.</em>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <hr>
-                                                @endforeach
-
-                                                <a href="{{ route('reviews.index') }}" class="text-bluee hover:underline">Ver mais</a>
-                                            </div>
-
-
-                            </div>
+                          
         </div>
 
 

@@ -64,7 +64,7 @@
                         </svg>
                         Impresso
                     </a>
-                </li
+                </li>
               
               <li>
                 <a href="{{ route('status.ready') }}" class="flex items-center px-4 py-3 bg-gray-700 hover:bg-indigo-600 hover:text-white transition-transform transform hover:scale-105 rounded-lg text-sm sm:text-base">

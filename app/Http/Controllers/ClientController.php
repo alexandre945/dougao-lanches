@@ -26,7 +26,12 @@ class ClientController extends Controller
 
             $additional = Additional::all();
 
-            $productCount = Order_product::where('user_id', $users)->with('orderProductProduct')->count();
+            $productCount = Order_product::where('user_id', $users)
+                  ->whereHas('user', function ($query) {
+                        $query->where('access_level', '<>', 'admin');
+                  })
+                  ->count();
+
 
             $product = Product::where('category_id', 1)->where('status', 0)->get();
             $productBeer = Product::where('category_id', 2)->where('status', 0)->get();

@@ -10,6 +10,7 @@ class PromotionController extends Controller
     public function show( Request $request)
      {
        $product = Product::where('category_id', 5)->get();
+       
        return view('products.showPromotion', compact('product'));
      }
 
