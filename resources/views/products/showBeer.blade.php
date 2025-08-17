@@ -16,18 +16,18 @@
 
     <div class="container">
         <div class="text-center py-6">
-            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
-            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar uma bebida</p>
+            <h1 class="text-sm font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-sm text-gray-500">Aqui você pode excluir, atualizar ou desativar uma bebida</p>
         </div>
 
-        <div class="flex justify-center space-x-4">
-            <a href="{{ route('showcombo') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Combos</a>
-            <a href="{{ route('create.product') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Lanches</a>
-            <a href="{{ route('user.bomboniere') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Bomboniére</a>
-            <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
+        <div class="flex justify-center space-x-2 text-sm">
+            <a href="{{ route('showcombo') }}" class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Combos</a>
+            <a href="{{ route('create.product') }}" class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Lanches</a>
+            <a href="{{ route('user.bomboniere') }}" class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Bomboniére</a>
+            <a href="{{ route('promotion.show')}}"><div class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
         </div>
 
-        <div class="  w-full overflow-auto ">
+        <div class="  w-full overflow-auto text-sm ">
             <table class="w-full ">
               <thead>
                 <tr>

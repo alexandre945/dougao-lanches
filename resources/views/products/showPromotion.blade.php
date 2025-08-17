@@ -16,8 +16,8 @@
 
     <div class="container">
         <div class="text-center py-6">
-            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
-            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar uma Promoção</p>
+            <h1 class="text-sm font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-sm text-gray-500">Aqui você pode excluir, atualizar ou desativar uma Promoção</p>
         </div>
 
         @if(session('success'))
@@ -36,13 +36,13 @@
         @endif
 
         <div class="flex justify-center space-x-4">
-            <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
-            <a href="{{ route('showcombo') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Combos</a>
-            <a href="{{ route('create.product') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Lanches</a>
-            <a href="{{ route('user.bomboniere') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">Bomboniére</a>
+            <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">BEBIDAS</div></a>
+            <a href="{{ route('showcombo') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">Combos</a>
+            <a href="{{ route('create.product') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">Lanches</a>
+            <a href="{{ route('user.bomboniere') }}" class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">Bomboniére</a>
         </div>
 
-        <div class="  w-full overflow-auto ">
+        <div class="  w-full overflow-auto text-sm ">
             <table class="w-full ">
               <thead>
                 <tr>

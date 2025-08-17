@@ -37,27 +37,27 @@
     <div class="container ">
 
         <div class="text-center py-6">
-            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
-            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um Combo</p>
+            <h1 class="text-sm font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-sm text-gray-500">Aqui você pode excluir, atualizar ou desativar um Combo</p>
         </div>
 
         <div class=" ">
-            <div class=" flex">
-                <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
-                <a href="{{ route('user.bomboniere')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BOMBONIÉRE</div></a>
-                <a href="{{ route('create.product')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded">LANCHES</div></a>
+            <div class=" flex text-sm">
+                <a class="text-sm" href="{{ route('showbeer')}}"> <div class=" text-sm  bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">BEBIDAS</div></a>
+                <a class="text-sm"  href="{{ route('user.bomboniere')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">BOMBONIÉRE</div></a>
+                <a href="{{ route('create.product')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded">LANCHES</div></a>
                 <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
             </div>
         </div>
 
-        <div class=" w-full overflow-auto">
+        <div class=" w-full overflow-auto text-sm">
             <table class="w-full ">
               <thead>
                 <tr>
                      {{-- <th></th>       --}}
-                    <th class="p-2">COMBOS</th>
-                    <th class="p-2">DESCRIÇÃO</th>
-                    <th class="p-12" >PREÇO</th>
+                    <th class="p-2 text-sm">COMBOS</th>
+                    <th class="p-2 text-sm">DESCRIÇÃO</th>
+                    <th class="p-12 text-sm" >PREÇO</th>
                 </tr>
               </thead>
               <tbody class="">

@@ -33,7 +33,7 @@
 
     <div class="container ">
 
-       <div class="text-center ">
+       <div class="text-center text-sm ">
           <div class=" center">
 
 
@@ -49,17 +49,17 @@
 
                 @endif
                 <div class="text-center py-6">
-                    <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
-                    <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um Lanche</p>
+                    <h1 class="text-sm font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+                    <p class=" text-gray-500">Aqui você pode excluir, atualizar ou desativar um Lanche</p>
                 </div>
 
 
          <div class=" ">
-           <div class=" flex justify-center space-x-4">
-             <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
-             <a href="{{ route('user.bomboniere')}}">  <div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2">BOMBONIÉRE</div></a>
-             <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">COMBOS</div></a>
-             <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
+           <div class=" flex justify-center space-x-2">
+             <a href="{{ route('showbeer')}}"> <div class="bg-gradient-to-r text-sm from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">BEBIDAS</div></a>
+             <a href="{{ route('user.bomboniere')}}">  <div class=" bg-gradient-to-r text-sm from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2">BOMBONIÉRE</div></a>
+             <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 text-sm to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">COMBOS</div></a>
+             <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 text-sm to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
          </div>
            <div class=" w-full  pr-4 overflow-auto">
 
@@ -205,11 +205,11 @@
            </div>
 
          </div>
+       </div>
+      {{-- {{ $product->links()}} --}}
+
+      @vite('resources/js/app.js')
     </div>
-    {{-- {{ $product->links()}} --}}
-
-    @vite('resources/js/app.js')
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>

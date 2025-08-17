@@ -37,21 +37,21 @@
     <div class="container">
 
         <div class="text-center py-6">
-            <h1 class="text-4xl font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
-            <p class="text-lg text-gray-500">Aqui você pode excluir, atualizar ou desativar um produto</p>
+            <h1 class="text-sm font-bold text-gray-700">ÁREA ADMINISTRATIVA</h1>
+            <p class="text-sm text-gray-500">Aqui você pode excluir, atualizar ou desativar um produto</p>
         </div>
 
         <div class=" pb-4 ">
           <div class=" flex">
-            <a href="{{ route('showbeer')}}"> <div class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">BEBIDAS</div></a>
-            <a href="{{ route('showcombo')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded ">COMBOS</div></a>
-            <a href="{{ route('create.product')}}">  <div class="bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-12 rounded">LANCHES</div></a>
-            <a href="{{ route('promotion.show')}}"><div class=" bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
+            <a href="{{ route('showbeer')}}"> <div class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">BEBIDAS</div></a>
+            <a href="{{ route('showcombo')}}"><div class=" tet-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded ">COMBOS</div></a>
+            <a href="{{ route('create.product')}}">  <div class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400  border-l-4 border-bluee border-t-2 p-2 mt-2 ml-2 rounded">LANCHES</div></a>
+            <a href="{{ route('promotion.show')}}"><div class=" text-sm bg-gradient-to-r from-emerald-400 to-slate-400 border-l-4 border-bluee border-t-2 p-2 rounded mt-2 ml-2 ">PROMOÇOẼS</div></a>
           </div>
 
         </div>
 
-        <div class=" w-full overflow-auto ">
+        <div class=" w-full overflow-auto text-sm ">
             <table class="w-full overflow-auto  table table-sm">
               <thead>
                 <tr>
