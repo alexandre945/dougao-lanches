@@ -137,7 +137,7 @@
                        <form action="{{ route('delete.product',$products->id)}}" method="post">
                          @method('DELETE')
                          @csrf
-                         <button type="submit" class="" onclick="preventDefoult">
+                         <button type="submit" class="text-sm" onclick="preventDefoult">
                            <i class="icon fa-sharp fa-solid fa-trash text-red-500"></i>
                          </button>
                        </form>
@@ -147,7 +147,7 @@
                         <div class="flex">
                           <div class="">
                             <button type="submit"
-                                class="toggle-button bg-white p-2 ml-2 rounded
+                                class="toggle-button text-sm bg-white p-2 ml-2 rounded
                                 @if($products->status == 0) inertex @endif">
 
                                 @if($products->status == 0)
@@ -163,7 +163,7 @@
 
                           <div class="">
                               @if($products->status == 0)
-                              <button class="green text-white p-2 rounded ml-2 " onclick="preventDefoult"><i class="fa-regular fa-eye"></i></button>
+                              <button class="green text-sm text-white p-2 rounded ml-2 " onclick="preventDefoult"><i class="fa-regular fa-eye"></i></button>
                               @else
                               <button class="bg-white text-red-500 p-2 ml-2 rounded"><i class="fa-sharp fa-solid fa-eye-slash"></i></button>
                               @endif

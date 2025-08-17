@@ -117,7 +117,7 @@
                         <div class="flex">
                           <div class="">
                             <button type="submit"
-                                class="toggle-button bg-white p-2 ml-2 rounded
+                                class="toggle-button bg-white text-sm p-2 ml-2 rounded
                                 @if($products->status == 0) inertex @endif">
 
                                     @if($products->status == 0)
@@ -133,9 +133,9 @@
 
                           <div class="">
                               @if($products->status == 0)
-                              <button class="bg-green text-white p-2 rounded ml-2 " onclick="preventDefoult"><i class="fa-regular fa-eye"></i></button>
+                              <button class="bg-green text-sm text-white p-2 rounded ml-2 " onclick="preventDefoult"><i class="fa-regular fa-eye"></i></button>
                               @else
-                              <button class="bg-white text-red-500 p-2 ml-2 rounded"><i class="fa-sharp fa-solid fa-eye-slash"></i></button>
+                              <button class="bg-white text-red-500 text-sm p-2 ml-2 rounded"><i class="fa-sharp fa-solid fa-eye-slash"></i></button>
                               @endif
                           </div>
                         </div>
