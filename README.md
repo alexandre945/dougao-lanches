@@ -32,7 +32,7 @@ Docker (Laradock, opcional)
 
 📦 Instalação
 # Clone o repositório
-git clone https://github.com/seuusuario/sistema-delivery.git
+git clone https://github.com/alexandre945/dougao-lanches.git
 
 # Acesse a pasta
 cd sistema-delivery
